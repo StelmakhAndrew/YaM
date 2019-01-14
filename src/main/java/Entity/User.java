@@ -1,7 +1,5 @@
 package Entity;
 
-import jdk.jfr.Name;
-
 import javax.persistence.*;
 
 @Entity
