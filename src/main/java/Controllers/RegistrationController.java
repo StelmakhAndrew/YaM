@@ -1,4 +1,4 @@
-package hello;
+package Controllers;
 
 public class RegistrationController {
 }
