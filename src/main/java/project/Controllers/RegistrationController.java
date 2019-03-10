@@ -1,4 +1,4 @@
-package Controllers;
+package project.Controllers;
 
 public class RegistrationController {
 }
