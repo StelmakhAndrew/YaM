@@ -6,6 +6,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import project.Entity.User;
 
@@ -14,14 +16,16 @@ import project.Entity.User;
 public class RegistrationController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public ModelAndView registration() {
-        System.out.println("registration");
-        return new ModelAndView("registration","registration",new User());
+    public String registrationForm() {
+        return "registration";
     }
 
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
-    public String submit(@ModelAttribute("user")User user, ModelMap model) {
+    public String submit(@RequestParam(name="name", required=false, defaultValue="World") String name,@RequestParam(name="id", required=false, defaultValue="34") Long id, ModelMap model) {
         System.out.println("DONE");
+        model.addAttribute("name",name);
+        model.addAttribute("id",id);
         return "submit";
     }
+
 }
