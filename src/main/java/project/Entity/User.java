@@ -1,12 +1,15 @@
 package project.Entity;
 
 
+import org.springframework.data.annotation.Id;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "project.Entity.User")
 public class User {
 
+    @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
@@ -15,23 +18,19 @@ public class User {
     @Column(name = "name")
     private String name;
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "password")
+    private String password;
+
 
     public User() {}
-    public User(Long id ,String name) {
-        this.id = id;
-        this.name = name;
-    }
 
-    public User(String name)
-    {
+    public User(String name, String email, String password) {
         this.name = name;
+        this.email = email;
+        this.password = password;
     }
 
     public String getName() {
@@ -42,11 +41,27 @@ public class User {
         this.name = name;
     }
 
-    public Long getId() {
-        return id;
+//    public Long getId() {
+//        return id;
+//    }
+
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
+
+    public String getEmail() {
+        return email;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

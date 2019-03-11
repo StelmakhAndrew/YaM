@@ -20,14 +20,15 @@ public class JdbcCustomerDAO implements CustomerDAO
 	public void insert(User user){
 		
 		String sql = "INSERT INTO USERSER " +
-				"(ID, NAME) VALUES (?, ?)";
+				"(NAME,email,password) VALUES (?,?,?)";
 		Connection conn = null;
 		
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setLong(1, user.getId());
-			ps.setString(2, user.getName());
+			ps.setString(1, user.getName());
+			ps.setString(2, user.getEmail());
+			ps.setString(3, user.getPassword());
 			ps.executeUpdate();
 			ps.close();
 			
@@ -57,8 +58,9 @@ public class JdbcCustomerDAO implements CustomerDAO
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				customer = new User(
-						rs.getLong("id"),
-						rs.getString("name")
+						rs.getString("name"),
+						rs.getString("email"),
+						rs.getString("password")
 				);
 			}
 			rs.close();
