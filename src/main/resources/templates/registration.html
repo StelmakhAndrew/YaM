@@ -9,24 +9,32 @@
 
     background: black">
 </header>
-<h1>REGISTRATION FORM</h1>
-<form action="/submit" method="POST" enctype="utf8">
+<div style="top :50%; left: 50% ">
+    <h1 style="text-align: center">REGISTRATION FORM</h1>
+    <form action="/submit" method="POST" enctype="utf8">
+        <table style="margin: auto">
+            <colgroup>
+                <col span="2" style="background:#f9fffc">
+                <!-- С помощью этой конструкции задаем цвет фона для первых двух столбцов таблицы-->
+                <!--<col style="background-color:#f9fffc">&lt;!&ndash; Задаем цвет фона для следующего (одного) столбца таблицы&ndash;&gt;-->
+            </colgroup>
 
-    <div>
-        <label>NAME</label>
-        <input type="text" id="name" name="name"/>
-    </div>
-    <div>
-        <label>EMAIL</label>
-        <input type="text" id="email" name="email"/>
-    </div>
-    <div>
-        <label>PASSWORD</label>
-        <input type="text" id="password" name="password"/>
-    </div>
-    <button type="submit">submit</button>
-</form>
-
+            <tr>
+                <td>NAME</td>
+                <td><input type="text" id="name" name="name"/></td>
+            </tr>
+            <tr>
+                <td>EMAIL</td>
+                <td><input type="email" id="email" name="email"/></td>
+            </tr>
+            <tr>
+                <td>PASSWORD</td>
+                <td><input type="password" id="password" name="password"/></td>
+            </tr>
+        </table>
+        <button type="submit">Registration</button>
+    </form>
+</div>
 <footer style="
 background-color: black;
  position: absolute;
