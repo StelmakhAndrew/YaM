@@ -22,7 +22,7 @@ public class GreetingController {
 
     @GetMapping("/greeting")
     public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
-        User customer = new User(22L, "Repository");
+        User customer = new User("dsf", "Repository","sdf");
         userService.createUser(customer);
         return "greeting";
     }
