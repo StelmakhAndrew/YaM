@@ -22,7 +22,7 @@ public class RegistrationController {
     }
 
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
-    public String submit(@RequestParam(name="name") String name,
+    public String submit(@RequestParam(name="name") String namde,
                          @RequestParam(name="email") String email,
                          @RequestParam(name="password") String password, ModelMap model) {
         model.addAttribute("email",email);
