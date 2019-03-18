@@ -12,7 +12,7 @@
 </header>
 <div style="text-align: center">
     <h1>Create Book</h1>
-    <form action="/newBook" th:object="${book}"  method="POST" enctype="utf8">
+    <form action="/bookById" th:object="${book}"  method="POST" enctype="utf8">
         <table style="margin: auto;" >
             <colgroup>
                 <col span="2" style="background:#f9fffc">
@@ -24,10 +24,10 @@
             </tr>
             <tr>
                 <td>Author</td>
-                <td><input type="Author" th:field="*{author}" id="Author" name="Author"/></td>
+                <td><input type="text" th:field="*{author}" id="Author" name="Author"/></td>
             </tr>
         </table>
-        <button style="color: black; height: 25px; margin-top: 10px" type="submit">Submit</button>
+        <button style="color: black; height: 25px; margin-top: 10px" type="submit">Finish</button>
     </form>
 </div>
   

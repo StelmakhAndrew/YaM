@@ -9,26 +9,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import project.com.Entity.Book;
 import project.com.Entity.User;
+import project.com.Service.BookService;
 import project.com.Service.UserService;
 
 @Controller
 public class BookController {
 
     @Autowired
-    private UserService userService;
+    private BookService bookService;
 
-    @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public String registrationForm(Model model) {
-        model.addAttribute("user", new User());
-        return "registration";
+    @RequestMapping(value = "/bookAdd", method = RequestMethod.GET)
+    public String bookAddForm(Model model) {
+        model.addAttribute("book", new Book());
+        return "bookAdd";
     }
 
-    @RequestMapping(value = "/submit", method = RequestMethod.POST)
-    public String submit(@ModelAttribute("user")User user, ModelMap model) {
-        model.addAttribute("email",user.getEmail());
-        model.addAttribute("name",user.getName());
-        userService.createUser(user);
-        return "submit";
+    @RequestMapping(value = "/bookById", method = RequestMethod.POST)
+    public String submit(@ModelAttribute("book")Book book, ModelMap model) {
+        model.addAttribute("name",book.getName());
+        model.addAttribute("author",book.getAuthor());
+        bookService.createBook(book);
+        return "bookById";
     }
 
 

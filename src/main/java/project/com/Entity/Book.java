@@ -5,7 +5,7 @@ package project.com.Entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "userser")
+@Table(name = "book")
 public class Book {
 
     @Id
