@@ -17,6 +17,10 @@ public class RegistrationController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registrationForm(Model model) {
+
+        System.out.println("sdfsd");
+        System.out.println("sdfsd");
+        System.out.println("sdfsd");
         model.addAttribute("user", new User());
         return "registration";
     }
