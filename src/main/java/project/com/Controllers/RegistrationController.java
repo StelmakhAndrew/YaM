@@ -30,5 +30,4 @@ public class RegistrationController {
         userService.createUser(user);
         return "submit";
     }
-
 }
