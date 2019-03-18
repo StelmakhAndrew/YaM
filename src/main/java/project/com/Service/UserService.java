@@ -6,5 +6,7 @@ import project.com.Entity.User;
 @Service
 public interface UserService {
     void createUser(User user);
+    User findByEmail(String email);
+
 
 }

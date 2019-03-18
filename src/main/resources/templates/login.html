@@ -11,17 +11,13 @@
     background: black">
 </header>
 <div style="text-align: center">
-    <h1>REGISTRATION FORM</h1>
-    <form action="/submit" th:object="${user}"  method="POST" enctype="utf8">
+    <h1>SIGN IN</h1>
+    <form action="control" th:object="${user}"  method="POST" enctype="utf8">
         <table style="margin: auto;" >
             <colgroup>
                 <col span="2" style="background:#f9fffc">
             </colgroup>
 
-            <tr>
-                <td>NAME</td>
-                <td><input type="text" th:field="*{name}" id="name" name="name"/></td>
-            </tr>
             <tr>
                 <td>EMAIL</td>
                 <td><input type="email" th:field="*{email}" id="email" name="email"/></td>
@@ -31,10 +27,10 @@
                 <td><input type="password" th:field="*{password}" id="password" name="password"/></td>
             </tr>
         </table>
-        <button style="color: black; height: 25px; margin-top: 10px" type="submit">Registration</button>
+        <button style="color: black; height: 25px; margin-top: 10px" type="submit">Sign in</button>
     </form>
 </div>
-  
+
 <footer style="
 background-color: black;
  position: absolute;
