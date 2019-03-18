@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import project.com.Entity.User;
 import project.com.Repository.UserRepository;
 import project.com.Service.UserService;
-//import project.com.dao.CustomerDAO;
 
 @Controller
 public class GreetingController {

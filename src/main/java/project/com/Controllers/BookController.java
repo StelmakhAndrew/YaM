@@ -12,6 +12,8 @@ import project.com.Entity.User;
 import project.com.Service.BookService;
 import project.com.Service.UserService;
 
+import java.util.List;
+
 @Controller
 public class BookController {
 
@@ -30,6 +32,12 @@ public class BookController {
         model.addAttribute("author",book.getAuthor());
         bookService.createBook(book);
         return "bookById";
+    }
+    @RequestMapping(value = "/allbook", method = RequestMethod.GET)
+    public String allBook(ModelMap model) {
+        List<Book> allBooks = bookService.findAllBook();
+        model.addAttribute("allBooks",allBooks);
+        return "allBooks";
     }
 
 
