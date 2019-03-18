@@ -1,4 +1,5 @@
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <body style=" height: 100%;">
 <header style="
  display: block;
@@ -11,25 +12,23 @@
 </header>
 <div style="text-align: center">
     <h1>REGISTRATION FORM</h1>
-    <form action="/submit" method="POST" enctype="utf8">
+    <form action="/submit" th:object="${user}"  method="POST" enctype="utf8">
         <table style="margin: auto;" >
             <colgroup>
                 <col span="2" style="background:#f9fffc">
-                <!-- С помощью этой конструкции задаем цвет фона для первых двух столбцов таблицы-->
-                <!--<col style="background-color:#f9fffc">&lt;!&ndash; Задаем цвет фона для следующего (одного) столбца таблицы&ndash;&gt;-->
             </colgroup>
 
             <tr>
                 <td>NAME</td>
-                <td><input type="text" id="name" name="name"/></td>
+                <td><input type="text" th:field="*{name}" id="name" name="name"/></td>
             </tr>
             <tr>
                 <td>EMAIL</td>
-                <td><input type="email" id="email" name="email"/></td>
+                <td><input type="email" th:field="*{email}" id="email" name="email"/></td>
             </tr>
             <tr>
                 <td>PASSWORD</td>
-                <td><input type="password" id="password" name="password"/></td>
+                <td><input type="password" th:field="*{password}" id="password" name="password"/></td>
             </tr>
         </table>
         <button style="color: black; height: 25px; margin-top: 10px" type="submit">Registration</button>
