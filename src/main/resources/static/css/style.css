@@ -6,3 +6,9 @@
     height: 100px;
     background: black;
 }
+
+.conteiner{
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
