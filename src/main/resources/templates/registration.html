@@ -5,16 +5,12 @@
           type="text/css"
           th:href="@{/css/style.css}">
 </head>
-<body style="display: flex;margin: 0px;flex-direction: column;">
-<header class="main-header">
-</header>
-<div class="conteiner">
+<body class="body">
+<header th:replace="base :: header"></header>
+<div class="container">
     <img src="http://pngimg.com/uploads/book/book_PNG51088.png" class="mid-img">
-    <div style="text-align: center;
-    display: table;
-    margin: 0 auto;
-    background: grey">
-        <h1>REGISTRATION FORM</h1>
+    <div class="inner-container">
+        <h1>SIGN UP</h1>
         <form th:action="@{/registration}" th:object="${user}" method="POST" enctype="utf8">
             <div style="margin: auto;">
                 <div>
@@ -44,12 +40,12 @@
                     <input type="password" th:field="*{matchingPassword}"/>
                 </div>
             </div>
-            <button style="color: black; height: 25px; margin-top: 10px" type="submit">Registration</button>
+            <button class="button-center" type="submit">Registration</button>
         </form>
     </div>
 </div>
 
-<footer th:replace="base :: footer">
+<footer th:replace="base :: footer"></footer>
 
 </body>
 </html>
