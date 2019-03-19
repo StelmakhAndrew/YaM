@@ -1,7 +1,5 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-
     <link rel="stylesheet"
           type="text/css"
           th:href="@{/css/style.css}">
@@ -13,7 +11,6 @@
 <header th:replace="base :: header"></header>
 <div class="container">
     <div class="inner-container">
-
         <p th:text="'Book name, ' + ${name} + '!'"/>
         <p th:text="'Author, ' + ${author} + '!'"/>
     </div>
