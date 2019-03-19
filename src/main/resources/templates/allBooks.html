@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link rel="stylesheet"
+          type="text/css"
+          th:href="@{/css/style.css}">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+<header th:replace="base :: header"></header>
 <table>
     <th:block th:each="book : ${allBooks}">
         <tr>
@@ -13,5 +17,6 @@
         </tr>
     </th:block>
 </table>
+<footer th:replace="base :: footer"></footer>
 </body>
 </html>

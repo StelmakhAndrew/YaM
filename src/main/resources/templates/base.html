@@ -1,6 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link rel="stylesheet"
+          type="text/css"
+          th:href="@{/css/style.css}">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
@@ -11,7 +15,17 @@
 
 <body>
 
-<header th:fragment="header">
+<header th:fragment="header" class="main-header">
+
 </header>
+
+<div th:fragment="container" class="container">
+    <div class="inner-container">
+    </div>
+
+</div>
+<footer th:fragment="footer" class="main-footer">
+
+</footer>
 </body>
 </html>
