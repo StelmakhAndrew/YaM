@@ -10,6 +10,8 @@ public interface UserService {
     void createUser(User user);
     User findByEmail(String email);
     Optional<User> findById(Long id);
+    boolean emailExist(String email);
+
 
 
 }

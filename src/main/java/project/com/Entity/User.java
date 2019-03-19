@@ -1,7 +1,5 @@
 package project.com.Entity;
 
-
-
 import javax.persistence.*;
 
 @Entity
@@ -26,6 +24,13 @@ public class User {
 
 
     public User() {}
+
+
+    public User(UserDto userDto) {
+        this.email = userDto.getEmail();
+        this.name = userDto.getName();
+        this.password = userDto.getPassword();
+    }
 
     public User(String name,String email,String password) {
         this.name = name;

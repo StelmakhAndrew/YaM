@@ -9,35 +9,45 @@
 <header class="main-header">
 </header>
 <div class="conteiner">
-<div style="text-align: center;
+    <div style="text-align: center;
     display: table;
     margin: 0 auto;
-    background: black">
-    <h1>REGISTRATION FORM</h1>
-    <form action="/submit" th:object="${user}"  method="POST" enctype="utf8">
-        <table style="margin: auto;" >
-            <colgroup>
-                <col span="2" style="background:#f9fffc">
-            </colgroup>
+    background: grey">
+        <h1>REGISTRATION FORM</h1>
+        <form th:action="@{/registration}" th:object="${user}" method="POST" enctype="utf8">
+            <div style="margin: auto;">
+                <div>
+                    <p style="margin: 0" th:each="error: ${#fields.errors('name')}"
+                       th:text="${error}">Validation error</p>
+                    <label>NAME</label>
+                    <input type="text" th:field="*{name}" id="name" name="name"/>
+                </div>
+                <div>
+                    <p style="margin: 0" th:each="error : ${#fields.errors('email')}"
+                       th:text="${error}">Validation error</p>
+                    <label>EMAIL</label>
+                    <input type="email" th:field="*{email}" id="email" name="email"/>
+                </div>
+                <div>
+                    <p style="margin: 0" th:each="error : ${#fields.errors('password')}"
+                       th:text="${error}">Validation error</p>
+                    <label>PASSWORD</label>
+                    <input type="password" th:field="*{password}" id="password" name="password"/>
+                </div>
 
-            <tr>
-                <td>NAME</td>
-                <td><input type="text" th:field="*{name}" id="name" name="name"/></td>
-            </tr>
-            <tr>
-                <td>EMAIL</td>
-                <td><input type="email" th:field="*{email}" id="email" name="email"/></td>
-            </tr>
-            <tr>
-                <td>PASSWORD</td>
-                <td><input type="password" th:field="*{password}" id="password" name="password"/></td>
-            </tr>
-        </table>
-        <button style="color: black; height: 25px; margin-top: 10px" type="submit">Registration</button>
-    </form>
+                <div>
+                    <p style="margin: 0" th:each="error : ${#fields.errors('matchingPassword')}"
+                       th:text="${error}">Validation error</p>
+                    <label>CONFIRM</label>
+
+                    <input type="password" th:field="*{matchingPassword}"/>
+                </div>
+            </div>
+            <button style="color: black; height: 25px; margin-top: 10px" type="submit">Registration</button>
+        </form>
+    </div>
 </div>
-</div>
-  
+
 <footer style="
 background-color: black;
   left: 0;

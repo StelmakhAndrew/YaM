@@ -11,5 +11,4 @@ public interface BookService {
     void createBook(Book book);
 
     List<Book> findAllBook();
-
 }
