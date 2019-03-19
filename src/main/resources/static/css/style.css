@@ -101,3 +101,11 @@
     margin-top: 50px;
     width: 225px;
 }
+
+.profile-img{
+    width: 250px;
+    height: 250px;
+}
+.inline-div{
+    display: inline-block;
+}
