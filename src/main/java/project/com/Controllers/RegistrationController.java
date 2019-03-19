@@ -32,20 +32,17 @@ public class RegistrationController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model) {
         model.addAttribute("user", new User());
-        System.out.println("Login Get");
         return "login";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String confirm(@ModelAttribute("user") User user) {
-        System.out.println("Login POST");
-
         String email = user.getEmail();
         String password = user.getPassword();
         User users = userService.findByEmail(email);
         if (users.getPassword().equals(password)){
             System.out.println("done");
-            return "redirect:/allbook";
+            return "redirect:/user?id="+users.getId();
 
         }
         System.out.println("Error");

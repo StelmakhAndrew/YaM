@@ -5,11 +5,11 @@
           type="text/css"
           th:href="@{/css/style.css}">
 </head>
-<body class="display-flex">
+<body class="body">
 <header th:replace="base :: header"></header>
 <div class="container">
     <div class="inner-container">
-        <h1>REGISTRATION FORM</h1>
+        <h1>SIGN UP</h1>
         <form action="/submit" th:object="${user}" method="POST" enctype="utf8">
             <table class="table-center">
                 <colgroup>

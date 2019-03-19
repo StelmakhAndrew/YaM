@@ -10,13 +10,14 @@
 </head>
 <body>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
+      xmlns:th="http://www.thymeleaf.org">
 <body>
 
 <header th:fragment="header" class="main-header">
-
+    <div class="sign">
+        <a class="sign-in" href="/login">Sign In</a>
+        <a class="sign-up" href="/registration"> Sign Up</a>
+    </div>
 </header>
 
 <div th:fragment="container" class="container">

@@ -8,19 +8,24 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
+<body class="body"  >
 <header th:replace="base :: header"></header>
-<table>
-    <tr>
-        <td th:text="${user.name}">...</td>
-        <td th:text="${user.email}">...</td>
-    </tr>
-</table>
 
-<form action="/bookAdd" method="GET" enctype="utf8">
+<div class="container">
+    <div class="inner-container">
+        <table>
+            <tr>
+                <td th:text="${user.name}">...</td>
+                <td th:text="${user.email}">...</td>
+            </tr>
+        </table>
 
-    <button class="button-bookAdd" type="submit">bookAdd</button>
-</form>
+        <form action="/bookAdd" method="GET" enctype="utf8">
+
+            <button class="button-bookAdd" type="submit">bookAdd</button>
+        </form>
+    </div>
+</div>
 <footer th:replace="base :: footer"></footer>
 </body>
 </html>

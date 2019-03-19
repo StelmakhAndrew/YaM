@@ -2,16 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 
-        <link rel="stylesheet"
-              type="text/css"
-              th:href="@{/css/style.css}">
+    <link rel="stylesheet"
+          type="text/css"
+          th:href="@{/css/style.css}">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
+<body class="body">
+
 <header th:replace="base :: header"></header>
-<p th:text="'Book name, ' + ${name} + '!'" />
-<p th:text="'Author, ' + ${author} + '!'" />
+<div class="container">
+    <div class="inner-container">
+
+        <p th:text="'Book name, ' + ${name} + '!'"/>
+        <p th:text="'Author, ' + ${author} + '!'"/>
+    </div>
+</div>
 <footer th:replace="base :: footer"></footer>
 </body>
 </html>

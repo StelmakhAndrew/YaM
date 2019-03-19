@@ -4,13 +4,20 @@
     <link rel="stylesheet"
           type="text/css"
           th:href="@{/css/style.css}">
-    <title>Getting Started: Serving Web Content</title> 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
-<body>
+<body class="body">
 <header th:replace="base :: header"></header>
-    <p th:text="'Hello, ' + ${name} + '!'" />
-    <p th:text="'Hello, ' + ${t} + '!'" />
+
+<div class="container">
+    <div class="inner-container">
+
+        <p th:text="'Hello, ' + ${name} + '!'"/>
+        <p th:text="'Hello, ' + ${t} + '!'"/>
+    </div>
+</div>
 <footer th:replace="base :: footer"></footer>
+
 </body>
 </html>
