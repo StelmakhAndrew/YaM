@@ -27,7 +27,7 @@
         <table>
             <th:block th:each="book : ${allBooks}">
                 <div class="bookslist">
-                    <p th:text="${book.getName()}">...</p>
+                    <a href="bookById" th:href=="@{'/bookById?id='+${book.getId()}}" th:text="${book.getName()}"></a>
                     <p th:text="${book.getAuthor()}">...</p>
                 </div>
             </th:block>
