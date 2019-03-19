@@ -17,34 +17,38 @@ public class RegistrationController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registrationForm(Model model) {
-
-        System.out.println("sdfsd");
-        System.out.println("sdfsd");
-        System.out.println("sdfsd");
         model.addAttribute("user", new User());
         return "registration";
     }
 
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
-    public String submit(@ModelAttribute("user")User user, ModelMap model) {
-        model.addAttribute("email",user.getEmail());
-        model.addAttribute("name",user.getName());
+    public String submit(@ModelAttribute("user") User user, ModelMap model) {
+        model.addAttribute("email", user.getEmail());
+        model.addAttribute("name", user.getName());
         userService.createUser(user);
         return "submit";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model) {
-        model.addAttribute("user",new User());
+        model.addAttribute("user", new User());
+        System.out.println("Login Get");
         return "login";
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public void control(@ModelAttribute("user")User user){
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String confirm(@ModelAttribute("user") User user) {
+        System.out.println("Login POST");
+
         String email = user.getEmail();
         String password = user.getPassword();
+        User users = userService.findByEmail(email);
+        if (users.getPassword().equals(password)){
+            System.out.println("done");
+            return "redirect:/allbook";
 
-
+        }
+        System.out.println("Error");
+        return "redirect:/greeting";
     }
-
 }
