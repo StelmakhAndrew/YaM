@@ -2,21 +2,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link rel="stylesheet"
+          type="text/css"
+          th:href="@{/css/style.css}">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
-<table>
-        <tr>
-            <td th:text="${user.name}">...</td>
-            <td th:text="${user.email}">...</td>
-        </tr>
-</table>
+<body class="body"  >
+<header th:replace="base :: header"></header>
 
-<form action="/bookAdd"   method="GET" enctype="utf8">
+<div class="container">
+    <div class="inner-container">
+        <table>
+            <tr>
+                <td th:text="${user.name}">...</td>
+                <td th:text="${user.email}">...</td>
+            </tr>
+        </table>
 
-    <button style="color: black; height: 25px; margin-top: 10px" type="submit">bookAdd</button>
-</form>
+        <form action="/bookAdd" method="GET" enctype="utf8">
 
+            <button class="button-bookAdd" type="submit">bookAdd</button>
+        </form>
+    </div>
+</div>
+<footer th:replace="base :: footer"></footer>
 </body>
 </html>

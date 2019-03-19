@@ -1,43 +1,39 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<body style=" height: 100%;">
-<header style="
- display: block;
-  left: 0;
-  bottom: 0;
-  width: 100%;
- height: 100px;
-
-    background: black">
+<head>
+    <link rel="stylesheet"
+          type="text/css"
+          th:href="@{/css/style.css}">
+</head>
+<body class="body">
+<header th:replace="base :: header">
 </header>
-<div style="text-align: center">
-    <h1>Create Book</h1>
-    <form action="/bookById" th:object="${book}"  method="POST" enctype="utf8">
-        <table style="margin: auto;" >
-            <colgroup>
-                <col span="2" style="background:#f9fffc">
-            </colgroup>
+<div class="container">
+    <div class="inner-container">
 
-            <tr>
-                <td>NAME</td>
-                <td><input type="text" th:field="*{name}" id="name" name="name"/></td>
-            </tr>
-            <tr>
-                <td>Author</td>
-                <td><input type="text" th:field="*{author}" id="Author" name="Author"/></td>
-            </tr>
-        </table>
-        <button style="color: black; height: 25px; margin-top: 10px" type="submit">Finish</button>
-    </form>
+        <div class="center">
+            <h1>Create Book</h1>
+            <form action="/bookAdd" th:object="${book}" method="POST" enctype="utf8">
+                <table class="table-center">
+                    <colgroup>
+                        <col span="2" class="table-background-color">
+                    </colgroup>
+
+                    <tr>
+                        <td>NAME</td>
+                        <td><input type="text" th:field="*{name}" id="name" name="name"/></td>
+                    </tr>
+                    <tr>
+                        <td>Author</td>
+                        <td><input type="text" th:field="*{author}" id="Author" name="Author"/></td>
+                    </tr>
+                </table>
+                <button class="button-center" type="submit">Finish</button>
+            </form>
+        </div>
+    </div>
 </div>
-  
-<footer style="
-background-color: black;
- position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100px;">
+<footer th:replace="base :: footer">
 </footer>
 
 </body>

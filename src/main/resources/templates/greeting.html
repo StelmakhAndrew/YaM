@@ -1,11 +1,23 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head> 
-    <title>Getting Started: Serving Web Content</title> 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<head>
+    <link rel="stylesheet"
+          type="text/css"
+          th:href="@{/css/style.css}">
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
-<body>
-    <p th:text="'Hello, ' + ${name} + '!'" />
-    <p th:text="'Hello, ' + ${t} + '!'" />
+<body class="body">
+<header th:replace="base :: header"></header>
+
+<div class="container">
+    <div class="inner-container">
+
+        <p th:text="'Hello, ' + ${name} + '!'"/>
+        <p th:text="'Hello, ' + ${t} + '!'"/>
+    </div>
+</div>
+<footer th:replace="base :: footer"></footer>
+
 </body>
 </html>

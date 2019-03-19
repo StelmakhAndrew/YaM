@@ -62,7 +62,7 @@ public class RegistrationController {
         System.out.println(users);
         if (users.getPassword().equals(password)){
             System.out.println("done");
-            return "redirect:/allbook";
+            return "redirect:/user?id="+users.getId();
 
         }
         System.out.println("Error");
