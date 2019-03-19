@@ -6,6 +6,8 @@ import project.com.Entity.User;
 import project.com.Repository.UserRepository;
 import project.com.Service.UserService;
 
+import java.util.Optional;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -15,5 +17,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public void createUser(User user) {
         userRepository.save(user);
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
     }
 }

@@ -8,17 +8,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import project.com.Entity.User;
 import project.com.Repository.UserRepository;
 import project.com.Service.UserService;
-//import project.com.dao.CustomerDAO;
 
 @Controller
 public class GreetingController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private UserRepository userRepository;
-
 
     @GetMapping("/greeting")
     public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
