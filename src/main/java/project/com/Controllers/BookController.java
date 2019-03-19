@@ -7,6 +7,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import project.com.Entity.Book;
 import project.com.Entity.User;
 import project.com.Service.BookService;
@@ -26,13 +27,22 @@ public class BookController {
         return "bookAdd";
     }
 
-    @RequestMapping(value = "/bookById", method = RequestMethod.POST)
-    public String submit(@ModelAttribute("book")Book book, ModelMap model) {
+    @RequestMapping(value = "/bookAdd", method = RequestMethod.POST)
+    public String submit(@ModelAttribute("book")Book book) {
+        bookService.createBook(book);
+        return "redirect:/bookById?id="+book.getId();
+    }
+
+
+
+    @RequestMapping(value = "/bookById", method = RequestMethod.GET)
+    public String submit(@RequestParam("id") Long id, Model model) {
+        Book book = bookService.findById(id).orElse(new Book());
         model.addAttribute("name",book.getName());
         model.addAttribute("author",book.getAuthor());
-        bookService.createBook(book);
         return "bookById";
     }
+
     @RequestMapping(value = "/allbook", method = RequestMethod.GET)
     public String allBook(ModelMap model) {
         List<Book> allBooks = bookService.findAllBook();

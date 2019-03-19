@@ -7,6 +7,7 @@ import project.com.Repository.BookRepository;
 import project.com.Service.BookService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -22,5 +23,10 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Book> findAllBook() {
         return bookRepository.findAll();
+    }
+
+    @Override
+    public Optional<Book> findById(Long id) {
+        return bookRepository.findById(id);
     }
 }
