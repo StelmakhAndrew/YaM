@@ -1,3 +1,6 @@
+
+
+
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -6,22 +9,17 @@
           th:href="@{/css/style.css}">
 </head>
 <body class="body">
-<header th:replace="base :: header"></header>
+<header th:replace="base :: header">
+</header>
 <div class="container">
-    <img src="../images/books.png" class="mid-img">
-
     <div class="inner-container">
-        <h1>SIGN UP</h1>
-        <form action="/submit" th:object="${user}" method="POST" enctype="utf8">
+        <h1>SIGN IN</h1>
+        <form th:action="@{/login}" th:object="${user}" method="POST">
             <table class="table-center">
                 <colgroup>
                     <col span="2" class="table-background-color">
                 </colgroup>
 
-                <tr>
-                    <td>NAME</td>
-                    <td><input type="text" th:field="*{username}" id="username" name="username"/></td>
-                </tr>
                 <tr>
                     <td>EMAIL</td>
                     <td><input type="email" th:field="*{email}" id="email" name="email"/></td>
@@ -31,10 +29,11 @@
                     <td><input type="password" th:field="*{password}" id="password" name="password"/></td>
                 </tr>
             </table>
-            <button class="button-center" type="submit">Registration</button>
+            <button class="button-center" type="submit">Sign in</button>
         </form>
     </div>
 </div>
+
 <footer th:replace="base :: footer">
 </footer>
 

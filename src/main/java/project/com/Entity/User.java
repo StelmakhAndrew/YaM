@@ -1,6 +1,7 @@
 package project.com.Entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "userser")
@@ -13,13 +14,19 @@ public class User {
 
 
     @Column(name = "name")
-    private String name;
+    private String username;
 
     @Column(name = "email")
     private String email;
 
     @Column(name = "password")
     private String password;
+
+    @ManyToMany
+    private Set<Role> roles;
+
+    @Transient
+    private String passwordConfirm;
 
 
 
@@ -28,23 +35,39 @@ public class User {
 
     public User(UserDto userDto) {
         this.email = userDto.getEmail();
-        this.name = userDto.getName();
+        this.username = userDto.getUsername();
         this.password = userDto.getPassword();
     }
 
-    public User(String name,String email,String password) {
-        this.name = name;
+    public User(String username,String email,String password) {
+        this.username = username;
         this.email = email;
         this.password = password;
     }
 
 
-    public String getName() {
-        return name;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Long getId() {

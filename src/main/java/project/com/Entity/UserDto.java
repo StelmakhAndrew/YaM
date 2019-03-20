@@ -9,7 +9,7 @@ public class UserDto {
 
     @NotNull
     @NotEmpty
-    private String name;
+    private String username;
 
     @NotNull
     @NotEmpty
@@ -20,12 +20,12 @@ public class UserDto {
     private String password;
     private String matchingPassword;
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
