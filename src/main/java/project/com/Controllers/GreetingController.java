@@ -25,7 +25,7 @@ public class GreetingController {
     @GetMapping("/greeting")
     public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
 
-        User user = userService.findById(14L).orElse(new User());
+//        User user = userService.findById(14L).orElse(new User());
 
 //        Book book = new Book("dfs","sdf");
 //        Book book1 = new Book("dfs2","sdf");
@@ -34,8 +34,7 @@ public class GreetingController {
 //        bookService.createBook(book1);
 //        bookService.createBook(book2);
 
-        user.setName("SET DONE");
-        userService.updateUser(user);
+//        userService.updateUser(user);
 
         //
 //        User customer = new User("TestBOkkFinal", "Repository","sdf", new Book[]{book, book1, book2});
