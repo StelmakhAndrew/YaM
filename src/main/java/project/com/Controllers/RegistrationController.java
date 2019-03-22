@@ -6,11 +6,13 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import project.com.Entity.Role;
 import project.com.Entity.User;
 import project.com.Entity.UserDto;
 import project.com.Service.UserService;
 
 import javax.validation.Valid;
+import java.util.Collections;
 
 
 @Controller
@@ -29,6 +31,7 @@ public class RegistrationController {
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String confirm( @ModelAttribute("user") @Valid UserDto userDto,
                            Errors errors) {
+        System.out.println("REgistration POST");
         if(!errors.hasErrors() && userService.emailExist(userDto.getEmail())) {
             User user = new User(userDto);
             userService.createUser(user);
@@ -42,17 +45,19 @@ public class RegistrationController {
 
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
     public String submit(@ModelAttribute("user") User user, ModelMap model) {
+        System.out.println("SUBMIT POST");
         model.addAttribute("email", user.getEmail());
-        model.addAttribute("name", user.getUsername());
+        model.addAttribute("username", user.getUsername());
+        user.setActive(true);
         userService.createUser(user);
         return "submit";
     }
 
-    @RequestMapping(value = "/logins", method = RequestMethod.GET)
-    public String login(Model model) {
-        model.addAttribute("user", new User());
-        return "logins";
-    }
+//    @RequestMapping(value = "/login", method = RequestMethod.GET)
+//    public String login(Model model) {
+//        model.addAttribute("user", new User());
+//        return "login";
+//    }
 //    @GetMapping("/login")
 //    public String login(Model model, String error, String logout) {
 //        System.out.println("login");

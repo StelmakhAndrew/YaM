@@ -11,21 +11,9 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
-    @Override
+
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/login").setViewName("login");
+        registry.addViewController("/login").setViewName("loginer");
     }
 
-    @Bean
-    public SpringTemplateEngine templateEngine(ITemplateResolver templateResolver, SpringSecurityDialect sec){
-        final SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-        templateEngine.setTemplateResolver(templateResolver);
-        templateEngine.addDialect(sec);
-        return templateEngine;
-    }
-
-    @Bean
-    public SpringSecurityDialect sec(){
-        return new SpringSecurityDialect();
-    }
 }

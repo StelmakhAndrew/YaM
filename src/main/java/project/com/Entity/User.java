@@ -13,7 +13,7 @@ public class User {
     private Long id;
 
 
-    @Column(name = "name")
+    @Column(name = "username")
     private String username;
 
     @Column(name = "email")
@@ -22,7 +22,12 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @ManyToMany
+    @Column(name = "active")
+    private boolean active;
+
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.LAZY)
+    @CollectionTable(name = "user_role",joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
     @Transient
@@ -92,5 +97,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

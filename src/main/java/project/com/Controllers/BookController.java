@@ -28,28 +28,36 @@ public class BookController {
     }
 
     @RequestMapping(value = "/bookAdd", method = RequestMethod.POST)
-    public String submit(@ModelAttribute("book")Book book) {
+    public String submit(@ModelAttribute("book") Book book) {
         bookService.createBook(book);
-        return "redirect:/bookById?id="+book.getId();
+        return "redirect:/bookById?id=" + book.getId();
     }
-
 
 
     @RequestMapping(value = "/bookById", method = RequestMethod.GET)
     public String submit(@RequestParam("id") Long id, Model model) {
         Book book = bookService.findById(id).orElse(new Book());
-        model.addAttribute("name",book.getName());
-        model.addAttribute("author",book.getAuthor());
+        model.addAttribute("name", book.getName());
+        model.addAttribute("author", book.getAuthor());
         return "bookById";
+    }
+
+    @RequestMapping(value = "/allbook", method = RequestMethod.POST)
+    public String search(ModelMap model, String str) {
+        System.out.println("ALLBOOK");
+        System.out.println(str);
+        System.out.println(model.get("search"));
+        List<Book> allBooks = bookService.findAllBook();
+        model.addAttribute("allBooks", allBooks);
+        return "allBooks";
     }
 
     @RequestMapping(value = "/allbook", method = RequestMethod.GET)
     public String allBook(ModelMap model) {
         List<Book> allBooks = bookService.findAllBook();
-        model.addAttribute("allBooks",allBooks);
+        model.addAttribute("allBooks", allBooks);
         return "allBooks";
     }
-
 
 
 }
