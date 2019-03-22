@@ -3,10 +3,23 @@ package project.com.Entity;
 
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 
 @Entity
 @Table(name = "userser")
 public class User {
+
+    public User(String name, String email, String password, Book... books) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.books = Stream.of(books).collect(Collectors.toSet());
+        this.books.forEach(x -> x.setDownloader(this));
+    }
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -23,7 +36,8 @@ public class User {
     @Column(name = "password")
     private String password;
 
-
+    @OneToMany(mappedBy = "downloader", cascade = CascadeType.ALL)
+    private Set<Book> books = new HashSet<>();
 
     public User() {}
 
@@ -65,4 +79,17 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
+    }
+
+    public void addBook(Book book){
+        this.books.add(book);
+    }
+
 }
