@@ -17,20 +17,26 @@
 </head>
 <body class="body">
 <header th:replace="base :: header"></header>
-<div class="container">
-    <img src="../images/books.png" class="mid-img">
 
-    <div class="inner-container" style="padding: 20px">
-        <h2 class="form-signin-heading">SIGN UP</h2>
-        <form th:action="@{/submit}" class="form-signin" th:object="${user}" method="POST" enctype="utf8">
-            <input  class="form-control" style="margin: 10px" type="text" th:field="*{username}" id="username" name="username" placeholder="USERNAME"/>
-            <input  class="form-control" style="margin: 10px" type="email" th:field="*{email}" id="email" name="email" placeholder="EMAIL"/>
-            <input  type="password" style="margin: 10px" class="form-control ${status.error ? 'has-error' : ''}" th:field="*{password}"
-                   id="password" name="password" placeholder="PASSWORD"/>
-            <button class="btn btn-lg btn-primary btn-block" style="margin: 10px"  type="submit">Registration</button>
-        </form>
+    <div class="mycontainer">
+        <img src="../images/books.png" class="mid-img">
+
+        <div class="inner-container">
+            <h2 class="form-signin-heading">SIGN UP</h2>
+            <form th:action="@{/submit}" class="form-signin" th:object="${user}" method="POST" enctype="utf8">
+                <input class="form-control" style="margin-top: 10px" type="text" th:field="*{username}" id="username"
+                       name="username" placeholder="USERNAME"/>
+                <input class="form-control" style="margin-top: 10px" type="email" th:field="*{email}" id="email"
+                       name="email" placeholder="EMAIL"/>
+                <input type="password" style="margin-top: 10px" class="form-control ${status.error ? 'has-error' : ''}"
+                       th:field="*{password}"
+                       id="password" name="password" placeholder="PASSWORD"/>
+                <button class="btn btn-lg btn-primary btn-block" style="margin-top: 10px" type="submit">Registration
+                </button>
+            </form>
+        </div>
     </div>
-</div>
+
 <footer th:replace="base :: footer">
 </footer>
 

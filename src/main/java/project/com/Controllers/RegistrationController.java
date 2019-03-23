@@ -49,6 +49,7 @@ public class RegistrationController {
         model.addAttribute("email", user.getEmail());
         model.addAttribute("username", user.getUsername());
         user.setActive(true);
+        user.setRoles(Collections.singleton(Role.ADMIN));
         userService.createUser(user);
         return "submit";
     }

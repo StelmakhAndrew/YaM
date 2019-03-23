@@ -34,7 +34,7 @@ public class GreetingController {
 //        bookService.createBook(book1);
 //        bookService.createBook(book2);
 
-        user.setName("SET DONE");
+//        user.setГName("SET DONE");
         userService.updateUser(user);
 
         //

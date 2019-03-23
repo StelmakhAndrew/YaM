@@ -1,5 +1,5 @@
 <html
-      xmlns:th="http://www.thymeleaf.org">
+        xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Spring Security Example </title>
     <link rel="stylesheet"
@@ -19,24 +19,28 @@
 </head>
 <body>
 <header th:replace="base :: header"></header>
-<div class="container">
 
-    <div class="inner-container" style="padding: 20px">
+    <div class="mycontainer">
 
-        <form class="form-signin" th:action="@{/login}" method="post">
-            <h2 class="form-heading">Log in</h2>
-            <div th:if="${param.error}" style="color: red;">
-                Invalid username and password.
-            </div>
-            <div th:if="${param.logout}" style="color: darkblue;">
-                You have been logged out.
-            </div>
-            <input class="form-control" style="margin: 10px" type="text" name="username" placeholder="Email"/>
-             <input class="form-control" style="margin: 10px" type="password" name="password"  placeholder="Password"/>
-            <div><input class="btn btn-lg btn-primary btn-block"  style="margin: 10px" type="submit" value="Sign In"/></div>
-        </form>
+        <div class="inner-container" style="padding: 20px">
+
+            <form class="form-signin" th:action="@{/login}" method="post">
+                <h2 class="form-heading">Log in</h2>
+                <div th:if="${param.error}" style="color: red;">
+                    Invalid username and password.
+                </div>
+                <div th:if="${param.logout}" style="color: darkblue;">
+                    You have been logged out.
+                </div>
+                <input class="form-control" style="margin-top: 10px" type="text" name="username" placeholder="Email"/>
+                <input class="form-control" style="margin-top: 10px" type="password" name="password"
+                       placeholder="Password"/>
+                <div><input class="btn btn-lg btn-primary btn-block" style="margin-top: 10px" type="submit"
+                            value="Sign In"/></div>
+            </form>
+        </div>
     </div>
-</div>
+
 <footer th:replace="base :: footer"></footer>
 
 </body>
