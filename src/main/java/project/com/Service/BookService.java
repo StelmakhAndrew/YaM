@@ -15,5 +15,9 @@ public interface BookService {
 
     List<Book> findAllOrderByRating();
 
+    List<Book> findBySearch(String search);
+
     Optional<Book> findById(Long id);
+
+
 }

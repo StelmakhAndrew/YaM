@@ -31,6 +31,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public List<Book> findBySearch(String search) {
+        return bookRepository.findByNameContainsOrAuthorContains(search,search);
+    }
+
+    @Override
     public Optional<Book> findById(Long id) {
         return bookRepository.findById(id);
     }

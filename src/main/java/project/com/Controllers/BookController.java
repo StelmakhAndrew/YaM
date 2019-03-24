@@ -42,14 +42,11 @@ public class BookController {
         return "bookById";
     }
 
-    @RequestMapping(value = "/allbook/search", method = RequestMethod.POST)
-    public String search(ModelMap model, String str) {
-        System.out.println("SEARCH");
-        System.out.println(str);
-        System.out.println(model.get("search"));
-        List<Book> allBooks = bookService.findAllBook();
+    @RequestMapping(value = "/allbook/search", method = RequestMethod.GET)
+    public String search(ModelMap model, String search) {
+        List<Book> allBooks = bookService.findBySearch(search);
         model.addAttribute("allBooks", allBooks);
-        model.addAttribute("stylers", "-50%");
+        model.addAttribute("search", search);
         return "allBooks";
     }
 
@@ -57,8 +54,6 @@ public class BookController {
     public String allBook(ModelMap model) {
         List<Book> allBooks = bookService.findAllOrderByRating();
         model.addAttribute("allBooks", allBooks);
-        model.addAttribute("stylers", "-50%");
-
         return "allBooks";
     }
 
