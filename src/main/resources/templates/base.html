@@ -18,24 +18,28 @@
 <body>
 
 <header th:fragment="header" class="main-header">
+
     <row style="display: flex">
         <div class="col-sm-1">
             <a href="/allbook"><img src="../images/books.png" class="profile-img"></a>
 
         </div>
-        <div class="col-sm-8">
-            <form class="navbar-form navbar-left" role="search" style="display: flex; padding: 5px" action="/allbook" method="post">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search" name="search" id="search">
+        <div class="col-sm-7">
+            <form class="navbar-form navbar-left" role="search" style="display: flex; padding: 5px" action="/allbook/search" method="get">
+                <div class="form-group" style="margin: 0px">
+                    <input type="text" style="width: 500px" class="form-control" placeholder="Search" name="search" id="search">
                 </div>
-                <button type="submit" style="height: 30px; align-items: center; align-content: center; text-align: center" class="btn btn-default">Submit</button>
+                <button type="submit" style="" class="btn btn-default">Submit</button>
             </form>
 
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-4">
+
             <div class="sign" style="display: flex">
+                <a class="sign-in" href="/profile"> PROFILE</a>
+
                 <form class="sign-in" th:action="@{/logout}" method="post">
-                    <input class="sign-in" style="background: black; border-color: black" type="submit" value="Sign Out"/>
+                   <input class="sign-in" style="border-color: black" type="submit" value="Sign Out"/>
                 </form>
                 <a class="sign-in" href="/login">Sign In</a>
                 <a class="sign-up" href="/registration"> Sign Up</a>

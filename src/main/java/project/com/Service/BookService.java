@@ -12,5 +12,12 @@ public interface BookService {
     void createBook(Book book);
 
     List<Book> findAllBook();
+
+    List<Book> findAllOrderByRating();
+
+    List<Book> findBySearch(String search);
+
     Optional<Book> findById(Long id);
+
+
 }

@@ -22,7 +22,13 @@ public class UserController {
     public String userProfile(@RequestParam("id") Long id, Model model){
         User user = userService.findById(id).orElse(new User("d","sdf@gmail.com","fs"));
         model.addAttribute("user",user);
+        System.out.println(userService.getCurrentUser().getUsername());
         return "user";
     }
-
+    @RequestMapping(value = "/profile", method = GET)
+    public String profile(Model model){
+        User user = userService.getCurrentUser();
+        model.addAttribute("user",user);
+        return "profile";
+    }
 }
