@@ -10,5 +10,6 @@ import java.util.Optional;
 @Repository
 public interface BookRepository extends JpaRepository<Book,Long> {
     List<Book> findAll();
+    List<Book> findAllByOrderByRatingAsc();
     Optional<Book> findById(Long id);
 }

@@ -26,6 +26,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public List<Book> findAllOrderByRating() {
+        return bookRepository.findAllByOrderByRatingAsc();
+    }
+
+    @Override
     public Optional<Book> findById(Long id) {
         return bookRepository.findById(id);
     }

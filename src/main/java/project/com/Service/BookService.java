@@ -12,5 +12,8 @@ public interface BookService {
     void createBook(Book book);
 
     List<Book> findAllBook();
+
+    List<Book> findAllOrderByRating();
+
     Optional<Book> findById(Long id);
 }

@@ -15,8 +15,8 @@
 <header th:replace="base :: header"></header>
 <div class="container" style="background: white ; flex-grow: 1">
     <div class="row">
-        <div class="col-sm-4">
-            <div class="genrelist">
+        <div class="col-sm-3">
+            <div class="genrelist" style="display: table; margin-left: auto">
                 <p>Жанр 1 <input type="checkbox"></p>
                 <p>Жанр 2 <input type="checkbox"></p>
                 <p>Жанр 3 <input type="checkbox"></p>
@@ -24,17 +24,25 @@
                 <p>Жанр 5 <input type="checkbox"></p>
             </div>
         </div>
-        <div class="col-sm-8">
+        <div class="col-sm-9">
             <div style="margin-top: 60px">
-                <table>
-                    <th:block th:each="book : ${allBooks}">
-                        <div class="bookslist">
+
+                <th:block th:each="book : ${allBooks}">
+                    <div class="bookslist">
+                        <div class="row" style="display: flex; justify-content: space-between">
                             <a href="bookById" th:href=="@{'/bookById?id='+${book.getId()}}"
                                th:text="${book.getName()}"></a>
-                            <p th:text="${book.getAuthor()}">...</p>
+                            <p class="crop">
+                                <a href="#" title=""><img class="stars" th:style="'left:' + ${book.getRating()} + '%'"
+                                                          src="../images/stars.png" alt=""/></a></p>
+
                         </div>
-                    </th:block>
-                </table>
+                        <div class="row"><img src="../images/books.png" style="width: 100px; height: 100px">
+                            <p style="text-align: center" th:text="${book.getAuthor()}">...</p>
+                            <div class="block" th:text="${book.getDescription()}">...</div>
+                        </div>
+                    </div>
+                </th:block>
             </div>
         </div>
     </div>

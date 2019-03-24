@@ -42,20 +42,23 @@ public class BookController {
         return "bookById";
     }
 
-    @RequestMapping(value = "/allbook", method = RequestMethod.POST)
+    @RequestMapping(value = "/allbook/search", method = RequestMethod.POST)
     public String search(ModelMap model, String str) {
-        System.out.println("ALLBOOK");
+        System.out.println("SEARCH");
         System.out.println(str);
         System.out.println(model.get("search"));
         List<Book> allBooks = bookService.findAllBook();
         model.addAttribute("allBooks", allBooks);
+        model.addAttribute("stylers", "-50%");
         return "allBooks";
     }
 
     @RequestMapping(value = "/allbook", method = RequestMethod.GET)
     public String allBook(ModelMap model) {
-        List<Book> allBooks = bookService.findAllBook();
+        List<Book> allBooks = bookService.findAllOrderByRating();
         model.addAttribute("allBooks", allBooks);
+        model.addAttribute("stylers", "-50%");
+
         return "allBooks";
     }
 
