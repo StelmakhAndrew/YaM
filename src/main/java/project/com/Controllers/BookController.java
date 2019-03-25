@@ -13,6 +13,7 @@ import project.com.Entity.Genre;
 import project.com.Entity.User;
 import project.com.Service.BookService;
 import project.com.Service.UserService;
+import project.com.Service.impl.UserServiceImpl;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,6 +23,8 @@ public class BookController {
 
     @Autowired
     private BookService bookService;
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = "/bookAdd", method = RequestMethod.GET)
     public String bookAddForm(Model model) {
@@ -34,7 +37,11 @@ public class BookController {
 
     @RequestMapping(value = "/bookAdd", method = RequestMethod.POST)
     public String submit(@ModelAttribute("book") Book book) {
+        User user = userService.getCurrentUser();
+        book.setDownloader(user);
         bookService.createBook(book);
+        user.addBook(book);
+        userService.updateUser(user);
 
         return "redirect:/bookById?id=" + book.getId();
     }
