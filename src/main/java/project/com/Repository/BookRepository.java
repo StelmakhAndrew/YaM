@@ -16,5 +16,5 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     Optional<Book> findById(Long id);
 
-    List<Book> findByNameContainsOrAuthorContains(String name, String author);
+    List<Book> findByNameContainsOrAuthorContainsOrderByRatingAsc(String name, String author);
 }
