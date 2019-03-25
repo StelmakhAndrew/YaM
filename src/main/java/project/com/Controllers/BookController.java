@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import project.com.Entity.Book;
+import project.com.Entity.Genre;
 import project.com.Entity.User;
 import project.com.Service.BookService;
 import project.com.Service.UserService;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -23,6 +25,9 @@ public class BookController {
 
     @RequestMapping(value = "/bookAdd", method = RequestMethod.GET)
     public String bookAddForm(Model model) {
+        List <Genre> genre = Arrays.asList(Genre.values());
+
+        model.addAttribute("genres", genre);
         model.addAttribute("book", new Book());
         return "bookAdd";
     }
@@ -30,6 +35,7 @@ public class BookController {
     @RequestMapping(value = "/bookAdd", method = RequestMethod.POST)
     public String submit(@ModelAttribute("book") Book book) {
         bookService.createBook(book);
+
         return "redirect:/bookById?id=" + book.getId();
     }
 
