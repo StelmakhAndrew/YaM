@@ -36,7 +36,7 @@
                                                           src="../images/stars.png" alt=""/></a></p>
 
                         </div>
-                        <div class="row"><img src="../images/books.png" style="width: 100px; height: 100px">
+                        <div class="row"><img th:src="${book.getImage()}" style="width: 100px; height: 150px">
                             <p style="text-align: center" th:text="${book.getAuthor()}">...</p>
                             <div class="block" th:text="${book.getDescription()}">...</div>
                         </div>
