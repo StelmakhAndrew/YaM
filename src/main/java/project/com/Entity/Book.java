@@ -25,13 +25,16 @@ public class Book  {
     private User downloader;
 
     @Column(name = "genre")
-    private String genre;
+    private Genre genre;
 
     @Column(name = "description")
     private String description;
 
     @Column(name = "rating")
     private Float rating;
+
+    @Column(name = "image")
+    private String image;
 
 
 
@@ -69,11 +72,11 @@ public class Book  {
 
 
 
-    public String getGenre() {
+    public Genre getGenre() {
         return genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(Genre genre) {
         this.genre = genre;
     }
 
@@ -99,5 +102,13 @@ public class Book  {
 
     public void setDownloader(User downloader) {
         this.downloader = downloader;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

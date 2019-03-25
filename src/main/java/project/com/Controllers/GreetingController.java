@@ -25,23 +25,23 @@ public class GreetingController {
     @GetMapping("/greeting")
     public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
 
-        User user = userService.findById(14L).orElse(new User());
-
-//        Book book = new Book("dfs","sdf");
-//        Book book1 = new Book("dfs2","sdf");
-//        Book book2 = new Book("dfs3","sdf");
+//        User user = userService.findById(14L).orElse(new User());
+//
+        Book book = new Book("dfs","sdf");
+        Book book1 = new Book("dfs2","sdf");
+        Book book2 = new Book("dfs3","sdf");
 //        bookService.createBook(book);
 //        bookService.createBook(book1);
 //        bookService.createBook(book2);
 
 //        user.setГName("SET DONE");
-        userService.updateUser(user);
+//        userService.updateUser(user);
 
         //
-//        User customer = new User("TestBOkkFinal", "Repository","sdf", new Book[]{book, book1, book2});
+        User customer = new User("TestBOkkFinal", "Repository","sdf", new Book[]{book, book1, book2});
 
-//        userService.createUser(customer);
-//        System.out.println(user.getName());
+        userService.createUser(customer);
+//        System.out.println(user.getUsername());
 //        System.out.println(user.getBooks().size());
 //        System.out.println(user.getBooks().size());
 //
