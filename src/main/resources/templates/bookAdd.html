@@ -38,23 +38,15 @@
                             <td>Image</td>
                             <td><input type="text" th:field="*{image}" id="image" name="image"/></td>
                         </tr>
+                    </table>
 
-
-                        <tr>
-                            <input type="file" id="picture" name="pictureFile" accept="image/*"/>
-                            <img id="blah" height="200px" src="@{'/public/images/UploadPhotos-512.png'}"
-                                 alt=""/>
-                        </tr>
 
                     <p><select   name="genre">
-
-                                <p><select  th:field="*{genre}" name="genre">
-                                    <option disabled>Select genre</option>
-                                    <th:block th:each="genre : ${genres}">
-                                        <option th:value="${genre}" th:text="${genre}"></option>
-                                    </th:block>
-                                </select></p>
-                    </table>
+                        <option disabled>Select genre</option>
+                        <th:block th:each="genre : ${genres}">
+                            <option th:value="${genre}" th:text="${genre}"></option>
+                        </th:block>
+                    </select></p>
 
                     <button class="button-center" type="submit">Finish</button>
                 </form>
