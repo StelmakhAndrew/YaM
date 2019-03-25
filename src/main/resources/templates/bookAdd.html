@@ -41,12 +41,12 @@
                     </table>
 
 
-                    <p><select   name="genre">
-                                    <option disabled>Select genre</option>
-                                    <th:block th:each="genre : ${genres}">
-                                        <option th:value="${genre}" th:text="${genre}"></option>
-                                    </th:block>
-                                </select></p>
+                    <p><select name="genre">
+                        <option selected disabled>Select genre</option>
+                        <th:block th:each="genre : ${genres}">
+                            <option th:value="${genre}" th:text="${genre}"></option>
+                        </th:block>
+                    </select></p>
 
                     <button class="button-center" type="submit">Finish</button>
                 </form>
