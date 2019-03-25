@@ -42,7 +42,7 @@
 
 
                     <p><select   name="genre">
-                        <option disabled>Select genre</option>
+                        <option selected disabled>Select genre</option>
                         <th:block th:each="genre : ${genres}">
                             <option th:value="${genre}" th:text="${genre}"></option>
                         </th:block>
