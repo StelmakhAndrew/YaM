@@ -38,15 +38,16 @@
                             <td>Image</td>
                             <td><input type="text" th:field="*{image}" id="image" name="image"/></td>
                         </tr>
-                        <tr>
-                                <p><select  th:field="*{genre}" name="genre">
+                    </table>
+
+
+                    <p><select   name="genre">
                                     <option disabled>Select genre</option>
                                     <th:block th:each="genre : ${genres}">
                                         <option th:value="${genre}" th:text="${genre}"></option>
                                     </th:block>
                                 </select></p>
-                        </tr>
-                    </table>
+
                     <button class="button-center" type="submit">Finish</button>
                 </form>
             </div>
