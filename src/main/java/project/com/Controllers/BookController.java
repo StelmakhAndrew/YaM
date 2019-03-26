@@ -8,14 +8,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import project.com.Entity.Book;
+import project.com.Entity.BookDto;
 import project.com.Entity.Genre;
 import project.com.Entity.User;
 import project.com.Service.BookService;
 import project.com.Service.UserService;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class BookController {
@@ -30,13 +35,21 @@ public class BookController {
         List <Genre> genre = Arrays.asList(Genre.values());
 
         model.addAttribute("genres", genre);
-        model.addAttribute("book", new Book());
+        model.addAttribute("book", new BookDto());
         return "bookAdd";
     }
 
     @RequestMapping(value = "/bookAdd", method = RequestMethod.POST)
-    public String submit(@ModelAttribute("book") Book book) {
+    public String submit(@ModelAttribute("book") BookDto bookDto) throws IOException {
+
+        File uploadDir = new File("E:\\project]\\YaM\\src\\main\\resources\\static\\images\\books\\");
+        String uuidFileName = UUID.randomUUID().toString();
+        MultipartFile file = bookDto.getImage();
+        String resultFileName = uuidFileName + "." +  file.getOriginalFilename();
+        file.transferTo(new File("E:\\project]\\YaM\\src\\main\\resources\\static\\images\\books\\"+ resultFileName));
         User user = userService.getCurrentUser();
+        Book book = new Book(bookDto);
+        book.setImage("../images/books/"+resultFileName);
         book.setDownloader(user);
         bookService.createBook(book);
         user.addBook(book);
