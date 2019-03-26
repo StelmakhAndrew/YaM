@@ -110,6 +110,8 @@ body {
     margin: 20px 50px
 }
 
+
+
 .genrelist{
     border: 1px solid black;
     border-radius: 2px;
@@ -138,3 +140,4 @@ body {
     -webkit-line-clamp: 6;
     -webkit-box-orient: vertical;
 }
+
