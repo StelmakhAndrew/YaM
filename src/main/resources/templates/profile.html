@@ -14,24 +14,42 @@
 <body class="body">
 <header th:replace="base :: header"></header>
 <div class="container" style="background: white; flex-grow: 1">
+    <div class="col-sm-3">
 
     <h1>PROFILE</h1>
-    <div class="mycontainer">
-        <div class="inner-container">
-            <table>
-                <tr>
-                    <td th:text="${user.username}">...</td>
-                    <td th:text="${user.email}">...</td>
-                </tr>
-            </table>
 
-            <form action="/bookAdd" method="GET" enctype="utf8">
+    <div th:text="${user.username}">...</div>
+    <div th:text="${user.email}">...</div>
 
-                <button class="button-bookAdd" type="submit">bookAdd</button>
-            </form>
+
+    <form action="/bookAdd" method="GET" enctype="utf8">
+
+        <button class="button-bookAdd" type="submit">bookAdd</button>
+    </form>
+    </div>
+    <div class="col-sm-9">
+        <div style="margin-top: 60px">
+
+            <th:block th:each="book : ${allBooks}">
+                <div class="bookslist">
+                    <div class="row" style="display: flex; justify-content: space-between">
+                        <a href="bookById" th:href=="@{'/bookById?id='+${book.getId()}}"
+                           th:text="${book.getName()}"></a>
+                        <p class="crop">
+                            <a href="#" title=""><img class="stars" th:style="'left:' + ${book.getRating()} + '%'"
+                                                      src="../images/stars.png" alt=""/></a></p>
+
+                    </div>
+                    <div class="row"><img th:src="${book.getImage()}" style="width: 100px; height: 150px">
+                        <p style="text-align: center" th:text="${book.getAuthor()}">...</p>
+                        <div class="block" th:text="${book.getDescription()}">...</div>
+                    </div>
+                </div>
+            </th:block>
         </div>
     </div>
 </div>
+
 
 <footer th:replace="base :: footer"></footer>
 </body>
