@@ -72,6 +72,16 @@ public class BookController {
         return "allBooks";
     }
 
+    @RequestMapping(value = "/allbook/search/author", method = RequestMethod.GET)
+    public String searchAuthor(ModelMap model, String author) {
+        List<Genre> genre = Arrays.asList(Genre.values());
+        List<Book> allBooks = bookService.findAllByAuthor(author);
+        model.addAttribute("allBooks", allBooks);
+        model.addAttribute("genres", genre);
+        return "allBooks";
+    }
+
+
     @RequestMapping(value = "/allbook", method = RequestMethod.GET)
     public String allBook(ModelMap model) {
         List<Book> allBooks = bookService.findAllOrderByRating();

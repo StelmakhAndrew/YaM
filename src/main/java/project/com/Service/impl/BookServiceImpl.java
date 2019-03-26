@@ -13,6 +13,7 @@ import java.util.Optional;
 @Service
 public class BookServiceImpl implements BookService {
 
+
     @Autowired
     private BookRepository bookRepository;
 
@@ -44,5 +45,10 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Book> findAllByGenre(Genre genre) {
         return bookRepository.findAllByGenre(genre);
+    }
+
+    @Override
+    public List<Book> findAllByAuthor(String author) {
+        return bookRepository.findByAuthorOrderByRatingAsc(author);
     }
 }

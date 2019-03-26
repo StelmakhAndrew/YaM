@@ -22,5 +22,9 @@ public interface BookService {
 
     List<Book> findAllByGenre(Genre genre);
 
+    List<Book> findAllByAuthor(String author);
+
+
+
 
 }
