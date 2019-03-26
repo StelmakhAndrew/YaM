@@ -1,5 +1,7 @@
 package project.com.Entity;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 import java.awt.*;
 
@@ -13,7 +15,8 @@ public class BookDto {
 
     private String description;
 
-    private Image image;
+    private MultipartFile image;
+
 
 
 
@@ -60,11 +63,11 @@ public class BookDto {
         this.description = description;
     }
 
-    public Image getImage() {
+    public MultipartFile getImage() {
         return image;
     }
 
-    public void setImage(Image image) {
+    public void setImage(MultipartFile image) {
         this.image = image;
     }
 }

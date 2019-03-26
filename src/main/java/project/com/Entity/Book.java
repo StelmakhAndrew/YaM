@@ -45,6 +45,15 @@ public class Book  {
         this.author = author;
     }
 
+    public Book(BookDto bookDto){
+        this.name = bookDto.getName();
+        this.genre = bookDto.getGenre();
+        this.author = bookDto.getAuthor();
+        this.description = bookDto.getDescription();
+        this.image= bookDto.getImage().getOriginalFilename();
+        this.rating = 0.0f;
+    }
+
 
     public String getName() {
         return name;

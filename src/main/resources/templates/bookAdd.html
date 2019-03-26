@@ -16,12 +16,10 @@
 </header>
 <div class="container" style="background: white ; flex-grow: 1">
 
-    <div class="mycontainer">
-        <div class="inner-container">
 
             <div class="center">
                 <h1>Create Book</h1>
-                <form action="/bookAdd" th:object="${book}" method="POST" enctype="utf8">
+                <form action="/bookAdd" th:object="${book}" method="POST" enctype="multipart/form-data">
                     <table class="table-center">
                         <colgroup>
                             <col span="2" class="table-background-color">
@@ -36,11 +34,22 @@
                             <td><input type="text" th:field="*{author}" id="Author" name="Author"/></td>
                         </tr>
                         <tr>
+                            <td>Description</td>
+                            <td><input type="text" th:field="*{description}" id="description" name="description"/></td>
+                        </tr>
+                        <!--<tr>-->
+                            <!--<td>Image</td>-->
+                            <!--<td><input type="text" th:field="*{image}" id="image" name="image"/></td>-->
+                        <!--</tr> -->
+                        <tr>
                             <td>Image</td>
-                            <td><input type="text" th:field="*{image}" id="image" name="image"/></td>
+                            <td>
+                                <input type="file" th:field="*{image}" id="picture" name="pictureFile" accept="image/*"/>
+                            </td>
                         </tr>
                     </table>
-
+                    <!--<img id="blah" height="200px" src="@{'/public/images/UploadPhotos-512.png'}"-->
+                         <!--alt=""/>-->
                     <!--<input type="file" id="picture" name="pictureFile" th:field="*{image}" accept="image/*"/>-->
 
 
@@ -53,8 +62,6 @@
 
                     <button class="button-center" type="submit">Finish</button>
                 </form>
-            </div>
-        </div>
     </div>
 </div>
 
