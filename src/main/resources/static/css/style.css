@@ -34,6 +34,20 @@ body {
     height: 25px;
     width: 60px
 }
+.book-profile-crop{
+    float:left;
+    margin:.5em 10px .5em 0;
+    overflow:hidden;
+    position:relative;
+    width:100px;
+    height:42px;
+}
+
+.book-profile-stars{
+    position:absolute;
+    width: 100px;
+    height: 42px;
+}
 
 .mycontainer {
     display: flex;

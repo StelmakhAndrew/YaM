@@ -9,6 +9,7 @@
           th:href="@{/css/style.css}">
     <meta charset="UTF-8">
     <title>Title</title>
+    <base href="/">
 </head>
 <body class="body">
 <header th:replace="base :: header"></header>
@@ -16,11 +17,12 @@
     <div class="row">
         <div class="col-sm-3">
             <div class="genrelist" style="display: table; margin-left: auto">
-                <p><input type="checkbox"> Жанр 1</p>
-                <p><input type="checkbox"> Жанр 2</p>
-                <p><input type="checkbox"> Жанр 3</p>
-                <p><input type="checkbox"> Жанр 4</p>
-                <p><input type="checkbox"> Жанр 5</p>
+                <th:block th:each="genre : ${genres}">
+                    <div>
+                        <a style="color: black" th:href="@{'/allbook/search/genre?id='+${genre.getGenre()}}"
+                           th:text="${genre}"></a>
+                    </div>
+                </th:block>
             </div>
         </div>
         <div class="col-sm-9">
@@ -36,7 +38,7 @@
                                                           src="../images/stars.png" alt=""/></a></p>
 
                         </div>
-                        <div class="row"><img src="../images/books.png" style="width: 100px; height: 100px">
+                        <div class="row"><img th:src="${book.getImage()}" style="width: 100px; height: 150px">
                             <p style="text-align: center" th:text="${book.getAuthor()}">...</p>
                             <div class="block" th:text="${book.getDescription()}">...</div>
                         </div>

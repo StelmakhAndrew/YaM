@@ -34,7 +34,22 @@
                             <td>Author</td>
                             <td><input type="text" th:field="*{author}" id="Author" name="Author"/></td>
                         </tr>
+                        <tr>
+                            <td>Image</td>
+                            <td><input type="text" th:field="*{image}" id="image" name="image"/></td>
+                        </tr>
                     </table>
+
+                    <!--<input type="file" id="picture" name="pictureFile" th:field="*{image}" accept="image/*"/>-->
+
+
+                    <p><select name="genre">
+                        <option selected disabled>Select genre</option>
+                        <th:block th:each="genre : ${genres}">
+                            <option th:value="${genre.name()}" th:text="${genre.name()}"></option>
+                        </th:block>
+                    </select></p>
+
                     <button class="button-center" type="submit">Finish</button>
                 </form>
             </div>
