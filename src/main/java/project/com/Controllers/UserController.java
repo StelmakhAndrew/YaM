@@ -24,18 +24,16 @@ public class UserController {
     @Autowired
     private BookService bookService;
 
-    // "redirect:/user?id="+user.getId()
-
     @RequestMapping(value = "/user", method = GET)
     public String userProfile(@RequestParam("id") Long id, Model model){
-        User user = userService.findById(id).orElse(new User("d","sdf@gmail.com","fs"));
+        User user = userService.findById(id).orElse(null);
         model.addAttribute("user",user);
-        System.out.println(userService.getCurrentUser().getUsername());
         return "user";
     }
     @RequestMapping(value = "/profile", method = GET)
     public String profile(Model model){
         User user = userService.getCurrentUser();
+        if (user == null) return "redirect:/login";
         List<Book> books = user.getBooks();
         model.addAttribute("user",user);
         model.addAttribute("allBooks",books);

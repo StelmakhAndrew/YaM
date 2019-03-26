@@ -14,12 +14,25 @@
 <body class="body">
 
 <header th:replace="base :: header"></header>
-<div class="container" style="background: white ; flex-grow: 1">
+<div class="container" style="background: white ; flex-grow: 1;padding-top: 70px">
+    <div class="row">
+        <div class="col-sm-3" style="display: flex;flex-direction: column;align-items: center">
+            <div class="book-profile-crop" style="margin-bottom: 10px ">
+                <div href="#" title="">
+                    <img class="book-profile-stars" th:style="'left:' + ${book.getRating()} + '%'"
+                         src="../images/stars.png" alt=""/>
+                </div>
+            </div>
 
-    <div class="mycontainer">
-        <div class="inner-container">
-            <p th:text="'Book name, ' + ${name} + '!'"/>
-            <p th:text="'Author, ' + ${author} + '!'"/>
+            <img th:src="${book.getImage()}" style="width: 140px; height: 210px">
+            <div th:text="${book.getAuthor()}"/>
+        </div>
+        <div class="col-sm-9">
+            <h2 style="text-align: center" th:text="${book.getName()}"/>
+            <p th:text="${book.getDescription()}"/>
+            <br>
+            <p th:text="'Dowloader, ' + ${book.getDownloader().getUsername()} + '!'"/>
+
         </div>
     </div>
 </div>

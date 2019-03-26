@@ -2,6 +2,7 @@ package project.com.Service;
 
 import org.springframework.stereotype.Service;
 import project.com.Entity.Book;
+import project.com.Entity.Genre;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,8 @@ public interface BookService {
     List<Book> findBySearch(String search);
 
     Optional<Book> findById(Long id);
+
+    List<Book> findAllByGenre(Genre genre);
 
 
 }
