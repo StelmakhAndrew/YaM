@@ -5,8 +5,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import project.com.Entity.Book;
 import project.com.Entity.User;
 import project.com.Service.UserService;
+import project.com.Service.BookService;
+
+import java.util.List;
+import java.util.Set;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
@@ -15,6 +20,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private BookService bookService;
 
     // "redirect:/user?id="+user.getId()
 
@@ -28,7 +36,9 @@ public class UserController {
     @RequestMapping(value = "/profile", method = GET)
     public String profile(Model model){
         User user = userService.getCurrentUser();
+        List<Book> books = user.getBooks();
         model.addAttribute("user",user);
+        model.addAttribute("allBooks",books);
         return "profile";
     }
 }

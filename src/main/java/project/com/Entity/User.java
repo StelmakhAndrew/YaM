@@ -1,8 +1,7 @@
 package project.com.Entity;
 
 import javax.persistence.*;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.*;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -16,7 +15,7 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.books = Stream.of(books).collect(Collectors.toSet());
+        this.books = Stream.of(books).collect(Collectors.toList());
         this.books.forEach(x -> x.setDownloader(this));
     }
 
@@ -48,7 +47,7 @@ public class User {
 
 
     @OneToMany(mappedBy = "downloader", cascade = CascadeType.ALL)
-    private Set<Book> books = new HashSet<>();
+    private List<Book> books = new ArrayList<>();
 
     public User() {}
 
@@ -121,11 +120,11 @@ public class User {
     public void setActive(boolean active) {
         this.active = active;
     }
-    public Set<Book> getBooks() {
+    public List<Book> getBooks() {
         return books;
     }
 
-    public void setBooks(Set<Book> books) {
+    public void setBooks(List<Book> books) {
         this.books = books;
     }
 
