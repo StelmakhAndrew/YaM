@@ -49,8 +49,7 @@ public class BookController {
     @RequestMapping(value = "/bookById", method = RequestMethod.GET)
     public String submit(@RequestParam("id") Long id, Model model) {
         Book book = bookService.findById(id).orElse(new Book());
-        model.addAttribute("name", book.getName());
-        model.addAttribute("author", book.getAuthor());
+        model.addAttribute("book", book);
         return "bookById";
     }
 
