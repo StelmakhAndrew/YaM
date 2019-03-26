@@ -37,6 +37,9 @@ public class User {
     @Column(name = "active")
     private boolean active;
 
+    @Column(name = "aboutMe")
+    private String aboutMe;
+
     @ElementCollection(targetClass = Role.class, fetch = FetchType.LAZY)
     @CollectionTable(name = "user_role",joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
@@ -130,5 +133,13 @@ public class User {
 
     public void addBook(Book book){
         this.books.add(book);
+    }
+
+    public String getAboutMe() {
+        return aboutMe;
+    }
+
+    public void setAboutMe(String aboutMe) {
+        this.aboutMe = aboutMe;
     }
 }

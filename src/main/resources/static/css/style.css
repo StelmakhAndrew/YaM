@@ -124,6 +124,8 @@ body {
     margin: 20px 50px
 }
 
+
+
 .genrelist{
     border-radius: 2px;
     padding: 15px 25px;
@@ -151,3 +153,4 @@ body {
     -webkit-line-clamp: 6;
     -webkit-box-orient: vertical;
 }
+
