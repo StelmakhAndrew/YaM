@@ -33,7 +33,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> findBySearch(String search) {
-        return bookRepository.findByNameContainsOrAuthorContains(search,search);
+        return bookRepository.findByNameContainsOrAuthorContainsOrderByRatingAsc(search,search);
     }
 
     @Override
