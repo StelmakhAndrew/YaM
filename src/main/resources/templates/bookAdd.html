@@ -40,11 +40,13 @@
                         </tr>
                     </table>
 
+                    <!--<input type="file" id="picture" name="pictureFile" th:field="*{image}" accept="image/*"/>-->
+
 
                     <p><select name="genre">
                         <option selected disabled>Select genre</option>
                         <th:block th:each="genre : ${genres}">
-                            <option th:value="${genre}" th:text="${genre}"></option>
+                            <option th:value="${genre.name()}" th:text="${genre.name()}"></option>
                         </th:block>
                     </select></p>
 

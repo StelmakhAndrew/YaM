@@ -9,6 +9,7 @@
           th:href="@{/css/style.css}">
     <meta charset="UTF-8">
     <title>Title</title>
+    <base href="/">
 </head>
 <body class="body">
 <header th:replace="base :: header"></header>
@@ -16,11 +17,13 @@
     <div class="row">
         <div class="col-sm-3">
             <div class="genrelist" style="display: table; margin-left: auto">
-                <p>Жанр 1 <input type="checkbox"></p>
-                <p>Жанр 2 <input type="checkbox"></p>
-                <p>Жанр 3 <input type="checkbox"></p>
-                <p>Жанр 4 <input type="checkbox"></p>
-                <p>Жанр 5 <input type="checkbox"></p>
+
+                <th:block th:each="genre : ${genres}">
+                    <div>
+                        <a style="color: black" th:href="@{'/allbook/search/genre?id='+${genre.getGenre()}}"
+                           th:text="${genre}"></a>
+                    </div>
+                </th:block>
             </div>
         </div>
         <div class="col-sm-9">

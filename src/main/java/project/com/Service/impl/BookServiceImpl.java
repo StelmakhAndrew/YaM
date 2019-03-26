@@ -3,6 +3,7 @@ package project.com.Service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project.com.Entity.Book;
+import project.com.Entity.Genre;
 import project.com.Repository.BookRepository;
 import project.com.Service.BookService;
 
@@ -38,5 +39,10 @@ public class BookServiceImpl implements BookService {
     @Override
     public Optional<Book> findById(Long id) {
         return bookRepository.findById(id);
+    }
+
+    @Override
+    public List<Book> findAllByGenre(Genre genre) {
+        return bookRepository.findAllByGenre(genre);
     }
 }
