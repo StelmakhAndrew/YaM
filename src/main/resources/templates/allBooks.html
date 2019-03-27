@@ -36,8 +36,8 @@
                             <a href="bookById" th:href=="@{'/bookById?id='+${book.getId()}}"
                                th:text="${book.getName()}"></a>
                             <p class="crop">
-                                <a href="#" title=""><img class="stars" th:style="'left:' + ${book.getRating()} + '%'"
-                                                          src="../images/stars.png" alt=""/></a></p>
+                                <img class="stars" th:style="'left:' + ${book.getRating()} + '%'"
+                                                          src="../images/stars.png" alt=""/></p>
 
                         </div>
                         <div class="row"><img th:src="${book.getImage()}" style="width: 100px; height: 150px">

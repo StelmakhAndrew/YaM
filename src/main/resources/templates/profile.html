@@ -33,23 +33,23 @@
                 <div class="bookslistProfile">
 
                     <h3 style="margin-left: 25px">All Books</h3>
-
                     <th:block th:each="book : ${allBooks}">
-                        <div style="display:inline-block; margin-left: 25px">
-
-                            <a href="#" th:href=="@{'/bookById?id='+${book.getId()}}">
-
-                                <img th:src="${book.getImage()}" style="width: 100px; height: 150px"></a>
+                        <div style="vertical-align: top;display:inline-block; height:300px; width: 130px; margin-top: 25px">
                             <div>
-                                <img class="stars" th:style="'left:' + ${book.getRating()} + '%'"
-                                     src="../images/stars.png" alt=""/>
-
+                                <a style="margin: auto" href="#" th:href="@{'/bookById?id='+${book.getId()}}">
+                                    <img th:src="${book.getImage()}" style="width: 100px; height: 150px; display: block;
+  margin-left: auto;
+  margin-right: auto;
+ "></a>
+                                <p class="crop-profile" style="">
+                                    <img class="stars" th:style="'left:' + ${book.getRating()} + '%'"
+                                         src="../images/stars.png" alt=""/>
+                                </p>
                             </div>
-
-                            <div style="margin-top: 25px" th:text="${book.getAuthor()}"></div>
-                            <a href="#" th:href=="@{'/bookById?id='+${book.getId()}}"
-                               th:text="${book.getName()}"></a>
-
+                            <div style="margin-top: 30px; text-align: center" th:text="${book.getAuthor()}"></div>
+                            <div style="text-align: center"><a href="#" th:href="@{'/bookById?id='+${book.getId()}}"
+                                                               th:text="${book.getName()}"></a>
+                            </div>
                         </div>
                     </th:block>
                 </div>
