@@ -24,6 +24,15 @@ body {
     float:left;
     margin:.5em 10px .5em 0;
     overflow:hidden;
+    position: relative;
+    width:60px;
+    height:25px;
+}
+
+.crop-profile{
+    float:left;
+    margin:.5em 10px .5em 0;
+    overflow:hidden;
     position:absolute;
     width:60px;
     height:25px;
