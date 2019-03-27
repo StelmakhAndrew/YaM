@@ -41,12 +41,11 @@ public class BookController {
 
     @RequestMapping(value = "/bookAdd", method = RequestMethod.POST)
     public String submit(@ModelAttribute("book") BookDto bookDto) throws IOException {
-
-        File uploadDir = new File("E:\\project]\\YaM\\src\\main\\resources\\static\\images\\books\\");
+        File uploadDir = new File("D:\\ProjectCode2\\YaM\\src\\main\\resources\\static\\images\\books\\");
         String uuidFileName = UUID.randomUUID().toString();
         MultipartFile file = bookDto.getImage();
         String resultFileName = uuidFileName + "." +  file.getOriginalFilename();
-        file.transferTo(new File("E:\\project]\\YaM\\src\\main\\resources\\static\\images\\books\\"+ resultFileName));
+        file.transferTo(new File("D:\\ProjectCode2\\YaM\\src\\main\\resources\\static\\images\\books\\"+ resultFileName));
         User user = userService.getCurrentUser();
         Book book = new Book(bookDto);
         book.setImage("../images/books/"+resultFileName);
@@ -54,7 +53,6 @@ public class BookController {
         bookService.createBook(book);
         user.addBook(book);
         userService.updateUser(user);
-
         return "redirect:/bookById?id=" + book.getId();
     }
 
@@ -78,6 +76,7 @@ public class BookController {
 
     @RequestMapping(value = "/allbook/search/genre", method = RequestMethod.GET)
     public String searchGenre(ModelMap model, Integer id) {
+        id = id - 1;
         List<Genre> genre = Arrays.asList(Genre.values());
         List<Book> allBooks = bookService.findAllByGenre(Genre.values()[id]);
         model.addAttribute("allBooks", allBooks);
