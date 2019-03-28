@@ -34,7 +34,29 @@
             <br>
             <p th:text="'Dowloader, ' + ${book.getDownloader().getUsername()} + '!'"/>
 
+            <form th:action="'/bookById?id=' + ${book.getId()}" th:object="${comment}" method="POST">
+                <input type="text" th:field="*{msg}" id="description" name="description"/>
+                <button class="button-center" type="submit">Finish</button>
+            </form>
+            <th:block th:each="comment : ${comments}">
+
+                <div style="    border: 1px solid #aeaeae;
+    border-radius: 20px;
+    padding: 15px 25px;
+    margin: 20px 50px">
+                    <div style="display:flex;justify-content: space-between;">
+                        <p th:text="${comment.getUser().getUsername()}"></p>
+                        <!--<p>${comment.tripEntity.name}</p>-->
+                        <!--<p> average = ${comment.average}</p>-->
+                    </div>
+                    <!--<p>${comment.data}</p>-->
+                    <p th:text="${comment.getMsg()}"></p>
+                </div>
+            </th:block>
+
         </div>
+
+
     </div>
 </div>
 
