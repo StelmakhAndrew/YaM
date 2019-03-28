@@ -32,5 +32,10 @@ public class CommentServiceImpl implements CommentService {
             return commentRepository.findAllByOrderByDateDesc();
     }
 
+    @Override
+    public List<Comment> findComentsForThisBookSortByDate(Long book_id) {
+        return commentRepository.findAllByBook_IdOrderByDateDesc(book_id);
+    }
+
 
 }

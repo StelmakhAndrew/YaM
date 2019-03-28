@@ -11,4 +11,5 @@ public interface CommentService {
 
     List<Comment> findAll();
     List<Comment> findAllSortByDate();
+    List<Comment> findComentsForThisBookSortByDate(Long book_id);
 }

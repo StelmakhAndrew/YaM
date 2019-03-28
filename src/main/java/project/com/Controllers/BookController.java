@@ -64,8 +64,7 @@ public class BookController {
     public String submit(@RequestParam("id") Long id, Model model) {
         Book book = bookService.findById(id).orElse(new Book());
 
-
-        List<Comment> comments = commentService.findAllSortByDate();
+        List<Comment> comments = commentService.findComentsForThisBookSortByDate(book.getId());
 
 
         model.addAttribute("comments",comments);
@@ -90,7 +89,9 @@ public class BookController {
         bookService.updateBook(book);
         currentUser.addComments(newComment);
         userService.updateUser(currentUser);
-        List<Comment> comments = commentService.findAllSortByDate();
+
+        List<Comment> comments = commentService.findComentsForThisBookSortByDate(book.getId());
+
         model.addAttribute("comments",comments);
         model.addAttribute("book", book);
         return "redirect:/bookById?id=" + book.getId();
