@@ -73,12 +73,13 @@ public class BookController {
     public String submitComment(@RequestParam("id") Long id, @ModelAttribute("comment") Comment comment, Model model) {
         Book book = bookService.findById(id).orElse(new Book());
         User currentUser = userService.getCurrentUser();
-        comment.setBook(book);
-        comment.setUser(currentUser);
-        commentService.createComment(comment);
-        book.addComments(comment);
+        Comment newComment = new Comment(comment);
+        newComment.setBook(book);
+        newComment.setUser(currentUser);
+        commentService.createComment(newComment);
+        book.addComments(newComment);
         bookService.updateBook(book);
-        currentUser.addComments(comment);
+        currentUser.addComments(newComment);
         userService.updateUser(currentUser);
         List<Comment> comments = commentService.findAll();
         model.addAttribute("comments",comments);

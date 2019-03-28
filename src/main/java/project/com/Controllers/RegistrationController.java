@@ -54,25 +54,6 @@ public class RegistrationController {
         return "submit";
     }
 
-//    @RequestMapping(value = "/login", method = RequestMethod.GET)
-//    public String login(Model model) {
-//        model.addAttribute("user", new User());
-//        return "login";
-//    }
-//    @GetMapping("/login")
-//    public String login(Model model, String error, String logout) {
-//        System.out.println("login");
-//        if (error != null) {
-//            model.addAttribute("error", "Your username and password is invalid.");
-//
-//        }
-//        if (logout != null)
-//            model.addAttribute("message", "You have been logged out successfully.");
-//
-//        return "login";
-//    }
-
-    @RequestMapping(value = "/logins", method = RequestMethod.POST)
     public String confirm(@ModelAttribute("user") User user) {
         String email = user.getEmail();
         String password = user.getPassword();

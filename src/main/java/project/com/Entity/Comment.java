@@ -32,6 +32,10 @@ public class Comment {
         this.msg = msg;
     }
 
+    public Comment(Comment comment) {
+        this.msg = comment.msg;
+    }
+
     public Long getId() {
         return id;
     }
