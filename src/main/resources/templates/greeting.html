@@ -29,6 +29,9 @@
             <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad"></label>
             <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time"></label>
         </fieldset>
+            <input type="date" id="start" name="trip-start"
+                   value="2018-07-22"
+                   min="2018-01-01" max="2018-12-31">
 
             <p th:text="'Hello, ' + ${name} + '!'"/>
             <p th:text="'Hello, ' + ${t} + '!'"/>

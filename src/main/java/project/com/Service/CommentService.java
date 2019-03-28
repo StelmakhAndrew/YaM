@@ -10,4 +10,5 @@ public interface CommentService {
     void createComment(Comment comment);
 
     List<Comment> findAll();
+    List<Comment> findAllSortByDate();
 }
