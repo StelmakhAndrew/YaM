@@ -12,6 +12,8 @@ public interface BookService {
 
     void createBook(Book book);
 
+    void updateBook(Book book);
+
     List<Book> findAllBook();
 
     List<Book> findAllOrderByRating();

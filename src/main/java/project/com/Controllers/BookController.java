@@ -9,11 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import project.com.Entity.Book;
-import project.com.Entity.BookDto;
-import project.com.Entity.Genre;
-import project.com.Entity.User;
+import project.com.Entity.*;
 import project.com.Service.BookService;
+import project.com.Service.CommentService;
 import project.com.Service.UserService;
 
 import java.io.File;
@@ -29,6 +27,8 @@ public class BookController {
     private BookService bookService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private CommentService commentService;
 
     @RequestMapping(value = "/bookAdd", method = RequestMethod.GET)
     public String bookAddForm(Model model) {
@@ -60,8 +60,30 @@ public class BookController {
     @RequestMapping(value = "/bookById", method = RequestMethod.GET)
     public String submit(@RequestParam("id") Long id, Model model) {
         Book book = bookService.findById(id).orElse(new Book());
+
+        List<Comment> comments = commentService.findAll();
+        model.addAttribute("comments",comments);
         model.addAttribute("book", book);
+        model.addAttribute("comment", new Comment());
         return "bookById";
+    }
+
+
+    @RequestMapping(value = "/bookById", method = RequestMethod.POST)
+    public String submitComment(@RequestParam("id") Long id, @ModelAttribute("comment") Comment comment, Model model) {
+        Book book = bookService.findById(id).orElse(new Book());
+        User currentUser = userService.getCurrentUser();
+        comment.setBook(book);
+        comment.setUser(currentUser);
+        commentService.createComment(comment);
+        book.addComments(comment);
+        bookService.updateBook(book);
+        currentUser.addComments(comment);
+        userService.updateUser(currentUser);
+        List<Comment> comments = commentService.findAll();
+        model.addAttribute("comments",comments);
+        model.addAttribute("book", book);
+        return "redirect:/bookById?id=" + book.getId();
     }
 
     @RequestMapping(value = "/allbook/search", method = RequestMethod.GET)

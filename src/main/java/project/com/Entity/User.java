@@ -52,6 +52,11 @@ public class User {
     @OneToMany(mappedBy = "downloader", cascade = CascadeType.ALL)
     private List<Book> books = new ArrayList<>();
 
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
+
+
     public User() {}
 
 
@@ -141,5 +146,17 @@ public class User {
 
     public void setAboutMe(String aboutMe) {
         this.aboutMe = aboutMe;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public void addComments(Comment comment) {
+        this.comments.add(comment);
     }
 }
