@@ -27,6 +27,8 @@
 
             <img th:src="${book.getImage()}" style="width: 140px; height: 210px">
             <div th:text="${book.getAuthor()}"/>
+            <h6 style="margin-top: 25px">Дата створення:</h6>
+            <p  th:text="${book.getDate()}"/>
         </div>
         <div class="col-sm-9">
             <h2 style="text-align: center" th:text="${book.getName()}"/>

@@ -4,6 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.awt.*;
+import java.sql.Date;
 
 public class BookDto {
 
@@ -16,6 +17,8 @@ public class BookDto {
     private String description;
 
     private MultipartFile image;
+
+    private Date date;
 
 
 
@@ -69,5 +72,13 @@ public class BookDto {
 
     public void setImage(MultipartFile image) {
         this.image = image;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
