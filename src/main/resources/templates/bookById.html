@@ -18,18 +18,21 @@
 <div class="container" style="background: white ; flex-grow: 1;padding-top: 70px">
     <div class="row">
         <div class="col-sm-3" style="display: flex;flex-direction: column;align-items: center">
-            <form th:action="'/bookById?id=' + ${book.getId()}" th:object="${comment}" method="POST">
-                <fieldset class="rating">
-                    <input th:type="${true}?'submit':'radio'" id="star5" name="rating" value="5"/><label for="star5"
-                    <input th:type="${true}?'submit':'radio'" id="star4" name="rating" value="4"/><label for="star4"
-                    <input th:type="${true}?'submit':'radio'" id="star3" name="rating" value="3"/><label for="star3"
-                    <input th:type="${true}?'submit':'radio'" id="star2" name="rating" value="2"/><label for="star2"
-                    <input th:type="${true}?'submit':'radio'" id="star1" name="rating" value="1"/><label for="star1"
-                </fieldset>
-            </form>
 
             <img th:src="${book.getImage()}" style="width: 140px; height: 210px">
             <div th:text="${book.getAuthor()}"/>
+
+
+            <form th:action="'/bookById?id=' + ${book.getId()}" th:object="${comment}" method="POST">
+                <fieldset class="rating">
+                    <input th:type="${true}?'submit':'radio'" id="star5" name="rating" value="5"/><label for="star5" title="Rocks!"></label>
+                    <input th:type="${true}?'submit':'radio'" id="star4" name="rating" value="4"/><label for="star4" title="Pretty good"></label>
+                    <input th:type="${true}?'submit':'radio'" id="star3" name="rating" value="3"/><label for="star3" title="Meh"></label>
+                    <input th:type="${true}?'submit':'radio'" id="star2" name="rating" value="2"/><label for="star2" title="Kinda bad"></label>
+                    <input th:type="${true}?'submit':'radio'" id="star1" name="rating" value="1"/><label for="star1" title="Sucks big time"></label>
+                </fieldset>
+            </form>
+
             <h6 style="margin-top: 25px">Дата створення:</h6>
             <p  th:text="${book.getDate()}"/>
         </div>
