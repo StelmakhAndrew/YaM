@@ -44,8 +44,8 @@
             <div style="  display: flex;
   align-items: center;
   justify-content: center;">
-                <form th:action="'/bookById?id=' + ${book.getId()}" th:object="${comment}" method="POST">
-                    <input type="text" placeholder="comment..." th:field="*{msg}" id="description" name="description"/>
+                <form th:action="'/bookById?id=' + ${book.getId()}"  method="POST">
+                    <input type="text" placeholder="comment..." id="comment" name="comment"/>
                     <button class="button-center" type="submit">Finish</button>
                 </form>
             </div>

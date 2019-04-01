@@ -42,6 +42,9 @@ public class Book  {
     @Column(name = "date")
     private Date date;
 
+    @Column(name = "count_rating")
+    private Integer count_rating;
+
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
@@ -146,5 +149,13 @@ public class Book  {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public int getCount_rating() {
+        return count_rating;
+    }
+
+    public void setCount_rating(int count_rating) {
+        this.count_rating = count_rating;
     }
 }
