@@ -81,12 +81,9 @@ public class BookController {
                                             Integer rating, Model model) {
         Book book = bookService.findById(id).orElse(new Book());
         User currentUser = userService.getCurrentUser();
-        System.out.println("123"+comment);
         if(!comment.isEmpty()) {
-            System.out.println(comment);
             Comment newComment = new Comment(comment);
             Date date = Date.valueOf(LocalDate.now());
-//        System.out.println(date);
             newComment.setDate(date);
             newComment.setBook(book);
             newComment.setUser(currentUser);
@@ -98,10 +95,10 @@ public class BookController {
         }
         if(rating!=0){
             float ratingOld = book.getRating();
-            int count = book.getCount_rating();
+            int count = book.getCountRating();
             float ratingNew = (ratingOld*count + rating)/(count+1);
             book.setRating(ratingNew);
-            book.setCount_rating(count+1);
+            book.setCountRating(count+1);
             bookService.updateBook(book);
 
         }

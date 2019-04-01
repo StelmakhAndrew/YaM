@@ -24,17 +24,27 @@
 
 
             <form th:action="'/bookById?id=' + ${book.getId()}" th:object="${comment}" method="POST">
-                <fieldset class="rating">
-                    <input th:type="${false}?'submit':'radio'" id="star5" name="rating" value="5" th:checked="${book.getRating() > 4}?'checked'"/><label for="star5" title="Rocks!"></label>
-                    <input th:type="${false}?'submit':'radio'" id="star4" name="rating" value="4" th:checked="${book.getRating() > 3 && book.getRating() <= 4}?'checked'"/><label for="star4" title="Pretty good"></label>
-                    <input th:type="${false}?'submit':'radio'" id="star3" name="rating" value="3" th:checked="${book.getRating() > 2 && book.getRating() <= 3}?'checked'"/><label for="star3" title="Meh"></label>
-                    <input th:type="${false}?'submit':'radio'" id="star2" name="rating" value="2" th:checked="${book.getRating() > 1 && book.getRating() <= 2}?'checked'"/><label for="star2" title="Kinda bad"></label>
-                    <input th:type="${false}?'submit':'radio'" id="star1" name="rating" value="1" th:checked="${book.getRating() <= 1}?'checked'"/><label for="star1" title="Sucks big time"></label>
+                <fieldset class="rating" name="rating">
+                    <input th:type="${false}?'submit':'radio'" id="star5" name="rating" value="5"
+                           th:checked="${book.getRating() > 4}?'checked'"/><label for="star5" title="Rocks!"></label>
+                    <input th:type="${false}?'submit':'radio'" id="star4" name="rating" value="4"
+                           th:checked="${book.getRating() > 3 && book.getRating() <= 4}?'checked'"/><label for="star4"
+                                                                                                           title="Pretty good"></label>
+                    <input th:type="${false}?'submit':'radio'" id="star3" name="rating" value="3"
+                           th:checked="${book.getRating() > 2 && book.getRating() <= 3}?'checked'"/><label for="star3"
+                                                                                                           title="Meh"></label>
+                    <input th:type="${false}?'submit':'radio'" id="star2" name="rating" value="2"
+                           th:checked="${book.getRating() > 1 && book.getRating() <= 2}?'checked'"/><label for="star2"
+                                                                                                           title="Kinda bad"></label>
+                    <input th:type="${false}?'submit':'radio'" id="star1" name="rating" value="1"
+                           th:checked="${book.getRating() <= 1}?'checked'"/><label for="star1"
+                                                                                   title="Sucks big time"></label>
                 </fieldset>
             </form>
+            <p th:text="${book.getCountRating()}"/>
 
             <h6 style="margin-top: 25px">Дата створення:</h6>
-            <p  th:text="${book.getDate()}"/>
+            <p th:text="${book.getDate()}"/>
         </div>
         <div class="col-sm-9">
             <h2 style="text-align: center" th:text="${book.getName()}"/>
@@ -44,26 +54,32 @@
             <div style="  display: flex;
   align-items: center;
   justify-content: center;">
-                <form th:action="'/bookById?id=' + ${book.getId()}"  method="POST">
-                    <input type="text" placeholder="comment..." id="comment" name="comment"/>
-                    <button class="button-center" type="submit">Finish</button>
+                <form th:action="'/bookById?id=' + ${book.getId()}" method="POST">
+                    <h1>Залишити коментар</h1>
+
+                    <div class="center">
+                        <textarea class="input-text" placeholder="Comment..." id="comment" name="comment"></textarea>
+                    </div>
+
+                    <div class="center">
+                        <button class="btn btn-primary btn-lg" type="submit">Відправити коментар</button>
+                    </div>
                 </form>
             </div>
 
-
-                <th:block th:each="comment : ${comments}">
-            <div style="    border: 1px solid #aeaeae;
+            <th:block th:each="comment : ${comments}">
+                <div style="    border: 1px solid #aeaeae;
     border-radius: 20px;
     padding: 15px 25px;
     margin: 20px 50px">
-                <div style="display:flex;justify-content: space-between;">
-                    <p th:text="${comment.getUser().getUsername()}"></p>
-                    <p th:text="${comment.getDate()}"></p>
-                    <!--<p> average = ${comment.average}</p>-->
+                    <div style="display:flex;justify-content: space-between;">
+                        <p th:text="${comment.getUser().getUsername()}"></p>
+                        <p th:text="${comment.getDate()}"></p>
+                        <!--<p> average = ${comment.average}</p>-->
+                    </div>
+                    <!--<p>${comment.data}</p>-->
+                    <p th:text="${comment.getMsg()}"></p>
                 </div>
-                <!--<p>${comment.data}</p>-->
-                <p th:text="${comment.getMsg()}"></p>
-            </div>
             </th:block>
 
         </div>
