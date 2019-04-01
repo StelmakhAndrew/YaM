@@ -17,48 +17,55 @@
 <div class="container" style="background: white ; flex-grow: 1">
 
 
-            <div class="center">
-                <h1>Create Book</h1>
-                <form action="/bookAdd" th:object="${book}" method="POST" enctype="multipart/form-data">
-                    <table class="table-center">
-                        <colgroup>
-                            <col span="2" class="table-background-color">
-                        </colgroup>
+    <h1 style="margin-top: 50px">Create Book</h1>
+    <form action="/bookAdd" th:object="${book}" method="POST"
+          enctype="multipart/form-data">
+        <div class="row">
 
-                        <tr>
-                            <td>NAME</td>
-                            <td><input type="text" th:field="*{name}" id="name" name="name"/></td>
-                        </tr>
-                        <tr>
-                            <td>Author</td>
-                            <td><input type="text" th:field="*{author}" id="Author" name="Author"/></td>
-                        </tr>
-                        <tr>
-                            <td>Description</td>
-                            <td><input type="text" th:field="*{description}" id="description" name="description"/></td>
-                        </tr>
-                        <tr>
-                            <td>Image</td>
-                            <td>
-                                <input type="file" th:field="*{image}" id="picture" name="pictureFile" accept="image/*"/>
-                            </td>
-                        </tr>
-                    </table>
+        <div class="col-sm-6" >
 
-                    <p><select name="genre">
-                        <option selected disabled>Select genre</option>
-                        <th:block th:each="genre : ${genres}">
-                            <option th:value="${genre.name()}" th:text="${genre.name()}"></option>
-                        </th:block>
-                    </select></p>
+            <div>
+                <p>NAME</p>
+                <input style="width: 50%" type="text" th:field="*{name}" id="name" name="name"/>
+            </div>
+            <div>
+                <p>Author</p>
+                <input style="width: 50%" type="text" th:field="*{author}" id="Author" name="Author"/>
+            </div>
+            <div>
+                <p>Description</p>
+                <input style="width: 100%; height: 50%" type="text" th:field="*{description}" id="description" name="description"/>
+            </div>
 
-                    <input type="date"  th:field="*{date}" id="date" name="date"
-                           value="2018-07-22"
-                           min="2018-01-01" max="2018-12-31">
+        </div>
+        <div class="col-sm-6">
+            <div>
+                <p>Image</p>
 
-                    <button class="button-center" type="submit">Finish</button>
-                </form>
-    </div>
+                    <input type="file" th:field="*{image}" id="picture" name="pictureFile"
+                           accept="image/*"/>
+
+            </div>
+
+
+        <p><select name="genre">
+            <option selected disabled>Select genre</option>
+            <th:block th:each="genre : ${genres}">
+                <option th:value="${genre.name()}" th:text="${genre.name()}"></option>
+            </th:block>
+        </select></p>
+
+        <input type="date" th:field="*{date}" id="date" name="date"
+               value="2018-07-22"
+               min="2018-01-01" max="2018-12-31">
+
+        <button  type="submit">Finish</button>
+        </div>
+        </div>
+
+    </form>
+</div>
+
 </div>
 
 <footer th:replace="base :: footer">

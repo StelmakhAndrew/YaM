@@ -36,6 +36,8 @@ public class BookController {
     @RequestMapping(value = "/bookAdd", method = RequestMethod.GET)
     public String bookAddForm(Model model) {
         List <Genre> genre = Arrays.asList(Genre.values());
+        User currentUser = userService.getCurrentUser();
+        if (currentUser == null) return "redirect:/login";
 
         model.addAttribute("genres", genre);
         model.addAttribute("book", new BookDto());
@@ -81,7 +83,8 @@ public class BookController {
                                             Integer rating, Model model) {
         Book book = bookService.findById(id).orElse(new Book());
         User currentUser = userService.getCurrentUser();
-        System.out.println("123"+comment);
+        if (currentUser == null) return "redirect:/login";
+
         if(!comment.isEmpty()) {
             System.out.println(comment);
             Comment newComment = new Comment(comment);
