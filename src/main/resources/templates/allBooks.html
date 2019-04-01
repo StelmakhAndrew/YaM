@@ -33,11 +33,16 @@
                 <th:block th:each="book : ${allBooks}">
                     <div class="bookslist">
                         <div class="row" style="display: flex; justify-content: space-between">
-                            <a href="bookById" th:href=="@{'/bookById?id='+${book.getId()}}"
+                            <a href="bookById" th:href="@{'/bookById?id='+${book.getId()}}"
                                th:text="${book.getName()}"></a>
-                            <p class="crop">
-                                <img class="stars" th:style="'left:' + ${book.getRating()} + '%'"
-                                                          src="../images/stars.png" alt=""/></p>
+
+                            <fieldset class="rating">
+                                <input type="radio" th:id="'star5'+${book.getId()}" name="rating" value="5"  th:checked="${book.getRating() > 4}?'checked'"/><label th:for="'star5'+${book.getId()}" title="Rocks!"></label>
+                                <input type="radio" th:id="'star4'+${book.getId()}" name="rating" value="4"  th:checked="${book.getRating() > 3 && book.getRating() <= 4}?'checked'"/><label th:for="'star4'+${book.getId()}" title="Pretty good"></label>
+                                <input type="radio" th:id="'star3'+${book.getId()}" name="rating" value="3"  th:checked="${book.getRating() > 2 && book.getRating() <= 3}?'checked'" /><label th:for="'star3'+${book.getId()}" title="Meh"></label>
+                                <input type="radio" th:id="'star2'+${book.getId()}" name="rating" value="2"  th:checked="${book.getRating() > 1 && book.getRating() <= 2}?'checked'"/><label th:for="'star2'+${book.getId()}" title="Kinda bad"></label>
+                                <input type="radio" th:id="'star1'+${book.getId()}" name="rating" value="1"  th:checked="${book.getRating() <= 1}?'checked'"/><label th:for="'star1'+${book.getId()}" title="Sucks big time"></label>
+                            </fieldset>
 
                         </div>
                         <div class="row"><img th:src="${book.getImage()}" style="width: 100px; height: 150px">

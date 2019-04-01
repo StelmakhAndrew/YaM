@@ -41,9 +41,6 @@ public class Book  {
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
-
-
-
     public Book() {}
 
     public Book(String name, String author) {

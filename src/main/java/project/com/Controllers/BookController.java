@@ -70,7 +70,9 @@ public class BookController {
 
 
     @RequestMapping(value = "/bookById", method = RequestMethod.POST)
-    public String submitComment(@RequestParam("id") Long id, @ModelAttribute("comment") Comment comment, Model model) {
+    public String submitComment(@RequestParam("id") Long id,
+                                @ModelAttribute("comment") Comment comment,
+                                @RequestParam(name="rating", required=false, defaultValue="0") Integer rating, Model model) {
         Book book = bookService.findById(id).orElse(new Book());
         User currentUser = userService.getCurrentUser();
         Comment newComment = new Comment(comment);
@@ -82,6 +84,8 @@ public class BookController {
         currentUser.addComments(newComment);
         userService.updateUser(currentUser);
         List<Comment> comments = commentService.findAll();
+
+
         model.addAttribute("comments",comments);
         model.addAttribute("book", book);
         return "redirect:/bookById?id=" + book.getId();

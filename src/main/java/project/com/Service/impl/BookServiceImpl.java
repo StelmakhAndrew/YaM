@@ -35,12 +35,12 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> findAllOrderByRating() {
-        return bookRepository.findAllByOrderByRatingAsc();
+        return bookRepository.findAllByOrderByRatingDesc();
     }
 
     @Override
     public List<Book> findBySearch(String search) {
-        return bookRepository.findByNameContainsOrAuthorContainsOrderByRatingAsc(search,search);
+        return bookRepository.findByNameContainsOrAuthorContainsOrderByRatingDesc(search,search);
     }
 
     @Override
@@ -55,6 +55,6 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> findAllByAuthor(String author) {
-        return bookRepository.findByAuthorOrderByRatingAsc(author);
+        return bookRepository.findByAuthorOrderByRatingDesc(author);
     }
 }

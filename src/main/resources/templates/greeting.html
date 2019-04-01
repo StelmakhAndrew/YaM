@@ -22,13 +22,13 @@
         <div class="inner-container">
 
 
-        <fieldset class="rating">
-            <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!"></label>
-            <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good"></label>
-            <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh"></label>
-            <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad"></label>
-            <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time"></label>
-        </fieldset>
+        <form action="/greeting" class="rating" method="POST">
+            <input type="submit" id="star5" name="rating" value="5"  th:text="${rating > 4}" th:checked="${rating > 4}?'checked'"/><label for="star5" title="Rocks!"></label>
+            <input type="submit" id="star4" name="rating" value="4"  th:text="${rating > 3 && rating <= 4}" th:checked="${rating > 3 && rating <= 4}?'checked'"/><label for="star4" title="Pretty good"></label>
+            <input type="submit" id="star3" name="rating" value="3"  th:text="${rating > 2 && rating <= 3}" th:checked="${rating > 2 && rating <= 3}?'checked'" /><label for="star3" title="Meh"></label>
+            <input type="submit" id="star2" name="rating" value="2"  th:text="${rating > 1 && rating <= 2}" th:checked="${rating > 1 && rating <= 2}?'checked'"/><label for="star2" title="Kinda bad"></label>
+            <input type="submit" id="star1" name="rating" value="1"  th:text="${rating <= 1}" th:checked="${rating <= 1}?'checked'"/><label for="star1" title="Sucks big time"></label>
+        </form>
 
             <p th:text="'Hello, ' + ${name} + '!'"/>
             <p th:text="'Hello, ' + ${t} + '!'"/>

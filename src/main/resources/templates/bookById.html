@@ -18,12 +18,15 @@
 <div class="container" style="background: white ; flex-grow: 1;padding-top: 70px">
     <div class="row">
         <div class="col-sm-3" style="display: flex;flex-direction: column;align-items: center">
-            <div class="book-profile-crop" style="margin-bottom: 10px ">
-                <div href="#" title="">
-                    <img class="book-profile-stars" th:style="'left:' + ${book.getRating()} + '%'"
-                         src="../images/stars.png" alt=""/>
-                </div>
-            </div>
+            <form th:action="'/bookById?id=' + ${book.getId()}" th:object="${comment}" method="POST">
+                <fieldset class="rating">
+                    <input th:type="${true}?'submit':'radio'" id="star5" name="rating" value="5"/><label for="star5"
+                    <input th:type="${true}?'submit':'radio'" id="star4" name="rating" value="4"/><label for="star4"
+                    <input th:type="${true}?'submit':'radio'" id="star3" name="rating" value="3"/><label for="star3"
+                    <input th:type="${true}?'submit':'radio'" id="star2" name="rating" value="2"/><label for="star2"
+                    <input th:type="${true}?'submit':'radio'" id="star1" name="rating" value="1"/><label for="star1"
+                </fieldset>
+            </form>
 
             <img th:src="${book.getImage()}" style="width: 140px; height: 210px">
             <div th:text="${book.getAuthor()}"/>
@@ -37,25 +40,27 @@
   align-items: center;
   justify-content: center;">
                 <form th:action="'/bookById?id=' + ${book.getId()}" th:object="${comment}" method="POST">
+
+
                     <input type="text" placeholder="comment..." th:field="*{msg}" id="description" name="description"/>
                     <button class="button-center" type="submit">Finish</button>
                 </form>
             </div>
 
 
-                <th:block th:each="comment : ${comments}">
-            <div style="    border: 1px solid #aeaeae;
+            <th:block th:each="comment : ${comments}">
+                <div style="    border: 1px solid #aeaeae;
     border-radius: 20px;
     padding: 15px 25px;
     margin: 20px 50px">
-                <div style="display:flex;justify-content: space-between;">
-                    <p th:text="${comment.getUser().getUsername()}"></p>
-                    <!--<p>${comment.tripEntity.name}</p>-->
-                    <!--<p> average = ${comment.average}</p>-->
+                    <div style="display:flex;justify-content: space-between;">
+                        <p th:text="${comment.getUser().getUsername()}"></p>
+                        <!--<p>${comment.tripEntity.name}</p>-->
+                        <!--<p> average = ${comment.average}</p>-->
+                    </div>
+                    <!--<p>${comment.data}</p>-->
+                    <p th:text="${comment.getMsg()}"></p>
                 </div>
-                <!--<p>${comment.data}</p>-->
-                <p th:text="${comment.getMsg()}"></p>
-            </div>
             </th:block>
 
         </div>
