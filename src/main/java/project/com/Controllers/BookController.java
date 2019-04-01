@@ -76,22 +76,35 @@ public class BookController {
 
     @RequestMapping(value = "/bookById", method = RequestMethod.POST)
     public String submitComment(@RequestParam("id") Long id,
-                                @ModelAttribute("comment") Comment comment,
-                                @RequestParam(name="rating", required=false, defaultValue="0") Integer rating, Model model) {
+                                @RequestParam(name="comment", required = false, defaultValue = "")String comment,
+                                @RequestParam(name="rating", required=false, defaultValue="0")
+                                            Integer rating, Model model) {
         Book book = bookService.findById(id).orElse(new Book());
         User currentUser = userService.getCurrentUser();
-        Comment newComment = new Comment(comment);
-        Date date = Date.valueOf(LocalDate.now());
-        System.out.println(date);
-        newComment.setDate(date);
-        newComment.setBook(book);
-        newComment.setUser(currentUser);
-        commentService.createComment(newComment);
-        book.addComments(newComment);
-        bookService.updateBook(book);
-        currentUser.addComments(newComment);
-        userService.updateUser(currentUser);
+        System.out.println("123"+comment);
+        if(!comment.isEmpty()) {
+            System.out.println(comment);
+            Comment newComment = new Comment(comment);
+            Date date = Date.valueOf(LocalDate.now());
+//        System.out.println(date);
+            newComment.setDate(date);
+            newComment.setBook(book);
+            newComment.setUser(currentUser);
+            commentService.createComment(newComment);
+            book.addComments(newComment);
+            bookService.updateBook(book);
+            currentUser.addComments(newComment);
+            userService.updateUser(currentUser);
+        }
+        if(rating!=0){
+            float ratingOld = book.getRating();
+            int count = book.getCount_rating();
+            float ratingNew = (ratingOld*count + rating)/(count+1);
+            book.setRating(ratingNew);
+            book.setCount_rating(count+1);
+            bookService.updateBook(book);
 
+        }
         List<Comment> comments = commentService.findComentsForThisBookSortByDate(book.getId());
 
         model.addAttribute("comments",comments);
