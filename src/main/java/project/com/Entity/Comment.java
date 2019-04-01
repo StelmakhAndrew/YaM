@@ -1,6 +1,7 @@
 package project.com.Entity;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 
 @Entity
@@ -23,6 +24,9 @@ public class Comment {
 
     @Column(name = "msg")
     private String msg;
+
+    @Column(name = "date")
+    private Date date;
 
     public Comment() {
     }
@@ -66,5 +70,13 @@ public class Comment {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

@@ -16,9 +16,12 @@ import project.com.Service.UserService;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+
 
 @Controller
 public class BookController {
@@ -61,7 +64,9 @@ public class BookController {
     public String submit(@RequestParam("id") Long id, Model model) {
         Book book = bookService.findById(id).orElse(new Book());
 
-        List<Comment> comments = commentService.findAll();
+        List<Comment> comments = commentService.findComentsForThisBookSortByDate(book.getId());
+
+
         model.addAttribute("comments",comments);
         model.addAttribute("book", book);
         model.addAttribute("comment", new Comment());
@@ -74,6 +79,9 @@ public class BookController {
         Book book = bookService.findById(id).orElse(new Book());
         User currentUser = userService.getCurrentUser();
         Comment newComment = new Comment(comment);
+        Date date = Date.valueOf(LocalDate.now());
+        System.out.println(date);
+        newComment.setDate(date);
         newComment.setBook(book);
         newComment.setUser(currentUser);
         commentService.createComment(newComment);
@@ -81,7 +89,9 @@ public class BookController {
         bookService.updateBook(book);
         currentUser.addComments(newComment);
         userService.updateUser(currentUser);
-        List<Comment> comments = commentService.findAll();
+
+        List<Comment> comments = commentService.findComentsForThisBookSortByDate(book.getId());
+
         model.addAttribute("comments",comments);
         model.addAttribute("book", book);
         return "redirect:/bookById?id=" + book.getId();

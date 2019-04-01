@@ -29,12 +29,21 @@ public class RegistrationController {
 
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String confirm( @ModelAttribute("user") @Valid UserDto userDto,
+    public String confirm( @ModelAttribute("user") @Valid UserDto userDto, ModelMap model,
                            Errors errors) {
-        System.out.println("REgistration POST");
+        System.out.println(userDto.getEmail());
+        System.out.println(userService.findByEmail(userDto.getEmail())==null);
+        System.out.println(userService.emailExist(userDto.getEmail()));
         if(!errors.hasErrors() && userService.emailExist(userDto.getEmail())) {
+
             User user = new User(userDto);
+
+            user.setActive(true);
+            user.setRoles(Collections.singleton(Role.ADMIN));
             userService.createUser(user);
+
+            model.addAttribute("user", user);
+
             return "redirect:/user?id="+user.getId();
         }
         else {

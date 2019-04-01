@@ -2,7 +2,9 @@ package project.com.Entity;
 
 import project.com.Security.PasswordMatches;
 
+import javax.validation.Valid;
 import javax.validation.constraints.*;
+import java.util.Set;
 
 @PasswordMatches
 public class UserDto {
@@ -18,7 +20,11 @@ public class UserDto {
     @NotNull
     @NotEmpty
     private String password;
+
+    @NotNull
+    @NotEmpty
     private String matchingPassword;
+
 
     public String getUsername() {
         return username;
@@ -51,4 +57,6 @@ public class UserDto {
     public void setMatchingPassword(String matchingPassword) {
         this.matchingPassword = matchingPassword;
     }
+
+
 }

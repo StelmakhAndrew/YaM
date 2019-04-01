@@ -27,6 +27,8 @@
 
             <img th:src="${book.getImage()}" style="width: 140px; height: 210px">
             <div th:text="${book.getAuthor()}"/>
+            <h6 style="margin-top: 25px">Дата створення:</h6>
+            <p  th:text="${book.getDate()}"/>
         </div>
         <div class="col-sm-9">
             <h2 style="text-align: center" th:text="${book.getName()}"/>
@@ -50,7 +52,7 @@
     margin: 20px 50px">
                 <div style="display:flex;justify-content: space-between;">
                     <p th:text="${comment.getUser().getUsername()}"></p>
-                    <!--<p>${comment.tripEntity.name}</p>-->
+                    <p th:text="${comment.getDate()}"></p>
                     <!--<p> average = ${comment.average}</p>-->
                 </div>
                 <!--<p>${comment.data}</p>-->

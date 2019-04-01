@@ -3,6 +3,7 @@ package project.com.Entity;
 
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +38,9 @@ public class Book  {
 
     @Column(name = "image")
     private String image;
+
+    @Column(name = "date")
+    private Date date;
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
@@ -137,5 +141,13 @@ public class Book  {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
