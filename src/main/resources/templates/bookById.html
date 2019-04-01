@@ -25,11 +25,11 @@
 
             <form th:action="'/bookById?id=' + ${book.getId()}" th:object="${comment}" method="POST">
                 <fieldset class="rating">
-                    <input th:type="${true}?'submit':'radio'" id="star5" name="rating" value="5"/><label for="star5" title="Rocks!"></label>
-                    <input th:type="${true}?'submit':'radio'" id="star4" name="rating" value="4"/><label for="star4" title="Pretty good"></label>
-                    <input th:type="${true}?'submit':'radio'" id="star3" name="rating" value="3"/><label for="star3" title="Meh"></label>
-                    <input th:type="${true}?'submit':'radio'" id="star2" name="rating" value="2"/><label for="star2" title="Kinda bad"></label>
-                    <input th:type="${true}?'submit':'radio'" id="star1" name="rating" value="1"/><label for="star1" title="Sucks big time"></label>
+                    <input th:type="${false}?'submit':'radio'" id="star5" name="rating" value="5" th:checked="${book.getRating() > 4}?'checked'"/><label for="star5" title="Rocks!"></label>
+                    <input th:type="${false}?'submit':'radio'" id="star4" name="rating" value="4" th:checked="${book.getRating() > 3 && book.getRating() <= 4}?'checked'"/><label for="star4" title="Pretty good"></label>
+                    <input th:type="${false}?'submit':'radio'" id="star3" name="rating" value="3" th:checked="${book.getRating() > 2 && book.getRating() <= 3}?'checked'"/><label for="star3" title="Meh"></label>
+                    <input th:type="${false}?'submit':'radio'" id="star2" name="rating" value="2" th:checked="${book.getRating() > 1 && book.getRating() <= 2}?'checked'"/><label for="star2" title="Kinda bad"></label>
+                    <input th:type="${false}?'submit':'radio'" id="star1" name="rating" value="1" th:checked="${book.getRating() <= 1}?'checked'"/><label for="star1" title="Sucks big time"></label>
                 </fieldset>
             </form>
 
