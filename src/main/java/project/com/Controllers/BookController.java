@@ -137,6 +137,4 @@ public class BookController {
         model.addAttribute("allBooks", allBooks);
         return "allBooks";
     }
-
-
 }
