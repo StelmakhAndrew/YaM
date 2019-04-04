@@ -8,6 +8,8 @@
     <link rel="stylesheet"
           type="text/css"
           th:href="@{/css/style.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/js.js}"></script>
     <title>Spring Book</title>
 
 </head>
@@ -57,15 +59,13 @@
                     <input type="file" th:field="*{image}" id="picture" name="pictureFile"
                            accept="image/*"/>
                     <div>
-                    <img th:src="picture" style="width: 140px; height: 210px">
+                    <img id="blah" src="" style="width: 140px; height: 210px">
                     </div>
                 </div>
 
                 <div>
                     <h5>Дата створення</h5>
-                    <input type="date" th:field="*{date}" id="date" name="date"
-                           value="2018-07-22"
-                           min="2018-01-01" max="2018-12-31">
+                    <input type="date" th:field="*{date}" id="date" name="date">
                 </div>
                 <div style="margin-top: 50px">
                     <button  type="submit">Створити</button>
