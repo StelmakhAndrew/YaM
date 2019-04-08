@@ -20,6 +20,8 @@ public class BookDto {
 
     private Date date;
 
+    private MultipartFile book;
+
 
 
 
@@ -80,5 +82,13 @@ public class BookDto {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public MultipartFile getBook() {
+        return book;
+    }
+
+    public void setBook(MultipartFile book) {
+        this.book = book;
     }
 }

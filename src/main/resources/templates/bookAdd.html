@@ -19,77 +19,68 @@
 <div class="container" style="background: white ; flex-grow: 1">
 
 
-            <div class="center">
-                <h1>Create Book</h1>
-                <form action="/bookAdd" th:object="${book}" method="POST" enctype="multipart/form-data">
-                    <table class="table-center">
-                        <colgroup>
-                            <col span="2" class="table-background-color">
-                        </colgroup>
+    <h1 style="margin-top: 50px">Створення книги</h1>
+    <form action="/bookAdd" th:object="${book}" method="POST"
+          enctype="multipart/form-data">
+        <div class="row">
 
-                        <tr>
-                            <td>NAME</td>
-                            <td><input type="text" th:field="*{name}" id="name" name="name"/></td>
-                        </tr>
-                        <tr>
-                            <td>Author</td>
-                            <td><input type="text" th:field="*{author}" id="Author" name="Author"/></td>
-                        </tr>
-                        <tr>
-                            <td>Description</td>
-                            <td><input type="text" th:field="*{description}" id="description" name="description"/></td>
-                        </tr>
-                        <tr>
-                            <td>Image</td>
-                            <td>
-                                <input type="file" th:field="*{image}" id="picture" name="pictureFile" accept="image/*"/>
-                                <img id="blah" height="200px" src=""
-                                     alt=""/>
-                            </td>
-                        </tr>
-                    </table>
+            <div class="col-sm-6">
 
-
-
-
-
-                    <p>
-                        <label for="amount">Date range:</label>
-                        <input type="text" id="amount" style="border: 0; color: #f6931f; font-weight: bold;" size="100"/>
-                    </p>
-
-                    <script>
-                        $(function() {
-                            $( "#slider-range" ).slider({
-                                range: true,
-                                min: new Date('1800.01.01').getTime() / 1000,
-                                max: new Date('2019.01.01').getTime() / 1000,
-                                step: 86400,
-                                values: [ new Date('2013.01.01').getYear()/ 1000, new Date('2013.02.01').getTime() / 1000 ],
-                                slide: function( event, ui ) {
-                                    $( "#amount" ).val( (new Date(ui.values[ 0 ] *1000).toDateString() ) + " - " + (new Date(ui.values[ 1 ] *1000)).toDateString() );
-                                }
-                            });
-                            $( "#amount" ).val( (new Date($( "#slider-range" ).slider( "values", 0 )*1000).toDateString()) +
-                                " - " + (new Date($( "#slider-range" ).slider( "values", 1 )*1000)).toDateString());
-                        });
-
-                    </script>
-                    <div id="slider-range"></div>
+                <div>
+                    <h5>Назва книги</h5>
+                    <input style="width: 50%" type="text" placeholder="Назва книги" th:field="*{name}" id="name"
+                           name="name"/>
+                </div>
+                <div>
+                    <h5 style="margin-top: 10px">Автор</h5>
+                    <input style="width: 50%" type="text" placeholder="Автор" th:field="*{author}" id="Author"
+                           name="Author"/>
+                </div>
+                <div style="margin-top: 25px">
                     <p><select name="genre">
-                        <option selected disabled>Select genre</option>
+                        <option selected disabled>Оберіть жанр</option>
                         <th:block th:each="genre : ${genres}">
                             <option th:value="${genre.name()}" th:text="${genre.name()}"></option>
                         </th:block>
                     </select></p>
+                </div>
+                <div>
+                    <h5>Описання</h5>
+                    <textarea class="input-text" placeholder="Описання..." style="width: 100%; border-color: gray"
+                              type="text"
+                              th:field="*{description}" id="description" name="description"></textarea>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div>
+                    <h5>Картинка</h5>
 
-                    <input type="date" th:field="*{date}" id="date" name="date"
-                           value="2018-07-22"
-                           min="2018-01-01" max="2018-12-31">
+                    <input type="file" th:field="*{image}" id="picture" name="pictureFile"
+                           accept="image/*"/>
+                    <div>
+                    <img id="blah" src="" style="width: 140px; height: 210px">
+                    </div>
+                </div>
 
-                    <button class="button-center" type="submit">Finish</button>
-                </form>
-    </div>
+                <div>
+                    <h5>Книжка</h5>
+                    <input type="file" th:field="*{book}" id="book" name="bookFile"
+                           accept=".doc,.docx"/>
+                </div>
+                <div>
+                    <h5>Дата створення</h5>
+                    <input type="date" th:field="*{date}" id="date" name="date">
+                </div>
+                <div style="margin-top: 50px">
+                    <button  type="submit">Створити</button>
+
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
 </div>
 
 <footer th:replace="base :: footer">

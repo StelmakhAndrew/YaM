@@ -1,4 +1,3 @@
-// document.addEventListener('DOMContentLoaded',function(){
 $(document).ready(function(){
 
     function readURL(input) {
@@ -21,5 +20,3 @@ $(document).ready(function(){
 
     });
 });
-
-
