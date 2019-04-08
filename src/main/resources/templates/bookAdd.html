@@ -8,6 +8,8 @@
     <link rel="stylesheet"
           type="text/css"
           th:href="@{/css/style.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/js.js}"></script>
     <title>Spring Book</title>
 
 </head>
@@ -41,10 +43,39 @@
                             <td>Image</td>
                             <td>
                                 <input type="file" th:field="*{image}" id="picture" name="pictureFile" accept="image/*"/>
+                                <img id="blah" height="200px" src=""
+                                     alt=""/>
                             </td>
                         </tr>
                     </table>
 
+
+
+
+
+                    <p>
+                        <label for="amount">Date range:</label>
+                        <input type="text" id="amount" style="border: 0; color: #f6931f; font-weight: bold;" size="100"/>
+                    </p>
+
+                    <script>
+                        $(function() {
+                            $( "#slider-range" ).slider({
+                                range: true,
+                                min: new Date('1800.01.01').getTime() / 1000,
+                                max: new Date('2019.01.01').getTime() / 1000,
+                                step: 86400,
+                                values: [ new Date('2013.01.01').getYear()/ 1000, new Date('2013.02.01').getTime() / 1000 ],
+                                slide: function( event, ui ) {
+                                    $( "#amount" ).val( (new Date(ui.values[ 0 ] *1000).toDateString() ) + " - " + (new Date(ui.values[ 1 ] *1000)).toDateString() );
+                                }
+                            });
+                            $( "#amount" ).val( (new Date($( "#slider-range" ).slider( "values", 0 )*1000).toDateString()) +
+                                " - " + (new Date($( "#slider-range" ).slider( "values", 1 )*1000)).toDateString());
+                        });
+
+                    </script>
+                    <div id="slider-range"></div>
                     <p><select name="genre">
                         <option selected disabled>Select genre</option>
                         <th:block th:each="genre : ${genres}">
@@ -52,7 +83,7 @@
                         </th:block>
                     </select></p>
 
-                    <input type="date"  th:field="*{date}" id="date" name="date"
+                    <input type="date" th:field="*{date}" id="date" name="date"
                            value="2018-07-22"
                            min="2018-01-01" max="2018-12-31">
 
