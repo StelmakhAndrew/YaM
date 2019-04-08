@@ -14,8 +14,13 @@ import project.com.Service.BookService;
 import project.com.Service.CommentService;
 import project.com.Service.UserService;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -35,7 +40,7 @@ public class BookController {
 
     @RequestMapping(value = "/bookAdd", method = RequestMethod.GET)
     public String bookAddForm(Model model) {
-        List <Genre> genre = Arrays.asList(Genre.values());
+        List<Genre> genre = Arrays.asList(Genre.values());
         User currentUser = userService.getCurrentUser();
         if (currentUser == null) return "redirect:/login";
 
@@ -49,11 +54,19 @@ public class BookController {
         File uploadDir = new File("D:\\ProjectCode2\\YaM\\src\\main\\resources\\static\\images\\books\\");
         String uuidFileName = UUID.randomUUID().toString();
         MultipartFile file = bookDto.getImage();
-        String resultFileName = uuidFileName + "." +  file.getOriginalFilename();
-        file.transferTo(new File("D:\\ProjectCode2\\YaM\\src\\main\\resources\\static\\images\\books\\"+ resultFileName));
+        String resultFileName = uuidFileName + "." + file.getOriginalFilename();
+        file.transferTo(new File("D:\\ProjectCode2\\YaM\\src\\main\\resources\\static\\images\\books\\" + resultFileName));
+
+        File uploadDirBook = new File("D:\\ProjectCode2\\YaM\\src\\main\\resources\\static\\books\\");
+        String uuidFileNameBook = UUID.randomUUID().toString();
+        MultipartFile fileBook = bookDto.getBook();
+        String resultFileNameBook = uuidFileNameBook + "." + fileBook.getOriginalFilename();
+        fileBook.transferTo(new File("D:\\ProjectCode2\\YaM\\src\\main\\resources\\static\\books\\" + resultFileNameBook));
+
         User user = userService.getCurrentUser();
         Book book = new Book(bookDto);
-        book.setImage("../images/books/"+resultFileName);
+        book.setImage("../images/books/" + resultFileName);
+        book.setBook("D:\\ProjectCode2\\YaM\\src\\main\\resources\\static\\books\\" + resultFileNameBook);
         book.setDownloader(user);
         bookService.createBook(book);
         user.addBook(book);
@@ -63,13 +76,31 @@ public class BookController {
 
 
     @RequestMapping(value = "/bookById", method = RequestMethod.GET)
-    public String submit(@RequestParam("id") Long id, Model model) {
+    public String submit(@RequestParam("id") Long id, Model model) throws IOException {
         Book book = bookService.findById(id).orElse(new Book());
 
         List<Comment> comments = commentService.findComentsForThisBookSortByDate(book.getId());
+        StringBuilder currentLineFile = new StringBuilder();
+        Path path1 = Paths.get(book.getBook());
+        System.out.println(book.getBook());
+        System.out.println(book.getBook());
+        System.out.println(book.getBook());
+        System.out.println(book.getBook());
+        try (BufferedReader readerFile1 = Files.newBufferedReader(path1, Charset.forName("ASCII"))) {
+            int i = 0;
 
+            while (i != 5) {
 
-        model.addAttribute("comments",comments);
+                currentLineFile.append(readerFile1.readLine());
+
+                i++;
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        model.addAttribute("line", currentLineFile);
+        model.addAttribute("comments", comments);
         model.addAttribute("book", book);
         model.addAttribute("comment", new Comment());
         return "bookById";
@@ -78,14 +109,14 @@ public class BookController {
 
     @RequestMapping(value = "/bookById", method = RequestMethod.POST)
     public String submitComment(@RequestParam("id") Long id,
-                                @RequestParam(name="comment", required = false, defaultValue = "")String comment,
-                                @RequestParam(name="rating", required=false, defaultValue="0")
-                                            Integer rating, Model model) {
+                                @RequestParam(name = "comment", required = false, defaultValue = "") String comment,
+                                @RequestParam(name = "rating", required = false, defaultValue = "0")
+                                        Integer rating, Model model) throws IOException {
         Book book = bookService.findById(id).orElse(new Book());
         User currentUser = userService.getCurrentUser();
         if (currentUser == null) return "redirect:/login";
 
-        if(!comment.isEmpty()) {
+        if (!comment.isEmpty()) {
             Comment newComment = new Comment(comment);
             Date date = Date.valueOf(LocalDate.now());
             newComment.setDate(date);
@@ -97,18 +128,35 @@ public class BookController {
             currentUser.addComments(newComment);
             userService.updateUser(currentUser);
         }
-        if(rating!=0){
+        if (rating != 0) {
             float ratingOld = book.getRating();
             int count = book.getCountRating();
-            float ratingNew = (ratingOld*count + rating)/(count+1);
+            float ratingNew = (ratingOld * count + rating) / (count + 1);
             book.setRating(ratingNew);
-            book.setCountRating(count+1);
+            book.setCountRating(count + 1);
             bookService.updateBook(book);
 
         }
         List<Comment> comments = commentService.findComentsForThisBookSortByDate(book.getId());
 
-        model.addAttribute("comments",comments);
+        StringBuilder currentLineFile = new StringBuilder();
+        Path path1 = Paths.get(book.getBook());
+        try (BufferedReader readerFile1 = Files.newBufferedReader(path1, Charset.forName("ASCII"))) {
+            int i = 0;
+
+            while (i != 5) {
+
+                currentLineFile.append(readerFile1.readLine());
+
+                i++;
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        model.addAttribute("line", currentLineFile);
+
+        model.addAttribute("comments", comments);
         model.addAttribute("book", book);
         return "redirect:/bookById?id=" + book.getId();
     }

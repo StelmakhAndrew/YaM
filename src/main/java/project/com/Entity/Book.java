@@ -45,6 +45,9 @@ public class Book  {
     @Column(name = "count_rating")
     private Integer countRating;
 
+    @Column(name = "book")
+    private String book;
+
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
@@ -61,7 +64,9 @@ public class Book  {
         this.author = bookDto.getAuthor();
         this.description = bookDto.getDescription();
         this.image= bookDto.getImage().getOriginalFilename();
-        this.rating = 0.0f;
+        this.rating = 5.0f;
+        this.countRating = 0;
+
     }
 
     public List<Comment> getComments() {
@@ -157,5 +162,13 @@ public class Book  {
 
     public void setCountRating(int countRating) {
         this.countRating = countRating;
+    }
+
+    public String getBook() {
+        return book;
+    }
+
+    public void setBook(String book) {
+        this.book = book;
     }
 }
