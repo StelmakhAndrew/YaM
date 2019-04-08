@@ -17,9 +17,6 @@ public class GreetingController {
     public String greetings(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model,
                             @RequestParam(name="rating", required=false, defaultValue="3") Integer rating) {
         model.addAttribute("rating",2.5);
-        System.out.println(rating);
-        System.out.println(rating);
-        System.out.println(rating);
         return "greeting";
     }
 }
