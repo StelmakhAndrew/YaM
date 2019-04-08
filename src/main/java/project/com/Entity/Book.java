@@ -64,9 +64,9 @@ public class Book  {
         this.author = bookDto.getAuthor();
         this.description = bookDto.getDescription();
         this.image= bookDto.getImage().getOriginalFilename();
+        this.date = bookDto.getDate();
         this.rating = 5.0f;
         this.countRating = 0;
-
     }
 
     public List<Comment> getComments() {

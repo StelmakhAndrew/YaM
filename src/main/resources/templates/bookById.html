@@ -40,10 +40,11 @@
                            th:checked="${book.getRating() <= 1}?'checked'"/><label for="star1"
                                                                                    title="Sucks big time"></label>
                 </fieldset>
-            </form>
-            <p th:text="${book.getCountRating()}"/>
+                <p th:text="'votes ' + ${book.getCountRating()}"/>
 
-            <h6 style="margin-top: 25px">Дата створення:</h6>
+            </form>
+
+            <h6 style="margin-top: 25px">Рік написання:</h6>
             <p th:text="${book.getDate()}"/>
         </div>
         <div class="col-sm-9">

@@ -21,9 +21,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private BookService bookService;
-
     @RequestMapping(value = "/user", method = GET)
     public String userProfile(@RequestParam("id") Long id, Model model){
         User user = userService.findById(id).orElse(null);

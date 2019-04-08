@@ -31,13 +31,9 @@ public class RegistrationController {
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String confirm( @ModelAttribute("user") @Valid UserDto userDto, ModelMap model,
                            Errors errors) {
-        System.out.println(userDto.getEmail());
-        System.out.println(userService.findByEmail(userDto.getEmail())==null);
-        System.out.println(userService.emailExist(userDto.getEmail()));
         if(!errors.hasErrors() && userService.emailExist(userDto.getEmail())) {
 
             User user = new User(userDto);
-
             user.setActive(true);
             user.setRoles(Collections.singleton(Role.ADMIN));
             userService.createUser(user);
@@ -47,7 +43,6 @@ public class RegistrationController {
             return "redirect:/user?id="+user.getId();
         }
         else {
-            System.out.println(errors.getAllErrors().size());
             return "/registration";
         }
     }
@@ -58,22 +53,8 @@ public class RegistrationController {
         model.addAttribute("email", user.getEmail());
         model.addAttribute("username", user.getUsername());
         user.setActive(true);
-        user.setRoles(Collections.singleton(Role.ADMIN));
+        user.setRoles(Collections.singleton(Role.USER));
         userService.createUser(user);
         return "submit";
-    }
-
-    public String confirm(@ModelAttribute("user") User user) {
-        String email = user.getEmail();
-        String password = user.getPassword();
-        User users = userService.findByEmail(email);
-        System.out.println(users);
-        if (users.getPassword().equals(password)){
-            System.out.println("done");
-            return "redirect:/user?id="+users.getId();
-
-        }
-        System.out.println("Error");
-        return "redirect:/greeting";
     }
 }

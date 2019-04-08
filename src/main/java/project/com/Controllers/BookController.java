@@ -51,22 +51,20 @@ public class BookController {
 
     @RequestMapping(value = "/bookAdd", method = RequestMethod.POST)
     public String submit(@ModelAttribute("book") BookDto bookDto) throws IOException {
-        File uploadDir = new File("D:\\ProjectCode2\\YaM\\src\\main\\resources\\static\\images\\books\\");
         String uuidFileName = UUID.randomUUID().toString();
         MultipartFile file = bookDto.getImage();
         String resultFileName = uuidFileName + "." + file.getOriginalFilename();
-        file.transferTo(new File("D:\\ProjectCode2\\YaM\\src\\main\\resources\\static\\images\\books\\" + resultFileName));
+        file.transferTo(new File("E:\\project]\\YaM\\src\\main\\resources\\static\\images\\books\\" + resultFileName));
 
-        File uploadDirBook = new File("D:\\ProjectCode2\\YaM\\src\\main\\resources\\static\\books\\");
         String uuidFileNameBook = UUID.randomUUID().toString();
         MultipartFile fileBook = bookDto.getBook();
         String resultFileNameBook = uuidFileNameBook + "." + fileBook.getOriginalFilename();
-        fileBook.transferTo(new File("D:\\ProjectCode2\\YaM\\src\\main\\resources\\static\\books\\" + resultFileNameBook));
+        fileBook.transferTo(new File("E:\\project]\\YaM\\src\\main\\resources\\static\\images\\books\\" + resultFileNameBook));
 
         User user = userService.getCurrentUser();
         Book book = new Book(bookDto);
         book.setImage("../images/books/" + resultFileName);
-        book.setBook("D:\\ProjectCode2\\YaM\\src\\main\\resources\\static\\books\\" + resultFileNameBook);
+        book.setBook("E:\\project]\\YaM\\src\\main\\resources\\static\\books\\" + resultFileNameBook);
         book.setDownloader(user);
         bookService.createBook(book);
         user.addBook(book);
@@ -117,26 +115,12 @@ public class BookController {
         if (currentUser == null) return "redirect:/login";
 
         if (!comment.isEmpty()) {
-            Comment newComment = new Comment(comment);
-            Date date = Date.valueOf(LocalDate.now());
-            newComment.setDate(date);
-            newComment.setBook(book);
-            newComment.setUser(currentUser);
-            commentService.createComment(newComment);
-            book.addComments(newComment);
-            bookService.updateBook(book);
-            currentUser.addComments(newComment);
-            userService.updateUser(currentUser);
+            setComment(book, comment, currentUser);
         }
         if (rating != 0) {
-            float ratingOld = book.getRating();
-            int count = book.getCountRating();
-            float ratingNew = (ratingOld * count + rating) / (count + 1);
-            book.setRating(ratingNew);
-            book.setCountRating(count + 1);
-            bookService.updateBook(book);
-
+            setRating(book, rating);
         }
+
         List<Comment> comments = commentService.findComentsForThisBookSortByDate(book.getId());
 
         StringBuilder currentLineFile = new StringBuilder();
@@ -155,7 +139,6 @@ public class BookController {
         }
 
         model.addAttribute("line", currentLineFile);
-
         model.addAttribute("comments", comments);
         model.addAttribute("book", book);
         return "redirect:/bookById?id=" + book.getId();
@@ -173,9 +156,8 @@ public class BookController {
 
     @RequestMapping(value = "/allbook/search/genre", method = RequestMethod.GET)
     public String searchGenre(ModelMap model, Integer id) {
-        id = id - 1;
         List<Genre> genre = Arrays.asList(Genre.values());
-        List<Book> allBooks = bookService.findAllByGenre(Genre.values()[id]);
+        List<Book> allBooks = bookService.findAllByGenre(Genre.values()[id-1]);
         model.addAttribute("allBooks", allBooks);
         model.addAttribute("genres", genre);
         return "allBooks";
@@ -198,5 +180,27 @@ public class BookController {
         model.addAttribute("genres", genre);
         model.addAttribute("allBooks", allBooks);
         return "allBooks";
+    }
+
+    private void setRating(Book book, int rating){
+        float ratingOld = book.getRating();
+        int count = book.getCountRating();
+        float ratingNew = (ratingOld * count + rating) / (count + 1);
+        book.setRating(ratingNew);
+        book.setCountRating(count + 1);
+        bookService.updateBook(book);
+    }
+
+    private void setComment(Book book, String comment, User currentUser){
+        Comment newComment = new Comment(comment);
+        Date date = Date.valueOf(LocalDate.now());
+        newComment.setDate(date);
+        newComment.setBook(book);
+        newComment.setUser(currentUser);
+        commentService.createComment(newComment);
+        book.addComments(newComment);
+        bookService.updateBook(book);
+        currentUser.addComments(newComment);
+        userService.updateUser(currentUser);
     }
 }
