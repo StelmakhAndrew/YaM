@@ -5,14 +5,16 @@ import java.sql.Date;
 
 
 /**
- *
+ * class "comment" with properties <b>msg<b/>, <b>date<b/>
+ * @autor STS
+ * @version 1.1
  */
 @Entity
 @Table(name = "Comments")
 public class Comment {
 
     /**
-     *
+     * auto generation value for db
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,25 +23,33 @@ public class Comment {
 
 
     /**
-     *
+     *relations with two entities User & Comment
+     * @see User
      */
     @ManyToOne
     @JoinColumn
     private User user;
 
     /**
-     *
+     *relations with two entities Book & Comment
+     * @see Book
      */
     @ManyToOne
     @JoinColumn
     private Book book;
 
+    /** field for text message */
     @Column(name = "msg")
     private String msg;
 
+    /** field for date creations */
     @Column(name = "date")
     private Date date;
 
+
+    /**
+     *
+     */
     public Comment() {
     }
 
