@@ -17,12 +17,22 @@ import javax.validation.Valid;
 import java.util.Collections;
 
 
+/**
+ *
+ */
 @Controller
 public class RegistrationController {
 
+    /**
+     *
+     */
     @Autowired
     private UserService userService;
 
+    /**
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registrationForm(Model model) {
         model.addAttribute("user", new UserDto());
@@ -30,6 +40,13 @@ public class RegistrationController {
     }
 
 
+    /**
+     * @param userDto
+     * @param model
+     * @param errors
+     * @param result
+     * @return
+     */
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ModelAndView confirm( @ModelAttribute("user") @Valid UserDto userDto, ModelMap model,
                            Errors errors, BindingResult result) {

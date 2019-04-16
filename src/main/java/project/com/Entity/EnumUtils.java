@@ -1,5 +1,8 @@
 package project.com.Entity;
 
+/**
+ *
+ */
 public class EnumUtils {
   public static Integer getDatabaseId(Enum item) {
     if (item == null) {

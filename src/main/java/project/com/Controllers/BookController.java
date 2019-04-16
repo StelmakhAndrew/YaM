@@ -28,6 +28,9 @@ import java.util.List;
 import java.util.UUID;
 
 
+/**
+ *
+ */
 @Controller
 public class BookController {
 
@@ -38,6 +41,10 @@ public class BookController {
     @Autowired
     private CommentService commentService;
 
+    /**
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/bookAdd", method = RequestMethod.GET)
     public String bookAddForm(Model model) {
         List<Genre> genre = Arrays.asList(Genre.values());
@@ -49,6 +56,11 @@ public class BookController {
         return "bookAdd";
     }
 
+    /**
+     * @param bookDto
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value = "/bookAdd", method = RequestMethod.POST)
     public String submit(@ModelAttribute("book") BookDto bookDto) throws IOException {
         String uuidFileName = UUID.randomUUID().toString();
@@ -73,6 +85,12 @@ public class BookController {
     }
 
 
+    /**
+     * @param id
+     * @param model
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value = "/bookById", method = RequestMethod.GET)
     public String submit(@RequestParam("id") Long id, Model model) throws IOException {
         Book book = bookService.findById(id).orElse(new Book());
@@ -105,6 +123,14 @@ public class BookController {
     }
 
 
+    /**
+     * @param id
+     * @param comment
+     * @param rating
+     * @param model
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value = "/bookById", method = RequestMethod.POST)
     public String submitComment(@RequestParam("id") Long id,
                                 @RequestParam(name = "comment", required = false, defaultValue = "") String comment,
@@ -144,6 +170,11 @@ public class BookController {
         return "redirect:/bookById?id=" + book.getId();
     }
 
+    /**
+     * @param model
+     * @param search
+     * @return
+     */
     @RequestMapping(value = "/allbook/search", method = RequestMethod.GET)
     public String search(ModelMap model, String search) {
         List<Book> allBooks = bookService.findBySearch(search);
@@ -154,6 +185,11 @@ public class BookController {
         return "allBooks";
     }
 
+    /**
+     * @param model
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/allbook/search/genre", method = RequestMethod.GET)
     public String searchGenre(ModelMap model, Integer id) {
         List<Genre> genre = Arrays.asList(Genre.values());
@@ -163,6 +199,11 @@ public class BookController {
         return "allBooks";
     }
 
+    /**
+     * @param model
+     * @param author
+     * @return
+     */
     @RequestMapping(value = "/allbook/search/author", method = RequestMethod.GET)
     public String searchAuthor(ModelMap model, String author) {
         List<Genre> genre = Arrays.asList(Genre.values());
@@ -173,6 +214,10 @@ public class BookController {
     }
 
 
+    /**
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/allbook", method = RequestMethod.GET)
     public String allBook(ModelMap model) {
         List<Book> allBooks = bookService.findAllOrderByRating();
@@ -182,6 +227,10 @@ public class BookController {
         return "allBooks";
     }
 
+    /**
+     * @param book
+     * @param rating
+     */
     private void setRating(Book book, int rating){
         float ratingOld = book.getRating();
         int count = book.getCountRating();
@@ -191,6 +240,11 @@ public class BookController {
         bookService.updateBook(book);
     }
 
+    /**
+     * @param book
+     * @param comment
+     * @param currentUser
+     */
     private void setComment(Book book, String comment, User currentUser){
         Comment newComment = new Comment(comment);
         Date date = Date.valueOf(LocalDate.now());

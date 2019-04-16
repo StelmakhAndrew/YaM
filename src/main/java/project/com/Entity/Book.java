@@ -7,10 +7,16 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ */
 @Entity
 @Table(name = "book")
 public class Book  {
 
+    /**
+     *
+     */
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id")
@@ -48,16 +54,29 @@ public class Book  {
     @Column(name = "book")
     private String book;
 
+    /**
+     *
+     */
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
+    /**
+     *
+     */
     public Book() {}
 
+    /**
+     * @param name
+     * @param author
+     */
     public Book(String name, String author) {
         this.name = name;
         this.author = author;
     }
 
+    /**
+     * @param bookDto
+     */
     public Book(BookDto bookDto){
         this.name = bookDto.getName();
         this.genre = bookDto.getGenre();

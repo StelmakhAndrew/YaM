@@ -4,20 +4,32 @@ import javax.persistence.*;
 import java.sql.Date;
 
 
+/**
+ *
+ */
 @Entity
 @Table(name = "Comments")
 public class Comment {
 
+    /**
+     *
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
 
+    /**
+     *
+     */
     @ManyToOne
     @JoinColumn
     private User user;
 
+    /**
+     *
+     */
     @ManyToOne
     @JoinColumn
     private Book book;
@@ -31,6 +43,10 @@ public class Comment {
     public Comment() {
     }
 
+    /**
+     * @param book
+     * @param msg
+     */
     public Comment(Book book, String msg) {
         this.book = book;
         this.msg = msg;

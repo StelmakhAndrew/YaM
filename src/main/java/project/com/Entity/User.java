@@ -7,10 +7,19 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
+/**
+ *
+ */
 @Entity
 @Table(name = "userser")
 public class User {
 
+    /**
+     * @param username
+     * @param email
+     * @param password
+     * @param books
+     */
     public User(String username, String email, String password, Book... books) {
         this.username = username;
         this.email = email;
@@ -19,6 +28,9 @@ public class User {
         this.books.forEach(x -> x.setDownloader(this));
     }
 
+    /**
+     *
+     */
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id")
@@ -40,32 +52,55 @@ public class User {
     @Column(name = "aboutMe")
     private String aboutMe;
 
+    /**
+     *
+     */
     @ElementCollection(targetClass = Role.class, fetch = FetchType.LAZY)
     @CollectionTable(name = "user_role",joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
+    /**
+     *
+     */
     @Transient
     private String passwordConfirm;
 
 
+    /**
+     *
+     */
     @OneToMany(mappedBy = "downloader", cascade = CascadeType.ALL)
     private List<Book> books = new ArrayList<>();
 
 
+    /**
+     *
+     */
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
 
+    /**
+     *
+     */
     public User() {}
 
 
+    /**
+     * @param userDto
+     */
     public User(UserDto userDto) {
         this.email = userDto.getEmail();
         this.username = userDto.getUsername();
         this.password = userDto.getPassword();
     }
 
+    /**
+     * @param username
+     * @param email
+     * @param password
+     */
     public User(String username,String email,String password) {
         this.username = username;
         this.email = email;

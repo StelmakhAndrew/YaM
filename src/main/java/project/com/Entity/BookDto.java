@@ -6,6 +6,9 @@ import javax.persistence.*;
 import java.awt.*;
 import java.sql.Date;
 
+/**
+ *
+ */
 public class BookDto {
 
     private String name;

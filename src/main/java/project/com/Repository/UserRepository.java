@@ -6,9 +6,26 @@ import project.com.Entity.User;
 
 import java.util.Optional;
 
+/**
+ *
+ */
 @Repository
 public interface UserRepository extends JpaRepository<User,Long> {
+    /**
+     * @param email
+     * @return
+     */
     User findByEmail(String email);
+
+    /**
+     * @param username
+     * @return
+     */
     User findByUsername(String username);
+
+    /**
+     * @param id
+     * @return
+     */
     Optional<User> findById(Long id);
 }

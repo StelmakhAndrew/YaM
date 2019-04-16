@@ -2,6 +2,9 @@ package project.com.Entity;
 
 import java.util.Arrays;
 
+/**
+ *
+ */
 public enum Genre {
     CRIME,
     DETECTIVE,

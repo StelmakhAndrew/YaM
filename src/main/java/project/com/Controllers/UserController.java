@@ -15,18 +15,34 @@ import java.util.Set;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
+/**
+ *
+ */
 @Controller
 public class UserController {
 
+    /**
+     *
+     */
     @Autowired
     private UserService userService;
 
+    /**
+     * @param id
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/user", method = GET)
     public String userProfile(@RequestParam("id") Long id, Model model){
         User user = userService.findById(id).orElse(null);
         model.addAttribute("user",user);
         return "user";
     }
+
+    /**
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/profile", method = GET)
     public String profile(Model model){
         User user = userService.getCurrentUser();
