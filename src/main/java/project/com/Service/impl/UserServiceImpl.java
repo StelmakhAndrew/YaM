@@ -22,6 +22,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+    @Override
     public void updateUser(User user){
         userRepository.save(user);
     }
@@ -39,7 +40,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean emailExist(String email) {
         User user = userRepository.findByEmail(email);
-
+        return user == null;
+    }
+    @Override
+    public boolean usernameExist(String login) {
+        User user = userRepository.findByUsername(login);
         return user == null;
     }
 

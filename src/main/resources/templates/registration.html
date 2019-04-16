@@ -28,14 +28,22 @@
             <form th:action="@{/registration}" class="form-signin" th:object="${user}" method="POST" enctype="utf8">
                 <input class="form-control" style="margin-top: 10px" type="text" th:field="*{username}" id="username"
                        name="username" placeholder="USERNAME"/>
+                <p th:each="error: ${#fields.errors('username')}"
+                   th:text="${error}">Validation error</p>
                 <input class="form-control" style="margin-top: 10px" type="email" th:field="*{email}" id="email"
                        name="email" placeholder="EMAIL"/>
+                <p th:each="error: ${#fields.errors('email')}"
+                   th:text="${error}">Validation error</p>
                 <input type="password" style="margin-top: 10px" class="form-control ${status.error ? 'has-error' : ''}"
                        th:field="*{password}"
                        id="password" name="password" placeholder="PASSWORD"/>
+                <p th:each="error: ${#fields.errors('password')}"
+                   th:text="${error}">Validation error</p>
                 <input type="password" style="margin-top: 10px" class="form-control ${status.error ? 'has-error' : ''}"
                        th:field="*{matchingPassword}"
                        id="matchingPassword" name="password" placeholder="PASSWORD"/>
+                <p th:each="error: ${#fields.errors('matchingPassword')}"
+                   th:text="${error}">Validation error</p>
                 <button class="btn btn-lg btn-primary btn-block" style="margin-top: 10px" type="submit">Registration
                 </button>
             </form>

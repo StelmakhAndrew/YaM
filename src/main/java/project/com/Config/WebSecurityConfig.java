@@ -27,7 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
         .csrf().disable().authorizeRequests().anyRequest().authenticated().and()
                 .authorizeRequests()
-                    .antMatchers("/allbook", "/home","/registration","/submit","/user","/bookAdd","/allbook/search/genre").permitAll()
+                    .antMatchers("/allbook", "/home","/registration","/user","/allbook/search/genre").permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()
@@ -47,19 +47,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .ignoring().antMatchers("/resources/**");
     }
 
-//    @Bean
-//    @Override
-//    public UserDetailsService userDetailsService() {
-//        UserDetails user =
-//                User.withDefaultPasswordEncoder()
-//                        .username("user")
-//                        .password("123")
-//                        .roles("ADMIN")
-//                        .build();
-//
-//        return new InMemoryUserDetailsManager(user);
-//    }
-//
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication()

@@ -141,6 +141,8 @@ body {
 
 
 .genrelist{
+    display: table;
+    margin-left: auto;
     border-radius: 2px;
     padding: 15px 25px;
     margin-top: 50px;
@@ -160,6 +162,9 @@ body {
     height:250px;
 }
 
+.small-img{
+    width: 100px; height: 150px;
+}
 .block {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -168,7 +173,27 @@ body {
     -webkit-box-orient: vertical;
 }
 
+.ref{
+    color: black
+}
 
+.background{
+    background: white ;
+    flex-grow: 1
+}
+
+.margin-top{
+    margin-top: 60px
+}
+
+.centre{
+    display: flex;
+    justify-content: space-between;
+}
+
+.test{
+    color: red;
+}
 
 /* Конструкция :not(:checked) работает как фильтр, чтобы браузеры, которые не поддерживают псевдокласс :checked не применяли эти свойства. Все браузеры, поддерживающие псевдокласс :checked, поддерживают и псевдокласс :not(), так что фильтр должен отработать правильно. */
 .rating:not(:checked) > input {
