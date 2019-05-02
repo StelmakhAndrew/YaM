@@ -14,9 +14,7 @@ import project.com.Service.BookService;
 import project.com.Service.CommentService;
 import project.com.Service.UserService;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -86,12 +84,17 @@ public class BookController {
         System.out.println(book.getBook());
         System.out.println(book.getBook());
         System.out.println(book.getBook());
-        try (BufferedReader readerFile1 = Files.newBufferedReader(path1, Charset.forName("ASCII"))) {
+        File file = new File(book.getBook());
+        FileReader fileReader = new FileReader(file); // поток который подключается к текстовому файлу
+        try (        BufferedReader bufferedReader = new BufferedReader(
+        new InputStreamReader(
+                new FileInputStream(book.getBook()), "Cp1251"))){
             int i = 0;
 
             while (i != 5) {
 
-                currentLineFile.append(readerFile1.readLine());
+                currentLineFile.append(bufferedReader.readLine());
+//                currentLineFile.append(readerFile1.readLine());
 
                 i++;
             }
@@ -141,19 +144,22 @@ public class BookController {
 
         StringBuilder currentLineFile = new StringBuilder();
         Path path1 = Paths.get(book.getBook());
-        try (BufferedReader readerFile1 = Files.newBufferedReader(path1, Charset.forName("ASCII"))) {
+        File file = new File("D:\\ProjectCode2\\YaM\\src\\main\\resources\\static\\books\\text.txt");
+        FileReader fileReader = new FileReader(file); // поток который подключается к текстовому файлу
+//        try (BufferedReader readerFile1 = Files.newBufferedReader(path1, Charset.forName("ASCII"))) {
+        try (        BufferedReader bufferedReader = new BufferedReader(fileReader)) {
             int i = 0;
 
             while (i != 5) {
 
-                currentLineFile.append(readerFile1.readLine());
+                currentLineFile.append(bufferedReader.readLine());
+//                currentLineFile.append(readerFile1.readLine());
 
                 i++;
             }
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
         model.addAttribute("line", currentLineFile);
 
         model.addAttribute("comments", comments);
