@@ -8,15 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * class Book with properties name, genre, author, description, image, date,rating, countRating;
+ * @autor STS
+ * @version 1.1
  */
 @Entity
 @Table(name = "book")
 public class Book  {
 
-    /**
-     *
-     */
+
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id")
@@ -29,6 +29,10 @@ public class Book  {
     @Column(name = "author")
     private String author;
 
+    /**
+     *relations with two entities User & Book
+     * @see User
+     */
     @ManyToOne
     @JoinColumn
     private User downloader;
@@ -55,26 +59,23 @@ public class Book  {
     private String book;
 
     /**
-     *
+     *relations with two entities Comment & Book
+     * @see Comment
      */
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
-    /**
-     *
-     */
+
     public Book() {}
 
-    /**
-     * @param name
-     * @param author
-     */
+
     public Book(String name, String author) {
         this.name = name;
         this.author = author;
     }
 
     /**
+     * made from BookDto - Book
      * @param bookDto
      */
     public Book(BookDto bookDto){

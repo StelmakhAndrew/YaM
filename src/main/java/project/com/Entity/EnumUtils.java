@@ -1,6 +1,7 @@
 package project.com.Entity;
 
 /**
+ * class EnumUtils generate number of enums
  *
  */
 public class EnumUtils {

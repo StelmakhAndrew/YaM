@@ -5,7 +5,7 @@ import java.sql.Date;
 
 
 /**
- * class "comment" with properties <b>msg<b/>, <b>date<b/>
+ * class Comments with properties msg, date
  * @autor STS
  * @version 1.1
  */
@@ -13,9 +13,6 @@ import java.sql.Date;
 @Table(name = "Comments")
 public class Comment {
 
-    /**
-     * auto generation value for db
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -38,25 +35,16 @@ public class Comment {
     @JoinColumn
     private Book book;
 
-    /** field for text message */
     @Column(name = "msg")
     private String msg;
 
-    /** field for date creations */
     @Column(name = "date")
     private Date date;
 
 
-    /**
-     *
-     */
     public Comment() {
     }
 
-    /**
-     * @param book
-     * @param msg
-     */
     public Comment(Book book, String msg) {
         this.book = book;
         this.msg = msg;
