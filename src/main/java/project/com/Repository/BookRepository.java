@@ -10,43 +10,51 @@ import java.util.List;
 import java.util.Optional;
 
 /**
+ * A repository is a mechanism for encapsulating storage,
+ * retrieval, and search behavior which emulates a collection of objects.
  *
  */
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
     /**
-     * @return
+     * method for getting all books from db
+     * @return allBooks
      */
     List<Book> findAll();
 
     /**
-     * @return
+     * method for getting all books order by rating
+     * @return booksOrderById
      */
     List<Book> findAllByOrderByRatingDesc();
 
     /**
-     * @param id
-     * @return
+     * method for getting book by id
+     * @param id;
+     * @return bookById
      */
     Optional<Book> findById(Long id);
 
 
     /**
-     * @param genre
-     * @return
+     * method for getting all books by genre
+     * @param genre;
+     * @return allBooksByGenre
      */
     List<Book> findAllByGenre(Genre genre);
 
     /**
-     * @param name
-     * @param author
-     * @return
+     * method for getting books by author or name and sorted by rating
+     * @param name;
+     * @param author;
+     * @return booksByAuthorOrRating
      */
     List<Book> findByNameContainsOrAuthorContainsOrderByRatingDesc(String name, String author);
 
     /**
+     * method for getting books by author and sorted by rating
      * @param author
-     * @return
+     * @return booksByAuthor
      */
     List<Book> findByAuthorOrderByRatingDesc(String author);
 }
