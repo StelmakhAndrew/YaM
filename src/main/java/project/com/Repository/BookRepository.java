@@ -53,7 +53,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     /**
      * method for getting books by author and sorted by rating
-     * @param author
+     * @param author;
      * @return booksByAuthor
      */
     List<Book> findByAuthorOrderByRatingDesc(String author);

@@ -12,83 +12,60 @@ import project.com.Service.UserService;
 import java.util.Optional;
 
 /**
+ * These class files are used to write business logic in a different layer
  *
  */
 @Service
 public class UserServiceImpl implements UserService {
 
-    /**
-     *
-     */
+
     @Autowired
     private UserRepository userRepository;
 
-    /**
-     * @param user
-     */
+
     @Override
     public void createUser(User user) {
         userRepository.save(user);
     }
 
-    /**
-     * @param user
-     */
+
     @Override
     public void updateUser(User user){
         userRepository.save(user);
     }
 
-    /**
-     * @param email
-     * @return
-     */
+
     @Override
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
-    /**
-     * @param id
-     * @return
-     */
+
     @Override
     public Optional<User> findById(Long id) {
         return userRepository.findById(id);
     }
 
-    /**
-     * @param email
-     * @return
-     */
     @Override
     public boolean emailExist(String email) {
         User user = userRepository.findByEmail(email);
         return user == null;
     }
 
-    /**
-     * @param login
-     * @return
-     */
+
     @Override
     public boolean usernameExist(String login) {
         User user = userRepository.findByUsername(login);
         return user == null;
     }
 
-    /**
-     * @param username
-     * @return
-     */
+
     @Override
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
-    /**
-     * @return
-     */
+
     public User getCurrentUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
