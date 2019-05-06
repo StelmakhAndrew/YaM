@@ -29,21 +29,26 @@ import java.util.UUID;
 
 
 /**
- *
+ * The BookController class for control books.
+ * @autor STS
+ * @version 1.1
  */
 @Controller
 public class BookController {
 
     @Autowired
     private BookService bookService;
+
     @Autowired
     private UserService userService;
+
     @Autowired
     private CommentService commentService;
 
     /**
-     * @param model
-     * @return
+     * The booAddForm() method returns bookform-page.
+     * @param model;
+     * @return bookAdd.html
      */
     @RequestMapping(value = "/bookAdd", method = RequestMethod.GET)
     public String bookAddForm(Model model) {
@@ -57,8 +62,9 @@ public class BookController {
     }
 
     /**
-     * @param bookDto
-     * @return
+     * The submit() method returns book-page after bookform-page and create book that you write in book-form.
+     * @param bookDto;
+     * @return bookById.html
      * @throws IOException
      */
     @RequestMapping(value = "/bookAdd", method = RequestMethod.POST)
@@ -86,10 +92,11 @@ public class BookController {
 
 
     /**
-     * @param id
-     * @param model
-     * @return
-     * @throws IOException
+     * The submit() method returns book-page .
+     * @param id;
+     * @param model;
+     * @return bookById.html
+     * @throws IOException;
      */
     @RequestMapping(value = "/bookById", method = RequestMethod.GET)
     public String submit(@RequestParam("id") Long id, Model model) throws IOException {
@@ -124,12 +131,13 @@ public class BookController {
 
 
     /**
-     * @param id
-     * @param comment
-     * @param rating
-     * @param model
-     * @return
-     * @throws IOException
+     * The submit() method returns book-page , sets up rating and comments.
+     * @param id;
+     * @param comment;
+     * @param rating;
+     * @param model;
+     * @return bookById.html
+     * @throws IOException;
      */
     @RequestMapping(value = "/bookById", method = RequestMethod.POST)
     public String submitComment(@RequestParam("id") Long id,
@@ -171,9 +179,10 @@ public class BookController {
     }
 
     /**
-     * @param model
-     * @param search
-     * @return
+     * The search() method find book.
+     * @param model;
+     * @param search;
+     * @return allBooks.html
      */
     @RequestMapping(value = "/allbook/search", method = RequestMethod.GET)
     public String search(ModelMap model, String search) {
@@ -186,9 +195,10 @@ public class BookController {
     }
 
     /**
-     * @param model
-     * @param id
-     * @return
+     * The searchGenre() method find all book by genre.
+     * @param model;
+     * @param id;
+     * @return allBooks.html
      */
     @RequestMapping(value = "/allbook/search/genre", method = RequestMethod.GET)
     public String searchGenre(ModelMap model, Integer id) {
@@ -200,9 +210,10 @@ public class BookController {
     }
 
     /**
-     * @param model
-     * @param author
-     * @return
+     * The searchAuthor() method find all book by author.
+     * @param model;
+     * @param author;
+     * @return allBooks.html
      */
     @RequestMapping(value = "/allbook/search/author", method = RequestMethod.GET)
     public String searchAuthor(ModelMap model, String author) {
@@ -215,8 +226,9 @@ public class BookController {
 
 
     /**
-     * @param model
-     * @return
+     * The allBook() method find all book.
+     * @param model;
+     * @return allBooks.html
      */
     @RequestMapping(value = "/allbook", method = RequestMethod.GET)
     public String allBook(ModelMap model) {
@@ -228,8 +240,9 @@ public class BookController {
     }
 
     /**
-     * @param book
-     * @param rating
+     * The setRating() method calculates and sets up rating.
+     * @param book;
+     * @param rating;
      */
     private void setRating(Book book, int rating){
         float ratingOld = book.getRating();
@@ -241,9 +254,10 @@ public class BookController {
     }
 
     /**
-     * @param book
-     * @param comment
-     * @param currentUser
+     * The setComment() method sets up comment.
+     * @param book;
+     * @param comment;
+     * @param currentUser;
      */
     private void setComment(Book book, String comment, User currentUser){
         Comment newComment = new Comment(comment);

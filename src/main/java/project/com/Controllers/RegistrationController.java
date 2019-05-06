@@ -19,6 +19,9 @@ import java.util.Collections;
 
 /**
  *
+ * The RegistrationController class for control registration.
+ * @autor STS
+ * @version 1.1
  */
 @Controller
 public class RegistrationController {
@@ -30,8 +33,9 @@ public class RegistrationController {
     private UserService userService;
 
     /**
-     * @param model
-     * @return
+     * The registrationForm() method return registration form.
+     * @param model;
+     * @return registration.html
      */
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registrationForm(Model model) {
@@ -41,11 +45,12 @@ public class RegistrationController {
 
 
     /**
-     * @param userDto
-     * @param model
-     * @param errors
-     * @param result
-     * @return
+     * The confirm() method checks if registration form sets up true and create new user.
+     * @param userDto;
+     * @param model;
+     * @param errors;
+     * @param result;
+     * @return registration.html
      */
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ModelAndView confirm( @ModelAttribute("user") @Valid UserDto userDto, ModelMap model,
