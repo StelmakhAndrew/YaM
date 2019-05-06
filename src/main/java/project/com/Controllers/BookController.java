@@ -93,10 +93,9 @@ public class BookController {
      * @param id;
      * @param model;
      * @return bookById.html
-     * @throws IOException;
      */
     @RequestMapping(value = "/bookById/{id}", method = RequestMethod.GET)
-    public String submit(@PathVariable("id") Long id, Model model) throws IOException {
+    public String submit(@PathVariable("id") Long id, Model model) {
         Book book = bookService.findById(id).orElse(new Book());
 
         List<Comment> comments = commentService.findComentsForThisBookSortByDate(book.getId());
@@ -116,13 +115,12 @@ public class BookController {
      * @param rating;
      * @param model;
      * @return bookById.html
-     * @throws IOException;
      */
     @RequestMapping(value = "/bookById/{id}", method = RequestMethod.POST)
     public String submitComment(@PathVariable("id") Long id,
                                 @RequestParam(name = "comment", required = false, defaultValue = "") String comment,
                                 @RequestParam(name = "rating", required = false, defaultValue = "0")
-                                        Integer rating, Model model) throws IOException {
+                                        Integer rating, Model model) {
         Book book = bookService.findById(id).orElse(new Book());
         User currentUser = userService.getCurrentUser();
         if (currentUser == null) return "redirect:/login";

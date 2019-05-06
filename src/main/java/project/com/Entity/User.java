@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 
 /**
  * class User with properties username, email, password, books;
- * @autor STS
+ * @autor STS;
  * @version 1.1
  */
 @Entity
