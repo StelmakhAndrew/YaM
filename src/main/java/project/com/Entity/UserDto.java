@@ -7,6 +7,7 @@ import javax.validation.constraints.*;
 import java.util.Set;
 
 /**
+ *class UserDto to transfer date between model and view
  *
  */
 @PasswordMatches

@@ -6,20 +6,16 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-
 /**
- *
+ * class User with properties username, email, password, books;
+ * @autor STS
+ * @version 1.1
  */
 @Entity
 @Table(name = "userser")
 public class User {
 
-    /**
-     * @param username
-     * @param email
-     * @param password
-     * @param books
-     */
+
     public User(String username, String email, String password, Book... books) {
         this.username = username;
         this.email = email;
@@ -28,9 +24,7 @@ public class User {
         this.books.forEach(x -> x.setDownloader(this));
     }
 
-    /**
-     *
-     */
+
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id")
@@ -52,42 +46,39 @@ public class User {
     @Column(name = "aboutMe")
     private String aboutMe;
 
-    /**
-     *
-     */
+
     @ElementCollection(targetClass = Role.class, fetch = FetchType.LAZY)
     @CollectionTable(name = "user_role",joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    /**
-     *
-     */
+
     @Transient
     private String passwordConfirm;
 
 
     /**
-     *
+     *relations with two entities User & Book
+     * @see Book
      */
     @OneToMany(mappedBy = "downloader", cascade = CascadeType.ALL)
     private List<Book> books = new ArrayList<>();
 
 
     /**
-     *
+     *relations with two entities User & Comment
+     * @see Comment
      */
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
 
-    /**
-     *
-     */
+
     public User() {}
 
 
     /**
+     * made from userDto - user
      * @param userDto
      */
     public User(UserDto userDto) {
@@ -96,11 +87,7 @@ public class User {
         this.password = userDto.getPassword();
     }
 
-    /**
-     * @param username
-     * @param email
-     * @param password
-     */
+
     public User(String username,String email,String password) {
         this.username = username;
         this.email = email;

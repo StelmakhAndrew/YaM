@@ -7,6 +7,7 @@ import java.awt.*;
 import java.sql.Date;
 
 /**
+ * class BookDto to transfer date between model and view
  *
  */
 public class BookDto {
