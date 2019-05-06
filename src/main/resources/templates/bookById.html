@@ -40,6 +40,8 @@
                            th:checked="${book.getRating() <= 1}?'checked'"/><label for="star1"
                                                                                    title="Sucks big time"></label>
                 </fieldset>
+
+
                 <p th:text="'votes ' + ${book.getCountRating()}"/>
 
             </form>
@@ -74,12 +76,10 @@
     border-radius: 20px;
     padding: 15px 25px;
     margin: 20px 50px">
-                    <div style="display:flex;justify-content: space-between;">
+                    <div style="display:flex;">
                         <p th:text="${comment.getUser().getUsername()}"></p>
                         <p th:text="${comment.getDate()}"></p>
-                        <!--<p> average = ${comment.average}</p>-->
                     </div>
-                    <!--<p>${comment.data}</p>-->
                     <p th:text="${comment.getMsg()}"></p>
                 </div>
             </th:block>

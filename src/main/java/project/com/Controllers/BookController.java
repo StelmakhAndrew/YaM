@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import project.com.Entity.*;
 import project.com.Service.BookService;
@@ -98,30 +95,12 @@ public class BookController {
      * @return bookById.html
      * @throws IOException;
      */
-    @RequestMapping(value = "/bookById", method = RequestMethod.GET)
-    public String submit(@RequestParam("id") Long id, Model model) throws IOException {
+    @RequestMapping(value = "/bookById/{id}", method = RequestMethod.GET)
+    public String submit(@PathVariable("id") Long id, Model model) throws IOException {
         Book book = bookService.findById(id).orElse(new Book());
 
         List<Comment> comments = commentService.findComentsForThisBookSortByDate(book.getId());
         StringBuilder currentLineFile = new StringBuilder();
-        Path path1 = Paths.get(book.getBook());
-        System.out.println(book.getBook());
-        System.out.println(book.getBook());
-        System.out.println(book.getBook());
-        System.out.println(book.getBook());
-        try (BufferedReader readerFile1 = Files.newBufferedReader(path1, Charset.forName("ASCII"))) {
-            int i = 0;
-
-            while (i != 5) {
-
-                currentLineFile.append(readerFile1.readLine());
-
-                i++;
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-
         model.addAttribute("line", currentLineFile);
         model.addAttribute("comments", comments);
         model.addAttribute("book", book);
@@ -139,8 +118,8 @@ public class BookController {
      * @return bookById.html
      * @throws IOException;
      */
-    @RequestMapping(value = "/bookById", method = RequestMethod.POST)
-    public String submitComment(@RequestParam("id") Long id,
+    @RequestMapping(value = "/bookById/{id}", method = RequestMethod.POST)
+    public String submitComment(@PathVariable("id") Long id,
                                 @RequestParam(name = "comment", required = false, defaultValue = "") String comment,
                                 @RequestParam(name = "rating", required = false, defaultValue = "0")
                                         Integer rating, Model model) throws IOException {
