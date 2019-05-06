@@ -6,28 +6,17 @@ import project.com.Entity.Comment;
 import java.util.List;
 
 /**
+ * These class files are used to write business logic in a different layer
  *
  */
 @Service
 public interface CommentService {
-    /**
-     * @param comment
-     */
+
     void createComment(Comment comment);
 
-    /**
-     * @return
-     */
     List<Comment> findAll();
 
-    /**
-     * @return
-     */
     List<Comment> findAllSortByDate();
 
-    /**
-     * @param book_id
-     * @return
-     */
     List<Comment> findComentsForThisBookSortByDate(Long book_id);
 }
