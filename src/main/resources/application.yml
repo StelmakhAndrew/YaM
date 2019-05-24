@@ -14,9 +14,9 @@ spring:
   profiles:
     active: dev
   datasource:
-    url: jdbc:postgresql://localhost:5434/yam
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://ec2-46-137-113-157.eu-west-1.compute.amazonaws.com:5432/dmnlgq1cfljfm
+    username: odbmtegsfhwvzm
+    password: c47e2534e2d525a68c60ec44eea0189212a7f72837858c0192e8be3d9fabadaa
   jpa:
     properties:
       hibernate:

@@ -47,7 +47,7 @@ public class BookController {
      * @param model;
      * @return bookAdd.html
      */
-    @RequestMapping(value = "/bookAdd", method = RequestMethod.GET)
+    @RequestMapping(value = "/newbook", method = RequestMethod.GET)
     public String bookAddForm(Model model) {
         List<Genre> genre = Arrays.asList(Genre.values());
         User currentUser = userService.getCurrentUser();
@@ -64,7 +64,7 @@ public class BookController {
      * @return bookById.html
      * @throws IOException
      */
-    @RequestMapping(value = "/bookAdd", method = RequestMethod.POST)
+    @RequestMapping(value = "/newbook", method = RequestMethod.POST)
     public String submit(@ModelAttribute("book") BookDto bookDto) throws IOException {
         String uuidFileName = UUID.randomUUID().toString();
         MultipartFile file = bookDto.getImage();
@@ -93,9 +93,10 @@ public class BookController {
      * @param id;
      * @param model;
      * @return bookById.html
+     * @throws IOException;
      */
-    @RequestMapping(value = "/bookById/{id}", method = RequestMethod.GET)
-    public String submit(@PathVariable("id") Long id, Model model) {
+    @RequestMapping(value = "/books/{id}", method = RequestMethod.GET)
+    public String submit(@PathVariable("id") Long id, Model model) throws IOException {
         Book book = bookService.findById(id).orElse(new Book());
 
         List<Comment> comments = commentService.findComentsForThisBookSortByDate(book.getId());
@@ -116,7 +117,7 @@ public class BookController {
      * @param model;
      * @return bookById.html
      */
-    @RequestMapping(value = "/bookById/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/books/{id}", method = RequestMethod.POST)
     public String submitComment(@PathVariable("id") Long id,
                                 @RequestParam(name = "comment", required = false, defaultValue = "") String comment,
                                 @RequestParam(name = "rating", required = false, defaultValue = "0")
@@ -161,7 +162,7 @@ public class BookController {
      * @param search;
      * @return allBooks.html
      */
-    @RequestMapping(value = "/allbook/search", method = RequestMethod.GET)
+    @RequestMapping(value = "/books/search", method = RequestMethod.GET)
     public String search(ModelMap model, String search) {
         List<Book> allBooks = bookService.findBySearch(search);
         List<Genre> genre = Arrays.asList(Genre.values());
@@ -177,7 +178,7 @@ public class BookController {
      * @param id;
      * @return allBooks.html
      */
-    @RequestMapping(value = "/allbook/search/genre", method = RequestMethod.GET)
+    @RequestMapping(value = "/books/search/genre", method = RequestMethod.GET)
     public String searchGenre(ModelMap model, Integer id) {
         List<Genre> genre = Arrays.asList(Genre.values());
         List<Book> allBooks = bookService.findAllByGenre(Genre.values()[id-1]);
@@ -192,7 +193,7 @@ public class BookController {
      * @param author;
      * @return allBooks.html
      */
-    @RequestMapping(value = "/allbook/search/author", method = RequestMethod.GET)
+    @RequestMapping(value = "/books/search/author", method = RequestMethod.GET)
     public String searchAuthor(ModelMap model, String author) {
         List<Genre> genre = Arrays.asList(Genre.values());
         List<Book> allBooks = bookService.findAllByAuthor(author);
@@ -207,7 +208,7 @@ public class BookController {
      * @param model;
      * @return allBooks.html
      */
-    @RequestMapping(value = "/allbook", method = RequestMethod.GET)
+    @RequestMapping(value = "/books", method = RequestMethod.GET)
     public String allBook(ModelMap model) {
         List<Book> allBooks = bookService.findAllOrderByRating();
         List<Genre> genre = Arrays.asList(Genre.values());

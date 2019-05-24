@@ -33,7 +33,7 @@ public class UserController {
      * @param model;
      * @return user.html
      */
-    @RequestMapping(value = "/user", method = GET)
+    @RequestMapping(value = "/users", method = GET)
     public String userProfile(@RequestParam("id") Long id, Model model){
         User user = userService.findById(id).orElse(null);
         model.addAttribute("user",user);
@@ -45,7 +45,7 @@ public class UserController {
      * @param model;
      * @return profile.page
      */
-    @RequestMapping(value = "/profile", method = GET)
+    @RequestMapping(value = "/profiles", method = GET)
     public String profile(Model model){
         User user = userService.getCurrentUser();
         if (user == null) return "redirect:/login";

@@ -22,7 +22,7 @@
                 <div th:text="${user.email}">...</div>
 
 
-                <form action="/bookAdd" method="GET" enctype="utf8">
+                <form action="/newbook" method="GET" enctype="utf8">
 
                     <button class="button-bookAdd" type="submit">bookAdd</button>
                 </form>
@@ -36,7 +36,7 @@
                     <th:block th:each="book : ${allBooks}">
                         <div style="vertical-align: top;display:inline-block; height:300px; width: 130px; margin-top: 25px">
                             <div>
-                                <a style="margin: auto" href="#" th:href="@{'/bookById?id='+${book.getId()}}">
+                                <a style="margin: auto" href="#" th:href="@{'/books?id='+${book.getId()}}">
                                     <img th:src="${book.getImage()}" style="width: 100px; height: 150px; display: block;
   margin-left: auto;
   margin-right: auto;
@@ -47,7 +47,7 @@
                                 </p>
                             </div>
                             <div style="margin-top: 30px; text-align: center" th:text="${book.getAuthor()}"></div>
-                            <div style="text-align: center"><a href="#" th:href="@{'/bookById?id='+${book.getId()}}"
+                            <div style="text-align: center"><a href="#" th:href="@{'/books?id='+${book.getId()}}"
                                                                th:text="${book.getName()}"></a>
                             </div>
                         </div>

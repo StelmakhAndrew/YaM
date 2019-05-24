@@ -21,7 +21,7 @@
             <div class="genrelist">
                 <th:block th:each="genre : ${genres}">
                     <div>
-                        <a class="ref" th:href="@{'/allbook/search/genre?id='+${genre.getGenre()}}"
+                        <a class="ref" th:href="@{'/books/search/genre?id='+${genre.getGenre()}}"
                            th:text="${genre}"></a>
                     </div>
                 </th:block>
@@ -33,7 +33,7 @@
                 <th:block th:each="book : ${allBooks}">
                     <div class="bookslist">
                         <div class="row centre">
-                            <a href="bookById" th:href="@{'/bookById/'+${book.getId()}}"
+                            <a href="bookById" th:href="@{'/books/'+${book.getId()}}"
                                th:text="${book.getName()}"></a>
 
                             <fieldset class="rating">
@@ -46,7 +46,7 @@
 
                         </div>
                         <div class="row"><img th:src="${book.getImage()}"  class="small-img">
-                            <a class="ref" th:href="@{'/allbook/search/author?author='+${book.getAuthor()}}"
+                            <a class="ref" th:href="@{'/books/search/author?author='+${book.getAuthor()}}"
                                th:text="${book.getAuthor()}"></a>
 
                             <div class="block" th:text="${book.getDescription()}">...</div>
