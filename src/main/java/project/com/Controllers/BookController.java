@@ -229,6 +229,7 @@ public class BookController {
         book.setRating(ratingNew);
         book.setCountRating(count + 1);
         bookService.updateBook(book);
+
     }
 
     /**
