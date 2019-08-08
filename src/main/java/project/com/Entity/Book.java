@@ -44,7 +44,7 @@ public class Book  {
     private String description;
 
     @Column(name = "rating")
-    private Float rating;
+    private Double rating;
 
     @Column(name = "image")
     private String image;
@@ -85,7 +85,7 @@ public class Book  {
         this.description = bookDto.getDescription();
         this.image= bookDto.getImage().getOriginalFilename();
         this.date = bookDto.getDate();
-        this.rating = 5.0f;
+        this.rating = 10.0;
         this.countRating = 0;
     }
 
@@ -144,11 +144,15 @@ public class Book  {
         this.description = description;
     }
 
-    public Float getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(Float rating) {
+    public Double getFormatRating() {
+        return Math.round(rating*100)/100.0;
+    }
+
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 

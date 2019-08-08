@@ -4,11 +4,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.awt.*;
+import java.math.BigDecimal;
 import java.sql.Date;
 
 /**
  * class BookDto to transfer date between model and view
- *
  */
 public class BookDto {
 
@@ -26,10 +26,8 @@ public class BookDto {
 
     private MultipartFile book;
 
-
-
-
-    public BookDto() {}
+    public BookDto() {
+    }
 
     public BookDto(String name, String author) {
         this.name = name;
@@ -53,7 +51,6 @@ public class BookDto {
     public void setAuthor(String author) {
         this.author = author;
     }
-
 
 
     public Genre getGenre() {

@@ -38,7 +38,7 @@ public class ApplicationTest {
         use.setUsername("tester");
         book.setName("book For testing");
         book.setId(1L);
-        book.setRating(3.5f);
+        book.setRating(3.5d);
         book.setCountRating(4);
         book.setAuthor("Test author");
         book.setDownloader(use);

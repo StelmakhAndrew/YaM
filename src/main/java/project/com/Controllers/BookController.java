@@ -137,6 +137,7 @@ public class BookController {
         model.addAttribute("user", currentUser);
 
         model.addAttribute("book", book);
+        System.out.println("coorrect");
         return "redirect:/books/" + book.getId();
     }
 
@@ -235,9 +236,9 @@ public class BookController {
      */
     private void setRating(Book book, int rating) {
         System.out.println("setRating");
-        float ratingOld = book.getRating();
+        double ratingOld = book.getRating();
         int count = book.getCountRating();
-        float ratingNew = (ratingOld * count + rating) / (count + 1);
+        double ratingNew = (ratingOld * count + rating) / (count + 1);
         book.setRating(ratingNew);
         book.setCountRating(count + 1);
         bookService.updateBook(book);
@@ -253,6 +254,8 @@ public class BookController {
      * @param currentUser;
      */
     private void setComment(Book book, String comment, User currentUser) {
+        System.out.println("START");
+        System.out.println("comment");
         Comment newComment = new Comment(comment);
         Date date = Date.valueOf(LocalDate.now());
         newComment.setDate(date);
@@ -263,5 +266,6 @@ public class BookController {
         bookService.updateBook(book);
         currentUser.addComments(newComment);
         userService.updateUser(currentUser);
+        System.out.println("end");;
     }
 }

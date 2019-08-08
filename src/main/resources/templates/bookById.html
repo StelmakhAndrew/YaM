@@ -26,22 +26,22 @@
                 <div style="    font: bold 20pt Arial;
     color: #0066ff;
     text-align: center;
-    padding-top: 30px;" th:text="@{${book.getRating()}+'/10.0 (' + ${book.getCountRating()}+ ')'}"></div>
+    padding-top: 30px;" th:text="@{${book.getFormatRating()}+'/10.0 (' + ${book.getCountRating()}+ ')'}"></div>
             </div>
 
             <form th:if="${!user}" th:action="@{'/books/' + ${book.getId()}}" th:method="PATCH">
                 <div class="rating">
                     <input type="radio" th:id="'star1'+${book.getId()}" name="rating" value="10"
-                           th:checked="${book.getRating() > 8}?'checked'"/><label th:for="'star1'+${book.getId()}"
+                           th:checked="${book.getRating() > 9}?'checked'"/><label th:for="'star1'+${book.getId()}"
                                                                                   title="Sucks big time"></label>
                     <input type="radio" th:id="'star2'+${book.getId()}" name="rating" value="8"
-                           th:checked="${book.getRating() > 6 && book.getRating() <= 8}?'checked'"/><label
+                           th:checked="${book.getRating() > 7 && book.getRating() <= 9}?'checked'"/><label
                         th:for="'star2'+${book.getId()}" title="Kinda bad"></label>
                     <input type="radio" th:id="'star3'+${book.getId()}" name="rating" value="6"
-                           th:checked="${book.getRating() > 4 && book.getRating() <= 6}?'checked'"/><label
+                           th:checked="${book.getRating() > 5 && book.getRating() <= 7}?'checked'"/><label
                         th:for="'star3'+${book.getId()}" title="Meh"></label>
                     <input type="radio" th:id="'star4'+${book.getId()}" name="rating" value="4"
-                           th:checked="${book.getRating() > 2 && book.getRating() <= 4}?'checked'"/><label
+                           th:checked="${book.getRating() > 2 && book.getRating() <= 5}?'checked'"/><label
                         th:for="'star4'+${book.getId()}" title="Pretty good"></label>
                     <input type="radio" th:id="'star5'+${book.getId()}" name="rating" value="2"
                            th:checked="${book.getRating() <= 2}?'checked'"/><label th:for="'star5'+${book.getId()}"
