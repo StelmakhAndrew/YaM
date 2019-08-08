@@ -224,32 +224,32 @@ body {
     text-shadow:1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5);
 }
 
-/*.rating:not(:checked) > label:hover,*/
-/*.rating:not(:checked) > label:hover ~ label {*/
-    /*color: gold;*/
-    /*text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);*/
-/*}*/
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+    color: gold;
+    text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+}
 
-/*.rating > input:checked + label:hover,*/
-/*.rating > input:checked + label:hover ~ label,*/
-/*.rating > input:checked ~ label:hover,*/
-/*.rating > input:checked ~ label:hover ~ label,*/
-/*.rating > label:hover ~ input:checked ~ label {*/
-    /*color: #ea0;*/
-    /*text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);*/
-/*}*/
-/*.rating > label:active {*/
-    /*position:relative;*/
-    /*top:2px;*/
-    /*left:2px;*/
-/*}*/
+.rating > input:checked + label:hover,
+.rating > input:checked + label:hover ~ label,
+.rating > input:checked ~ label:hover,
+.rating > input:checked ~ label:hover ~ label,
+.rating > label:hover ~ input:checked ~ label {
+    color: #ea0;
+    text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+}
+.rating > label:active {
+    position:relative;
+    top:2px;
+    left:2px;
+}
 
-/*.input-text {*/
-    /*border: 1px solid #dedede;*/
-    /*background-color: transparent;*/
-    /*padding:14px 10px;*/
-    /*width: 800px;*/
-    /*height: 200px;*/
-    /*font-size: 20px;*/
-    /*color: #333333;*/
-/*}*/
+.input-text {
+    border: 1px solid #dedede;
+    background-color: transparent;
+    padding:14px 10px;
+    width: 800px;
+    height: 200px;
+    font-size: 20px;
+    color: #333333;
+}

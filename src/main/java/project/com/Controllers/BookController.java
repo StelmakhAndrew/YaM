@@ -44,6 +44,7 @@ public class BookController {
 
     /**
      * The booAddForm() method returns bookform-page.
+     *
      * @param model;
      * @return bookAdd.html
      */
@@ -60,6 +61,7 @@ public class BookController {
 
     /**
      * The submit() method returns book-page after bookform-page and create book that you write in book-form.
+     *
      * @param bookDto;
      * @return bookById.html
      * @throws IOException
@@ -90,6 +92,7 @@ public class BookController {
 
     /**
      * The submit() method returns book-page .
+     *
      * @param id;
      * @param model;
      * @return bookById.html
@@ -100,64 +103,68 @@ public class BookController {
         Book book = bookService.findById(id).orElse(new Book());
 
         List<Comment> comments = commentService.findComentsForThisBookSortByDate(book.getId());
-        StringBuilder currentLineFile = new StringBuilder();
-        model.addAttribute("line", currentLineFile);
+
+        User currentUser = userService.getCurrentUser();
+
         model.addAttribute("comments", comments);
         model.addAttribute("book", book);
         model.addAttribute("comment", new Comment());
+        model.addAttribute("user", false);
         return "bookById";
     }
 
 
     /**
      * The submit() method returns book-page , sets up rating and comments.
+     *
      * @param id;
      * @param comment;
-     * @param rating;
-     * @param model;
      * @return bookById.html
      */
     @RequestMapping(value = "/books/{id}", method = RequestMethod.POST)
-    public String submitComment(@PathVariable("id") Long id,
-                                @RequestParam(name = "comment", required = false, defaultValue = "") String comment,
-                                @RequestParam(name = "rating", required = false, defaultValue = "0")
-                                        Integer rating, Model model) {
+    public String submitComment(@PathVariable("id") Long id, @RequestParam(name = "comment") String comment, Model model) {
+
         Book book = bookService.findById(id).orElse(new Book());
         User currentUser = userService.getCurrentUser();
         if (currentUser == null) return "redirect:/login";
+        System.out.println("comment" + comment);
 
-        if (!comment.isEmpty()) {
-            setComment(book, comment, currentUser);
-        }
-        if (rating != 0) {
-            setRating(book, rating);
-        }
+        setComment(book, comment, currentUser);
 
         List<Comment> comments = commentService.findComentsForThisBookSortByDate(book.getId());
 
-        StringBuilder currentLineFile = new StringBuilder();
-        Path path1 = Paths.get(book.getBook());
-        try (BufferedReader readerFile1 = Files.newBufferedReader(path1, Charset.forName("ASCII"))) {
-            int i = 0;
+        model.addAttribute("comments", comments);
+        model.addAttribute("user", currentUser);
 
-            while (i != 5) {
+        model.addAttribute("book", book);
+        return "redirect:/books/" + book.getId();
+    }
 
-                currentLineFile.append(readerFile1.readLine());
+    @RequestMapping(value = "/books/{id}", method = RequestMethod.PATCH)
+    public String submitRating(@PathVariable("id") Long id,
+                               @RequestParam(name = "rating")
+                                       Integer rating, Model model) {
 
-                i++;
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        System.out.println("1");
+        Book book = bookService.findById(id).orElse(new Book());
+        User currentUser = userService.getCurrentUser();
+        if (currentUser == null) return "redirect:/login";
+        System.out.println("rating" + rating);
 
-        model.addAttribute("line", currentLineFile);
+        setRating(book, rating);
+
+        List<Comment> comments = commentService.findComentsForThisBookSortByDate(book.getId());
+
         model.addAttribute("comments", comments);
         model.addAttribute("book", book);
-        return "redirect:/bookById?id=" + book.getId();
+        model.addAttribute("user", currentUser);
+
+        return "redirect:/books/" + book.getId();
     }
 
     /**
      * The search() method find book.
+     *
      * @param model;
      * @param search;
      * @return allBooks.html
@@ -174,6 +181,7 @@ public class BookController {
 
     /**
      * The searchGenre() method find all book by genre.
+     *
      * @param model;
      * @param id;
      * @return allBooks.html
@@ -181,7 +189,7 @@ public class BookController {
     @RequestMapping(value = "/books/search/genre", method = RequestMethod.GET)
     public String searchGenre(ModelMap model, Integer id) {
         List<Genre> genre = Arrays.asList(Genre.values());
-        List<Book> allBooks = bookService.findAllByGenre(Genre.values()[id-1]);
+        List<Book> allBooks = bookService.findAllByGenre(Genre.values()[id - 1]);
         model.addAttribute("allBooks", allBooks);
         model.addAttribute("genres", genre);
         return "allBooks";
@@ -189,6 +197,7 @@ public class BookController {
 
     /**
      * The searchAuthor() method find all book by author.
+     *
      * @param model;
      * @param author;
      * @return allBooks.html
@@ -205,6 +214,7 @@ public class BookController {
 
     /**
      * The allBook() method find all book.
+     *
      * @param model;
      * @return allBooks.html
      */
@@ -219,26 +229,30 @@ public class BookController {
 
     /**
      * The setRating() method calculates and sets up rating.
+     *
      * @param book;
      * @param rating;
      */
-    private void setRating(Book book, int rating){
+    private void setRating(Book book, int rating) {
+        System.out.println("setRating");
         float ratingOld = book.getRating();
         int count = book.getCountRating();
         float ratingNew = (ratingOld * count + rating) / (count + 1);
         book.setRating(ratingNew);
         book.setCountRating(count + 1);
         bookService.updateBook(book);
+        System.out.println("setRating END");
 
     }
 
     /**
      * The setComment() method sets up comment.
+     *
      * @param book;
      * @param comment;
      * @param currentUser;
      */
-    private void setComment(Book book, String comment, User currentUser){
+    private void setComment(Book book, String comment, User currentUser) {
         Comment newComment = new Comment(comment);
         Date date = Date.valueOf(LocalDate.now());
         newComment.setDate(date);
