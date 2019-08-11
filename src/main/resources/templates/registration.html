@@ -1,4 +1,4 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet"
@@ -25,25 +25,26 @@
 
         <div class="inner-container">
             <h2 class="form-signin-heading">SIGN UP</h2>
-            <form th:action="@{/registration}" class="form-signin" th:object="${user}" method="POST" enctype="utf8">
+            <form th:action="@{/registration}" class="form-signin" th:object="${userDto}" method="POST">
                 <input class="form-control" style="margin-top: 10px" type="text" th:field="*{username}" id="username"
                        name="username" placeholder="USERNAME"/>
-                <p th:each="error: ${#fields.errors('username')}"
-                   th:text="${error}">Validation error</p>
+                <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">username Error</p>
+
                 <input class="form-control" style="margin-top: 10px" type="email" th:field="*{email}" id="email"
                        name="email" placeholder="EMAIL"/>
-                <p th:each="error: ${#fields.errors('email')}"
-                   th:text="${error}">Validation error</p>
-                <input type="password" style="margin-top: 10px" class="form-control ${status.error ? 'has-error' : ''}"
+                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email Error</p>
+
+
+                <input type="password" style="margin-top: 10px" class="form-control"
                        th:field="*{password}"
                        id="password" name="password" placeholder="PASSWORD"/>
-                <p th:each="error: ${#fields.errors('password')}"
-                   th:text="${error}">Validation error</p>
-                <input type="password" style="margin-top: 10px" class="form-control ${status.error ? 'has-error' : ''}"
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password Error</p>
+
+                <input type="password" style="margin-top: 10px" class="form-control"
                        th:field="*{matchingPassword}"
                        id="matchingPassword" name="password" placeholder="PASSWORD"/>
-                <p th:each="error: ${#fields.errors('matchingPassword')}"
-                   th:text="${error}">Validation error</p>
+                <p th:if="${#fields.hasErrors('matchingPassword')}" th:errors="*{matchingPassword}">matchingPassword Error</p>
+
                 <button class="btn btn-lg btn-primary btn-block" style="margin-top: 10px" type="submit">Registration
                 </button>
             </form>

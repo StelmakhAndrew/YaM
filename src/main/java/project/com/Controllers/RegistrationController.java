@@ -3,11 +3,8 @@ package project.com.Controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import project.com.Entity.Role;
 import project.com.Entity.User;
 import project.com.Entity.UserDto;
@@ -39,7 +36,8 @@ public class RegistrationController {
      */
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registrationForm(Model model) {
-        model.addAttribute("user", new UserDto());
+        System.out.println("in other method");
+        model.addAttribute("userDto", new UserDto());
         return "registration";
     }
 
@@ -48,33 +46,30 @@ public class RegistrationController {
      * The confirm() method checks if registration form sets up true and create new user.
      * @param userDto;
      * @param model;
-     * @param errors;
-     * @param result;
+     * @param bindingResult;
      * @return registration.html
      */
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public ModelAndView confirm( @ModelAttribute("user") @Valid UserDto userDto, ModelMap model,
-                           Errors errors, BindingResult result) {
-        if (errors.hasErrors()) {
-            result.rejectValue("email", "message.regError");
-            result.rejectValue("password", "message.regError");
-            result.rejectValue("matchingPassword", "message.regError");
-            return new ModelAndView("/registration", "user", userDto);
+    public String confirm(@Valid UserDto userDto,   BindingResult bindingResult, Model model
+                          ) {
+        System.out.println("in method");
+        if (bindingResult.hasErrors()) {
+            System.out.println("Error");
+            return "registration";
         }
-        if(!errors.hasErrors() &&
+        else if (!bindingResult.hasErrors() &&
                 userService.emailExist(userDto.getEmail()) &&
                 userService.usernameExist(userDto.getUsername())) {
 
-            User user = new User(userDto);
-            user.setActive(true);
-            user.setRoles(Collections.singleton(Role.USER));
-            userService.createUser(user);
-            model.addAttribute("user", user);
+            User newUser = new User(userDto);
+            newUser.setActive(true);
+            newUser.setRoles(Collections.singleton(Role.USER));
+            userService.createUser(newUser);
+            model.addAttribute("user", newUser);
 
-            return new ModelAndView("redirect:/profile?id="+user.getId());
+            return "redirect:/login";
         }
-        else {
-            return new ModelAndView("/registration", "user", userDto);
-        }
+        return "registration";
+
     }
 }
