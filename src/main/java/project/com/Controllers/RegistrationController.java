@@ -36,7 +36,6 @@ public class RegistrationController {
      */
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registrationForm(Model model) {
-        System.out.println("in other method");
         model.addAttribute("userDto", new UserDto());
         return "registration";
     }
@@ -52,9 +51,7 @@ public class RegistrationController {
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String confirm(@Valid UserDto userDto,   BindingResult bindingResult, Model model
                           ) {
-        System.out.println("in method");
         if (bindingResult.hasErrors()) {
-            System.out.println("Error");
             return "registration";
         }
         else if (!bindingResult.hasErrors() &&

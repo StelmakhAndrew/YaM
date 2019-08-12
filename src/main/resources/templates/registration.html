@@ -26,24 +26,30 @@
         <div class="inner-container">
             <h2 class="form-signin-heading">SIGN UP</h2>
             <form th:action="@{/registration}" class="form-signin" th:object="${userDto}" method="POST">
+
+
                 <input class="form-control" style="margin-top: 10px" type="text" th:field="*{username}" id="username"
                        name="username" placeholder="USERNAME"/>
-                <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">username Error</p>
+                <p th:if="${#fields.hasErrors('username')}" style="color: red" th:errors="*{username}">username Error</p>
 
                 <input class="form-control" style="margin-top: 10px" type="email" th:field="*{email}" id="email"
                        name="email" placeholder="EMAIL"/>
-                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email Error</p>
+                <p th:if="${#fields.hasErrors('email')}" style="color: red" th:errors="*{email}">email Error</p>
 
 
                 <input type="password" style="margin-top: 10px" class="form-control"
                        th:field="*{password}"
                        id="password" name="password" placeholder="PASSWORD"/>
-                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password Error</p>
+                <p style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password Error</p>
+                <p class="error-message" style="color: red"
+                   th:if="${#fields.hasGlobalErrors()}"
+                   th:each="error : ${#fields.errors('global')}"
+                   th:text="${error}">Validation error</p>
 
                 <input type="password" style="margin-top: 10px" class="form-control"
                        th:field="*{matchingPassword}"
                        id="matchingPassword" name="password" placeholder="PASSWORD"/>
-                <p th:if="${#fields.hasErrors('matchingPassword')}" th:errors="*{matchingPassword}">matchingPassword Error</p>
+                <p style="color: red" th:if="${#fields.hasErrors('matchingPassword')}" th:errors="*{matchingPassword}">matchingPassword Error</p>
 
                 <button class="btn btn-lg btn-primary btn-block" style="margin-top: 10px" type="submit">Registration
                 </button>
