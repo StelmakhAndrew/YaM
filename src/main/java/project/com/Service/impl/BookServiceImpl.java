@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project.com.Entity.Book;
 import project.com.Entity.Genre;
+import project.com.Entity.User;
 import project.com.Repository.BookRepository;
 import project.com.Service.BookService;
 
@@ -32,6 +33,15 @@ public class BookServiceImpl implements BookService {
     @Override
     public void updateBook(Book book) {
         bookRepository.save(book);
+    }
+
+    @Override
+    public void addToFavourite(User user, Book book) {
+
+        book.addUsersWhoMArkAsFavourite(user);
+        user.addToFavouriteBooks(book);
+
+        updateBook(book);
     }
 
     @Override
@@ -65,4 +75,6 @@ public class BookServiceImpl implements BookService {
     public List<Book> findAllByAuthor(String author) {
         return bookRepository.findByAuthorOrderByRatingDesc(author);
     }
+
+
 }

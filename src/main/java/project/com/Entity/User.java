@@ -8,25 +8,16 @@ import java.util.stream.Stream;
 
 /**
  * class User with properties username, email, password, books;
- * @autor STS;
+ *
  * @version 1.1
+ * @autor STS;
  */
 @Entity
 @Table(name = "userser")
 public class User {
 
-
-    public User(String username, String email, String password, Book... books) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.books = Stream.of(books).collect(Collectors.toList());
-        this.books.forEach(x -> x.setDownloader(this));
-    }
-
-
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -48,17 +39,22 @@ public class User {
 
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.LAZY)
-    @CollectionTable(name = "user_role",joinColumns = @JoinColumn(name = "user_id"))
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "Favourite_books", joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "book_id")})
+    private List<Book> favouriteBooks;
 
     @Transient
     private String passwordConfirm;
 
 
     /**
-     *relations with two entities User & Book
+     * relations with two entities User & Book
+     *
      * @see Book
      */
     @OneToMany(mappedBy = "downloader", cascade = CascadeType.ALL)
@@ -66,19 +62,29 @@ public class User {
 
 
     /**
-     *relations with two entities User & Comment
+     * relations with two entities User & Comment
+     *
      * @see Comment
      */
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
 
+    public User() {
+    }
 
-    public User() {}
 
+    public User(String username, String email, String password, Book... books) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.books = Stream.of(books).collect(Collectors.toList());
+        this.books.forEach(x -> x.setDownloader(this));
+    }
 
     /**
      * made from userDto - user
+     *
      * @param userDto
      */
     public User(UserDto userDto) {
@@ -88,7 +94,7 @@ public class User {
     }
 
 
-    public User(String username,String email,String password) {
+    public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -150,6 +156,7 @@ public class User {
     public void setActive(boolean active) {
         this.active = active;
     }
+
     public List<Book> getBooks() {
         return books;
     }
@@ -158,7 +165,7 @@ public class User {
         this.books = books;
     }
 
-    public void addBook(Book book){
+    public void addBook(Book book) {
         this.books.add(book);
     }
 
@@ -180,5 +187,17 @@ public class User {
 
     public void addComments(Comment comment) {
         this.comments.add(comment);
+    }
+
+    public List<Book> getFavouriteBooks() {
+        return favouriteBooks;
+    }
+
+    public void setFavouriteBooks(List<Book> favouriteBooks) {
+        this.favouriteBooks = favouriteBooks;
+    }
+
+    public void addToFavouriteBooks(Book favouriteBook) {
+        this.favouriteBooks.add(favouriteBook);
     }
 }

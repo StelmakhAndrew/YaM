@@ -50,9 +50,14 @@ public class UserController {
     public String profile(Model model){
         User user = userService.getCurrentUser();
         if (user == null) return "redirect:/login";
-        List<Book> books = user.getBooks();
+
+        List<Book> allBooksWhatPublickByUser = user.getBooks();
+
+        List<Book> allFavouriteBooks = user.getFavouriteBooks();
+
         model.addAttribute("user",user);
-        model.addAttribute("allBooks",books);
+        model.addAttribute("allBooks",allBooksWhatPublickByUser);
+        model.addAttribute("allFavouriteBooks",allFavouriteBooks);
         return "profile";
     }
 }

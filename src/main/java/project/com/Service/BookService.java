@@ -3,6 +3,7 @@ package project.com.Service;
 import org.springframework.stereotype.Service;
 import project.com.Entity.Book;
 import project.com.Entity.Genre;
+import project.com.Entity.User;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,8 @@ public interface BookService {
     void createBook(Book book);
 
     void updateBook(Book book);
+
+    void addToFavourite(User user, Book book);
 
     List<Book> findAllBook();
 

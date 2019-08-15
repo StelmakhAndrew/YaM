@@ -29,10 +29,36 @@
             </div>
         </div>
         <div class="col-sm-9">
+
             <div style="margin-top: 60px">
                 <div class="bookslistProfile">
 
-                    <h3 style="margin-left: 25px">All Books</h3>
+                    <h3 style="margin-left: 25px">All Favourite Books</h3>
+                    <th:block th:each="book : ${allFavouriteBooks}">
+                        <div style="vertical-align: top;display:inline-block; height:300px; width: 130px; margin-top: 25px">
+                            <div>
+                                <a style="margin: auto" href="#" th:href="@{'/books?id='+${book.getId()}}">
+                                    <img th:src="${book.getImage()}" style="width: 100px; height: 150px; display: block;
+  margin-left: auto;
+  margin-right: auto;
+ "></a>
+                                <p class="crop-profile" style="">
+                                    <img class="stars" th:style="'left:' + ${book.getRating()} + '%'"
+                                         src="../images/stars.png" alt=""/>
+                                </p>
+                            </div>
+                            <div style="margin-top: 30px; text-align: center" th:text="${book.getAuthor()}"></div>
+                            <div style="text-align: center"><a href="#" th:href="@{'/books/'+${book.getId()}}"
+                                                               th:text="${book.getName()}"></a>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+            <div style="margin-top: 60px">
+                <div class="bookslistProfile">
+
+                    <h3 style="margin-left: 25px">All Public Books</h3>
                     <th:block th:each="book : ${allBooks}">
                         <div style="vertical-align: top;display:inline-block; height:300px; width: 130px; margin-top: 25px">
                             <div>
@@ -47,13 +73,14 @@
                                 </p>
                             </div>
                             <div style="margin-top: 30px; text-align: center" th:text="${book.getAuthor()}"></div>
-                            <div style="text-align: center"><a href="#" th:href="@{'/books?id='+${book.getId()}}"
+                            <div style="text-align: center"><a href="#" th:href="@{'/books/'+${book.getId()}}"
                                                                th:text="${book.getName()}"></a>
                             </div>
                         </div>
                     </th:block>
                 </div>
             </div>
+
         </div>
     </div>
 

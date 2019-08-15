@@ -86,7 +86,7 @@ public class BookController {
         bookService.createBook(book);
         user.addBook(book);
         userService.updateUser(user);
-        return "redirect:/bookById?id=" + book.getId();
+        return "redirect:/books/" + book.getId();
     }
 
 
@@ -96,10 +96,9 @@ public class BookController {
      * @param id;
      * @param model;
      * @return bookById.html
-     * @throws IOException;
      */
     @RequestMapping(value = "/books/{id}", method = RequestMethod.GET)
-    public String submit(@PathVariable("id") Long id, Model model) throws IOException {
+    public String submit(@PathVariable("id") Long id, Model model) {
         Book book = bookService.findById(id).orElse(new Book());
 
         List<Comment> comments = commentService.findComentsForThisBookSortByDate(book.getId());
@@ -113,6 +112,19 @@ public class BookController {
         return "bookById";
     }
 
+    @RequestMapping(value = "/books/{id}", method = RequestMethod.POST, params = "action=favourite")
+    public String addToFavourite(@PathVariable("id") Long id) {
+        Book book = bookService.findById(id).orElse(new Book());
+
+        User currentUser = userService.getCurrentUser();
+
+        if (currentUser == null) return "redirect:/login";
+
+        bookService.addToFavourite(currentUser,book);
+
+        return "redirect:/books/" + book.getId();
+    }
+
 
     /**
      * The submit() method returns book-page , sets up rating and comments.
@@ -121,13 +133,12 @@ public class BookController {
      * @param comment;
      * @return bookById.html
      */
-    @RequestMapping(value = "/books/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/books/{id}", method = RequestMethod.POST, params = "action=comment")
     public String submitComment(@PathVariable("id") Long id, @RequestParam(name = "comment") String comment, Model model) {
 
         Book book = bookService.findById(id).orElse(new Book());
         User currentUser = userService.getCurrentUser();
         if (currentUser == null) return "redirect:/login";
-        System.out.println("comment" + comment);
 
         setComment(book, comment, currentUser);
 
@@ -137,7 +148,6 @@ public class BookController {
         model.addAttribute("user", currentUser);
 
         model.addAttribute("book", book);
-        System.out.println("coorrect");
         return "redirect:/books/" + book.getId();
     }
 
@@ -227,6 +237,7 @@ public class BookController {
         model.addAttribute("allBooks", allBooks);
         return "allBooks";
     }
+
 
     /**
      * The setRating() method calculates and sets up rating.

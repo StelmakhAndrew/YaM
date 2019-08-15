@@ -65,6 +65,9 @@ public class Book  {
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "favouriteBooks")
+    private List<User> usersWhoMArkAsFavourite;
+
 
     public Book() {}
 
@@ -194,5 +197,17 @@ public class Book  {
 
     public void setBook(String book) {
         this.book = book;
+    }
+
+    public List<User> getUsersWhoMArkAsFavourite() {
+        return usersWhoMArkAsFavourite;
+    }
+
+    public void setUsersWhoMArkAsFavourite(List<User> usersWhoMArkAsFavourite) {
+        this.usersWhoMArkAsFavourite = usersWhoMArkAsFavourite;
+    }
+
+    public void addUsersWhoMArkAsFavourite(User userWhoMArkAsFavourite) {
+        this.usersWhoMArkAsFavourite.add(userWhoMArkAsFavourite);
     }
 }
