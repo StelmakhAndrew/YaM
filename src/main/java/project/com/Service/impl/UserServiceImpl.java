@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    public User getCurrentUser() {
+    public Optional<User> getCurrentUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         Object obj = auth.getPrincipal();
@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService {
         }
 
         User u = findByUsername(username);
-        return u;
+        return Optional.ofNullable(u);
     }
 
 }

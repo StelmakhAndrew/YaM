@@ -22,6 +22,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -51,8 +52,8 @@ public class BookController {
     @RequestMapping(value = "/newbook", method = RequestMethod.GET)
     public String bookAddForm(Model model) {
         List<Genre> genre = Arrays.asList(Genre.values());
-        User currentUser = userService.getCurrentUser();
-        if (currentUser == null) return "redirect:/login";
+        Optional<User> currentUser = userService.getCurrentUser();
+        if (!currentUser.isPresent()) return "redirect:/login";
 
         model.addAttribute("genres", genre);
         model.addAttribute("book", new BookDto());
@@ -78,7 +79,7 @@ public class BookController {
         String resultFileNameBook = uuidFileNameBook + "." + fileBook.getOriginalFilename();
         fileBook.transferTo(new File("E:\\project]\\YaM\\src\\main\\resources\\static\\images\\books\\" + resultFileNameBook));
 
-        User user = userService.getCurrentUser();
+        User user = userService.getCurrentUser().get();
         Book book = new Book(bookDto);
         book.setImage("../images/books/" + resultFileName);
         book.setBook("E:\\project]\\YaM\\src\\main\\resources\\static\\books\\" + resultFileNameBook);
@@ -99,16 +100,23 @@ public class BookController {
      */
     @RequestMapping(value = "/books/{id}", method = RequestMethod.GET)
     public String submit(@PathVariable("id") Long id, Model model) {
-        Book book = bookService.findById(id).orElse(new Book());
+        Book book = bookService.findById(id).get();
+
+        boolean isFavourite = true;
+
 
         List<Comment> comments = commentService.findComentsForThisBookSortByDate(book.getId());
 
-        User currentUser = userService.getCurrentUser();
+        Optional<User> currentUser = userService.getCurrentUser();
+
+        if (currentUser.isPresent())
+         isFavourite = currentUser.get().getFavouriteBooks().contains(book);
 
         model.addAttribute("comments", comments);
         model.addAttribute("book", book);
         model.addAttribute("comment", new Comment());
         model.addAttribute("user", false);
+        model.addAttribute("isFavourite", isFavourite);
         return "bookById";
     }
 
@@ -116,11 +124,11 @@ public class BookController {
     public String addToFavourite(@PathVariable("id") Long id) {
         Book book = bookService.findById(id).orElse(new Book());
 
-        User currentUser = userService.getCurrentUser();
+        Optional<User> currentUser = userService.getCurrentUser();
 
-        if (currentUser == null) return "redirect:/login";
+        if (!currentUser.isPresent()) return "redirect:/login";
 
-        bookService.addToFavourite(currentUser,book);
+        bookService.addToFavourite(currentUser.get(),book);
 
         return "redirect:/books/" + book.getId();
     }
@@ -137,15 +145,15 @@ public class BookController {
     public String submitComment(@PathVariable("id") Long id, @RequestParam(name = "comment") String comment, Model model) {
 
         Book book = bookService.findById(id).orElse(new Book());
-        User currentUser = userService.getCurrentUser();
-        if (currentUser == null) return "redirect:/login";
+        Optional<User> currentUser = userService.getCurrentUser();
+        if (!currentUser.isPresent()) return "redirect:/login";
 
-        setComment(book, comment, currentUser);
+        setComment(book, comment, currentUser.get());
 
         List<Comment> comments = commentService.findComentsForThisBookSortByDate(book.getId());
 
         model.addAttribute("comments", comments);
-        model.addAttribute("user", currentUser);
+        model.addAttribute("user", currentUser.get());
 
         model.addAttribute("book", book);
         return "redirect:/books/" + book.getId();
@@ -158,8 +166,8 @@ public class BookController {
 
         System.out.println("1");
         Book book = bookService.findById(id).orElse(new Book());
-        User currentUser = userService.getCurrentUser();
-        if (currentUser == null) return "redirect:/login";
+        Optional<User> currentUser = userService.getCurrentUser();
+        if (!currentUser.isPresent()) return "redirect:/login";
         System.out.println("rating" + rating);
 
         setRating(book, rating);
@@ -168,7 +176,7 @@ public class BookController {
 
         model.addAttribute("comments", comments);
         model.addAttribute("book", book);
-        model.addAttribute("user", currentUser);
+        model.addAttribute("user", currentUser.get());
 
         return "redirect:/books/" + book.getId();
     }

@@ -26,7 +26,7 @@
                 <div style="    font: bold 20pt Arial;
     color: #0066ff;
     text-align: center;
-    padding-top: 30px;" th:text="@{${book.getFormatRating()}+'/10.0 (' + ${book.getCountRating()}+ ')'}"></div>
+    padding-top: 30px;" th:text="${book.getFormatRating()}+'/10.0 (' + ${book.getCountRating()}+ ')'"></div>
             </div>
 
             <form th:if="${!user}" th:action="@{'/books/' + ${book.getId()}}" th:method="PATCH">
@@ -53,7 +53,7 @@
             <p th:text="${book.getDate()}"/>
 
             <form th:action="@{'/books/' + ${book.getId()}}" method="POST">
-                <button type="submit" value="favourite" name="action">
+                <button th:if="${!isFavourite}" type="submit" value="favourite" name="action">
                     Add favourite
                 </button>
             </form>
@@ -62,7 +62,7 @@
             <h2 style="text-align: center" th:text="${book.getName()}"/>
             <p th:text="${book.getDescription()}"/>
             <br>
-            <p th:text="'Dowloader, ' + ${book.getDownloader().getUsername()} + '!'"/>
+            <p>Завантажив, </p>  <a th:href="'/users/' + ${book.getDownloader().getId()}"  th:text=" ${book.getDownloader().getUsername()} + '!'"/>
             <div style="  display: flex;
   align-items: center;
   justify-content: center;">

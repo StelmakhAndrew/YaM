@@ -12,6 +12,7 @@ import project.com.Service.UserService;
 import project.com.Service.BookService;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -48,14 +49,14 @@ public class UserController {
      */
     @RequestMapping(value = "/profiles", method = GET)
     public String profile(Model model){
-        User user = userService.getCurrentUser();
-        if (user == null) return "redirect:/login";
+        Optional<User> user = userService.getCurrentUser();
+        if (!user.isPresent()) return "redirect:/login";
 
-        List<Book> allBooksWhatPublickByUser = user.getBooks();
+        List<Book> allBooksWhatPublickByUser = user.get().getBooks();
 
-        List<Book> allFavouriteBooks = user.getFavouriteBooks();
+        List<Book> allFavouriteBooks = user.get().getFavouriteBooks();
 
-        model.addAttribute("user",user);
+        model.addAttribute("user",user.get());
         model.addAttribute("allBooks",allBooksWhatPublickByUser);
         model.addAttribute("allFavouriteBooks",allFavouriteBooks);
         return "profile";

@@ -26,5 +26,5 @@ public interface UserService {
 
     User findByUsername(String username);
 
-    User getCurrentUser();
+    Optional<User> getCurrentUser();
 }
