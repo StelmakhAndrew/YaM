@@ -22,28 +22,28 @@
             <img th:src="${book.getImage()}" style="width: 140px; height: 210px">
             <div th:text="${book.getAuthor()}"/>
 
-            <div th:if="${!user}">
-                <div style="    font: bold 20pt Arial;
+            <div th:if="${true}">
+                <div style="font: bold 20pt Arial;
     color: #0066ff;
     text-align: center;
     padding-top: 30px;" th:text="${book.getFormatRating()}+'/10.0 (' + ${book.getCountRating()}+ ')'"></div>
             </div>
 
-            <form th:if="${!user}" th:action="@{'/books/' + ${book.getId()}}" th:method="PATCH">
+            <form th:if="${user}" th:action="@{'/books/' + ${book.getId()}}" th:method="PATCH">
                 <div class="rating">
-                    <input type="radio" th:id="'star1'+${book.getId()}" name="rating" value="10"
+                    <input type="radio" th:id="'star1'+${book.getId()}" name="rating" value="5"
                            th:checked="${book.getRating() > 9}?'checked'"/><label th:for="'star1'+${book.getId()}"
                                                                                   title="Sucks big time"></label>
-                    <input type="radio" th:id="'star2'+${book.getId()}" name="rating" value="8"
+                    <input type="radio" th:id="'star2'+${book.getId()}" name="rating" value="4"
                            th:checked="${book.getRating() > 7 && book.getRating() <= 9}?'checked'"/><label
                         th:for="'star2'+${book.getId()}" title="Kinda bad"></label>
-                    <input type="radio" th:id="'star3'+${book.getId()}" name="rating" value="6"
+                    <input type="radio" th:id="'star3'+${book.getId()}" name="rating" value="3"
                            th:checked="${book.getRating() > 5 && book.getRating() <= 7}?'checked'"/><label
                         th:for="'star3'+${book.getId()}" title="Meh"></label>
-                    <input type="radio" th:id="'star4'+${book.getId()}" name="rating" value="4"
+                    <input type="radio" th:id="'star4'+${book.getId()}" name="rating" value="2"
                            th:checked="${book.getRating() > 2 && book.getRating() <= 5}?'checked'"/><label
                         th:for="'star4'+${book.getId()}" title="Pretty good"></label>
-                    <input type="radio" th:id="'star5'+${book.getId()}" name="rating" value="2"
+                    <input type="radio" th:id="'star5'+${book.getId()}" name="rating" value="1"
                            th:checked="${book.getRating() <= 2}?'checked'"/><label th:for="'star5'+${book.getId()}"
                                                                                    title="Rocks!"></label>
                 </div>
@@ -59,10 +59,11 @@
             </form>
         </div>
         <div class="col-sm-9">
-            <h2 style="text-align: center" th:text="${book.getName()}"/>
+            <h2 style="text-align: center" id="book" th:value="${book.getId()}" th:text="${book.getName()}"/>
             <p th:text="${book.getDescription()}"/>
             <br>
-            <p>Завантажив, </p>  <a th:href="'/users/' + ${book.getDownloader().getId()}"  th:text=" ${book.getDownloader().getUsername()} + '!'"/>
+            <p>Завантажив, </p>  <a th:href="'/users/' + ${book.getDownloader().getId()}"
+                                    th:text=" ${book.getDownloader().getUsername()} + '!'"/>
             <div style="  display: flex;
   align-items: center;
   justify-content: center;">
@@ -76,7 +77,8 @@
                     </div>
 
                     <div class="center">
-                        <button class="btn btn-primary btn-lg" type="submit" name="action" value="comment">Коментувати</button>
+                        <button class="btn btn-primary btn-lg" type="submit" name="action" value="comment">Коментувати
+                        </button>
                     </div>
                 </form>
             </div>
@@ -94,11 +96,14 @@
                 </div>
             </th:block>
         </div>
-
+        <button name="tester" id="tester">TEStEr</button>
 
     </div>
 </div>
 
-<footer th:replace="base :: footer"></footer>
+<footer th:replace="base :: footer">
+</footer>
+<script type="text/javascript" th:src="@{/js/rating.js}"></script>
+
 </body>
 </html>

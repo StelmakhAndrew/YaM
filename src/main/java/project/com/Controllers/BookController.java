@@ -28,8 +28,9 @@ import java.util.UUID;
 
 /**
  * The BookController class for control books.
- * @autor STS
+ *
  * @version 1.1
+ * @autor STS
  */
 @Controller
 public class BookController {
@@ -67,6 +68,7 @@ public class BookController {
      * @return bookById.html
      * @throws IOException
      */
+    //ToDo: Max size photo 1mb
     @RequestMapping(value = "/newbook", method = RequestMethod.POST)
     public String submit(@ModelAttribute("book") BookDto bookDto) throws IOException {
         String uuidFileName = UUID.randomUUID().toString();
@@ -103,19 +105,20 @@ public class BookController {
         Book book = bookService.findById(id).get();
 
         boolean isFavourite = true;
-
+        boolean canSetRating = false;
 
         List<Comment> comments = commentService.findComentsForThisBookSortByDate(book.getId());
 
         Optional<User> currentUser = userService.getCurrentUser();
 
-        if (currentUser.isPresent())
-         isFavourite = currentUser.get().getFavouriteBooks().contains(book);
-
+        if (currentUser.isPresent()) {
+            isFavourite = currentUser.get().getFavouriteBooks().contains(book);
+            canSetRating = true;
+        }
         model.addAttribute("comments", comments);
         model.addAttribute("book", book);
         model.addAttribute("comment", new Comment());
-        model.addAttribute("user", false);
+        model.addAttribute("user", canSetRating);
         model.addAttribute("isFavourite", isFavourite);
         return "bookById";
     }
@@ -128,7 +131,7 @@ public class BookController {
 
         if (!currentUser.isPresent()) return "redirect:/login";
 
-        bookService.addToFavourite(currentUser.get(),book);
+        bookService.addToFavourite(currentUser.get(), book);
 
         return "redirect:/books/" + book.getId();
     }
@@ -254,15 +257,12 @@ public class BookController {
      * @param rating;
      */
     private void setRating(Book book, int rating) {
-        System.out.println("setRating");
         double ratingOld = book.getRating();
         int count = book.getCountRating();
         double ratingNew = (ratingOld * count + rating) / (count + 1);
         book.setRating(ratingNew);
         book.setCountRating(count + 1);
         bookService.updateBook(book);
-        System.out.println("setRating END");
-
     }
 
     /**
@@ -273,8 +273,6 @@ public class BookController {
      * @param currentUser;
      */
     private void setComment(Book book, String comment, User currentUser) {
-        System.out.println("START");
-        System.out.println("comment");
         Comment newComment = new Comment(comment);
         Date date = Date.valueOf(LocalDate.now());
         newComment.setDate(date);
@@ -285,6 +283,16 @@ public class BookController {
         bookService.updateBook(book);
         currentUser.addComments(newComment);
         userService.updateUser(currentUser);
-        System.out.println("end");;
+    }
+
+    //ToDo: need refactoring
+    @RequestMapping(value = "/books/{id}/rating/{r}", method = RequestMethod.PATCH)
+    public String test(@PathVariable("id") Long id,@PathVariable("r") int rating) {
+        Book book = bookService.findById(id).orElse(new Book());
+        Optional<User> currentUser = userService.getCurrentUser();
+        if (!currentUser.isPresent()) return "redirect:/login";
+
+        setRating(book, rating*2);
+        return "greeting";
     }
 }
