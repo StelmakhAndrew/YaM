@@ -53,8 +53,11 @@
             <p th:text="${book.getDate()}"/>
 
             <form th:action="@{'/books/' + ${book.getId()}}" method="POST">
-                <button th:if="${!isFavourite}" type="submit" value="favourite" name="action">
+                <button th:if="${isFavourite==false}" type="submit" value="favourite" name="action">
                     Add favourite
+                </button>
+                <button th:if="${isFavourite==true}" type="submit" value="notFavourite" name="action">
+                    Delete from favourite
                 </button>
             </form>
         </div>

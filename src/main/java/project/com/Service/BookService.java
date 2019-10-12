@@ -22,6 +22,8 @@ public interface BookService {
 
     void addToFavourite(User user, Book book);
 
+    void removeFromFavourite(User user, Book book);
+
     List<Book> findAllBook();
 
     List<Book> findAllOrderByRating();

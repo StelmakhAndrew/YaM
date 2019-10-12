@@ -99,10 +99,8 @@ public class BookController {
     public String submit(@PathVariable("id") Long id, Model model) {
         Book book = bookService.findById(id).get();
 
-        boolean isFavourite = true;
+        Boolean isFavourite = null;
         boolean canSetRating = false;
-
-        System.out.println("Working Directory = " + System.getProperty("user.dir"));
 
         List<Comment> comments = commentService.findComentsForThisBookSortByDate(book.getId());
 
@@ -129,6 +127,20 @@ public class BookController {
         if (!currentUser.isPresent()) return "redirect:/login";
 
         bookService.addToFavourite(currentUser.get(), book);
+
+        return "redirect:/books/" + book.getId();
+    }
+
+    @RequestMapping(value = "/books/{id}", method = RequestMethod.POST, params = "action=notFavourite")
+    public String removeFavourite(@PathVariable("id") Long id) {
+        Book book = bookService.findById(id).orElse(new Book());
+
+        Optional<User> currentUser = userService.getCurrentUser();
+
+        if (!currentUser.isPresent()) return "redirect:/login";
+
+        bookService.removeFromFavourite(currentUser.get(), book);
+
         return "redirect:/books/" + book.getId();
     }
 
@@ -206,13 +218,27 @@ public class BookController {
      */
     @RequestMapping(value = "/books/search/genre", method = RequestMethod.GET)
     public String searchGenre(ModelMap model, Integer id) {
+
         List<Genre> genre = Arrays.asList(Genre.values());
         List<Book> allBooks = bookService.findAllByGenre(Genre.values()[id - 1]);
+
         model.addAttribute("allBooks", allBooks);
         model.addAttribute("genres", genre);
+
         return "allBooks";
     }
 
+    @RequestMapping(value = "/books/search/genre", method = RequestMethod.POST)
+    public String searchByAllGenre(ModelMap model, Integer id) {
+
+        List<Genre> genre = Arrays.asList(Genre.values());
+        List<Book> allBooks = bookService.findAllByGenre(Genre.values()[id - 1]);
+
+        model.addAttribute("allBooks", allBooks);
+        model.addAttribute("genres", genre);
+
+        return "allBooks";
+    }
     /**
      * The searchAuthor() method find all book by author.
      *
@@ -248,8 +274,7 @@ public class BookController {
 
     /**
      * The setRating() method calculates and sets up rating.
-     *
-     * @param book   ;
+     *  @param book ;
      * @param rating ;
      * @param user
      */
@@ -285,12 +310,12 @@ public class BookController {
 
     //ToDo: need refactoring
     @RequestMapping(value = "/books/{id}/rating/{r}", method = RequestMethod.PATCH)
-    public String test(@PathVariable("id") Long id, @PathVariable("r") int rating) {
+    public String test(@PathVariable("id") Long id,@PathVariable("r") int rating) {
         Book book = bookService.findById(id).orElse(new Book());
         Optional<User> currentUser = userService.getCurrentUser();
         if (!currentUser.isPresent()) return "redirect:/login";
 
-        setRating(book, rating * 2, currentUser.get());
+        setRating(book, rating*2, currentUser.get());
         return "greeting";
     }
 }

@@ -45,6 +45,13 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public void removeFromFavourite(User user, Book book) {
+        user.getFavouriteBooks().remove(book);
+
+        updateBook(book);
+    }
+
+    @Override
     public List<Book> findAllBook() {
         return bookRepository.findAll();
     }

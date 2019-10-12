@@ -17,15 +17,23 @@
 <div class="container background">
     <div class="row">
         <div class="col-sm-3">
+            <form th:action="@{'/books/search/genre'}" method="POST">
+                <fieldset>
+                    <div class="genrelist">
+                        <th:block th:each="genre : ${genres}">
+                            <!--                    <div>-->
+                            <!--                        <a class="ref" th:href="@{'/books/search/genre?id='+${genre.getGenre()}}"-->
+                            <!--                           th:text="${genre}"></a>-->
+                            <!--                    </div>-->
 
-            <div class="genrelist">
-                <th:block th:each="genre : ${genres}">
-                    <div>
-                        <a class="ref" th:href="@{'/books/search/genre?id='+${genre.getGenre()}}"
-                           th:text="${genre}"></a>
+                            <p><input type="checkbox" th:name="${genre.getGenre()}" th:value="${genre.getGenre()}" th:text="${genre}">
+                            </p>
+
+                        </th:block>
                     </div>
-                </th:block>
-            </div>
+                    <p><input type="submit" value="Пошук"></p>
+                </fieldset>
+            </form>
         </div>
         <div class="col-sm-9">
             <div class="margin-top">
@@ -42,7 +50,7 @@
     padding-top: 30px;" th:text="@{${book.getFormatRating()}+'/10.0'}"></div>
 
                         </div>
-                        <div class="row"><img th:src="${book.getImage()}"  class="small-img">
+                        <div class="row"><img th:src="${book.getImage()}" class="small-img">
                             <a class="ref" th:href="@{'/books/search/author?author='+${book.getAuthor()}}"
                                th:text="${book.getAuthor()}"></a>
 
@@ -50,6 +58,14 @@
                         </div>
                     </div>
                 </th:block>
+                <th:block th:if="${allBooks.size()==0}">
+                    <div class="bookslist">
+                        <div class="row centre">
+                            <h5>На жаль книги по такому жанру відсутні</h5>
+                        </div>
+                    </div>
+                </th:block>
+
             </div>
         </div>
     </div>

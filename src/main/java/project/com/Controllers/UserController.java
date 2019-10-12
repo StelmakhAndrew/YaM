@@ -16,6 +16,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
  * The UserController class for control user.
@@ -42,6 +43,8 @@ public class UserController {
         return "user";
     }
 
+
+
     /**
      * The profile() method return user's page where you can see all books that this user download.
      * @param model;
@@ -61,4 +64,6 @@ public class UserController {
         model.addAttribute("allFavouriteBooks",allFavouriteBooks);
         return "profile";
     }
+
+
 }
