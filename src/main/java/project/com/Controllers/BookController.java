@@ -69,17 +69,17 @@ public class BookController {
         String uuidFileName = UUID.randomUUID().toString();
         MultipartFile file = bookDto.getImage();
         String resultFileName = uuidFileName + "." + file.getOriginalFilename();
-        file.transferTo(new File("E:\\project]\\YaM\\src\\main\\resources\\static\\images\\books\\" + resultFileName));
+        file.transferTo(new File(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\books\\" + resultFileName));
 
         String uuidFileNameBook = UUID.randomUUID().toString();
         MultipartFile fileBook = bookDto.getBook();
         String resultFileNameBook = uuidFileNameBook + "." + fileBook.getOriginalFilename();
-        fileBook.transferTo(new File("E:\\project]\\YaM\\src\\main\\resources\\static\\images\\books\\" + resultFileNameBook));
+        fileBook.transferTo(new File(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\books\\" + resultFileNameBook));
 
         User user = userService.getCurrentUser().get();
         Book book = new Book(bookDto);
         book.setImage("../images/books/" + resultFileName);
-        book.setBook("E:\\project]\\YaM\\src\\main\\resources\\static\\books\\" + resultFileNameBook);
+        book.setBook(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\books\\" + resultFileNameBook);
         book.setDownloader(user);
         bookService.createBook(book);
         user.addBook(book);
@@ -101,6 +101,8 @@ public class BookController {
 
         boolean isFavourite = true;
         boolean canSetRating = false;
+
+        System.out.println("Working Directory = " + System.getProperty("user.dir"));
 
         List<Comment> comments = commentService.findComentsForThisBookSortByDate(book.getId());
 
@@ -127,7 +129,6 @@ public class BookController {
         if (!currentUser.isPresent()) return "redirect:/login";
 
         bookService.addToFavourite(currentUser.get(), book);
-
         return "redirect:/books/" + book.getId();
     }
 
@@ -247,7 +248,8 @@ public class BookController {
 
     /**
      * The setRating() method calculates and sets up rating.
-     *  @param book ;
+     *
+     * @param book   ;
      * @param rating ;
      * @param user
      */
@@ -283,12 +285,12 @@ public class BookController {
 
     //ToDo: need refactoring
     @RequestMapping(value = "/books/{id}/rating/{r}", method = RequestMethod.PATCH)
-    public String test(@PathVariable("id") Long id,@PathVariable("r") int rating) {
+    public String test(@PathVariable("id") Long id, @PathVariable("r") int rating) {
         Book book = bookService.findById(id).orElse(new Book());
         Optional<User> currentUser = userService.getCurrentUser();
         if (!currentUser.isPresent()) return "redirect:/login";
 
-        setRating(book, rating*2, currentUser.get());
+        setRating(book, rating * 2, currentUser.get());
         return "greeting";
     }
 }
