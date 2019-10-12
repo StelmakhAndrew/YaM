@@ -11,13 +11,8 @@ import project.com.Service.BookService;
 import project.com.Service.CommentService;
 import project.com.Service.UserService;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -173,7 +168,7 @@ public class BookController {
         if (!currentUser.isPresent()) return "redirect:/login";
         System.out.println("rating" + rating);
 
-        setRating(book, rating);
+        setRating(book, rating, currentUser.get());
 
         List<Comment> comments = commentService.findComentsForThisBookSortByDate(book.getId());
 
@@ -252,16 +247,17 @@ public class BookController {
 
     /**
      * The setRating() method calculates and sets up rating.
-     *
-     * @param book;
-     * @param rating;
+     *  @param book ;
+     * @param rating ;
+     * @param user
      */
-    private void setRating(Book book, int rating) {
+    private void setRating(Book book, int rating, User user) {
         double ratingOld = book.getRating();
         int count = book.getCountRating();
         double ratingNew = (ratingOld * count + rating) / (count + 1);
         book.setRating(ratingNew);
         book.setCountRating(count + 1);
+        book.addToUsersWhoSetRating(user.getId());
         bookService.updateBook(book);
     }
 
@@ -292,7 +288,7 @@ public class BookController {
         Optional<User> currentUser = userService.getCurrentUser();
         if (!currentUser.isPresent()) return "redirect:/login";
 
-        setRating(book, rating*2);
+        setRating(book, rating*2, currentUser.get());
         return "greeting";
     }
 }

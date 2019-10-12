@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * class Book with properties name, genre, author, description, image, date,rating, countRating;
@@ -68,6 +69,10 @@ public class Book  {
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "favouriteBooks")
     private List<User> usersWhoMArkAsFavourite;
 
+
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.LAZY)
+    @CollectionTable(name = "book_rating", joinColumns = @JoinColumn(name = "book_id"))
+    private Set<Long> usersWhoSetRating;
 
     public Book() {}
 
@@ -209,5 +214,17 @@ public class Book  {
 
     public void addUsersWhoMArkAsFavourite(User userWhoMArkAsFavourite) {
         this.usersWhoMArkAsFavourite.add(userWhoMArkAsFavourite);
+    }
+
+    public Set<Long> getUsersWhoSetRating() {
+        return usersWhoSetRating;
+    }
+
+    public void setUsersWhoSetRating(Set<Long> usersWhoSetRating) {
+        this.usersWhoSetRating = usersWhoSetRating;
+    }
+
+    public void addToUsersWhoSetRating(Long userWhoSetRating) {
+        this.usersWhoSetRating.add(userWhoSetRating);
     }
 }
