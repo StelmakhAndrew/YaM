@@ -32,8 +32,6 @@ public interface BookService {
 
     Optional<Book> findById(Long id);
 
-    List<Book> findAllByGenre(Genre genre);
-
     List<Book> findAllByAuthor(String author);
 
 

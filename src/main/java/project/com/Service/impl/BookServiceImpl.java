@@ -72,11 +72,6 @@ public class BookServiceImpl implements BookService {
     }
 
 
-    @Override
-    public List<Book> findAllByGenre(Genre genre) {
-        return bookRepository.findAllByGenre(genre);
-    }
-
 
     @Override
     public List<Book> findAllByAuthor(String author) {

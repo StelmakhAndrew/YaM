@@ -17,7 +17,7 @@
 <div class="container background">
     <div class="row">
         <div class="col-sm-3">
-            <form th:action="@{'/books/search/genre'}" method="POST">
+            <form th:action="@{'/books/search/genre'}"  method="POST" >
                 <fieldset>
                     <div class="genrelist">
                         <th:block th:each="genre : ${genres}">
@@ -26,7 +26,7 @@
                             <!--                           th:text="${genre}"></a>-->
                             <!--                    </div>-->
 
-                            <p><input type="checkbox" th:name="${genre.getGenre()}" th:value="${genre.getGenre()}" th:text="${genre}">
+                            <p><input type="checkbox" name="genreList" th:value="${genre.getGenre()}" th:text="${genre.getGenre()}">
                             </p>
 
                         </th:block>

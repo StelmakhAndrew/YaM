@@ -1,7 +1,6 @@
 package project.com.Repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import project.com.Entity.Book;
 import project.com.Entity.Genre;
@@ -23,7 +22,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     List<Book> findAll();
 
     /**
-     * method for getting all books order by rating
+     * method for getting all books order by ratingfindAllByRating
      * @return booksOrderById
      */
     List<Book> findAllByOrderByRatingDesc();
@@ -41,7 +40,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
      * @param genre;
      * @return allBooksByGenre
      */
-    List<Book> findAllByGenre(Genre genre);
+
 
     /**
      * method for getting books by author or name and sorted by rating

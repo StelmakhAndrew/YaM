@@ -2,9 +2,6 @@ package project.com.Entity;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.*;
-import java.awt.*;
-import java.math.BigDecimal;
 import java.sql.Date;
 
 /**
@@ -27,6 +24,16 @@ public class BookDto {
     private MultipartFile book;
 
     public BookDto() {
+    }
+
+    public BookDto(String name, String author, Genre genre, String description, MultipartFile image, Date date, MultipartFile book) {
+        this.name = name;
+        this.author = author;
+        this.genre = genre;
+        this.description = description;
+        this.image = image;
+        this.date = date;
+        this.book = book;
     }
 
     public BookDto(String name, String author) {

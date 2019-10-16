@@ -38,9 +38,6 @@ public class Book  {
     @JoinColumn
     private User downloader;
 
-    @Column(name = "genre")
-    private Genre genre;
-
     @Column(name = "description")
     private String description;
 
@@ -69,6 +66,11 @@ public class Book  {
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "favouriteBooks")
     private List<User> usersWhoMArkAsFavourite;
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "Genres_Book", joinColumns = {@JoinColumn(name = "book_id")},
+            inverseJoinColumns = {@JoinColumn(name = "genre_id")})
+    private List<Genre> genresForThisBook = new ArrayList<>();
+
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.LAZY)
     @CollectionTable(name = "book_rating", joinColumns = @JoinColumn(name = "book_id"))
@@ -88,13 +90,13 @@ public class Book  {
      */
     public Book(BookDto bookDto){
         this.name = bookDto.getName();
-        this.genre = bookDto.getGenre();
         this.author = bookDto.getAuthor();
         this.description = bookDto.getDescription();
         this.image= bookDto.getImage().getOriginalFilename();
         this.date = bookDto.getDate();
         this.rating = 10.0;
         this.countRating = 0;
+        this.genresForThisBook.add(bookDto.getGenre());
     }
 
     public List<Comment> getComments() {
@@ -136,13 +138,6 @@ public class Book  {
 
 
 
-    public Genre getGenre() {
-        return genre;
-    }
-
-    public void setGenre(Genre genre) {
-        this.genre = genre;
-    }
 
     public String getDescription() {
         return description;
@@ -227,4 +222,24 @@ public class Book  {
     public void addToUsersWhoSetRating(Long userWhoSetRating) {
         this.usersWhoSetRating.add(userWhoSetRating);
     }
+
+
+//    public void addGenreForThisBook(Genre genres) {
+//        this.genresForThisBook.add(genres);
+//    }
+
+
+    public void setCountRating(Integer countRating) {
+        this.countRating = countRating;
+    }
+
+    public List<Genre> getGenresForThisBook() {
+        return genresForThisBook;
+    }
+
+    public void setGenresForThisBook(List<Genre> genresForThisBook) {
+        this.genresForThisBook = genresForThisBook;
+    }
+
 }
+

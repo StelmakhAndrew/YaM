@@ -9,16 +9,16 @@ import org.springframework.web.multipart.MultipartFile;
 import project.com.Entity.*;
 import project.com.Service.BookService;
 import project.com.Service.CommentService;
+import project.com.Service.GenreService;
 import project.com.Service.UserService;
 
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+
+import static java.util.Arrays.asList;
 
 
 /**
@@ -39,6 +39,9 @@ public class BookController {
     @Autowired
     private CommentService commentService;
 
+    @Autowired
+    private GenreService genreService;
+
     /**
      * The booAddForm() method returns bookform-page.
      *
@@ -47,7 +50,11 @@ public class BookController {
      */
     @RequestMapping(value = "/newbook", method = RequestMethod.GET)
     public String bookAddForm(Model model) {
-        List<Genre> genre = Arrays.asList(Genre.values());
+        List<String> genre = new ArrayList<>();
+        genre.add("asas");
+        genre.add("asa");
+        genre.add("qw");
+//        List<Genre> genre = genreService.findAllGenre();
         Optional<User> currentUser = userService.getCurrentUser();
         if (!currentUser.isPresent()) return "redirect:/login";
 
@@ -66,6 +73,15 @@ public class BookController {
     //ToDo: Max size photo 1mb
     @RequestMapping(value = "/newbook", method = RequestMethod.POST)
     public String submit(@ModelAttribute("book") BookDto bookDto) throws IOException {
+        System.out.println("11111111111");
+        System.out.println("11111111111");
+        System.out.println("11111111111");
+        System.out.println("11111111111");
+        System.out.println("11111111111");
+        System.out.println("11111111111");
+        System.out.println("11111111111");
+        System.out.println("11111111111");
+        System.out.println("11111111111");
         String uuidFileName = UUID.randomUUID().toString();
         MultipartFile file = bookDto.getImage();
         String resultFileName = uuidFileName + "." + file.getOriginalFilename();
@@ -202,7 +218,7 @@ public class BookController {
     @RequestMapping(value = "/books/search", method = RequestMethod.GET)
     public String search(ModelMap model, String search) {
         List<Book> allBooks = bookService.findBySearch(search);
-        List<Genre> genre = Arrays.asList(Genre.values());
+        List<Genre> genre = genreService.findAllGenre();
         model.addAttribute("genres", genre);
         model.addAttribute("allBooks", allBooks);
         model.addAttribute("search", search);
@@ -219,8 +235,8 @@ public class BookController {
     @RequestMapping(value = "/books/search/genre", method = RequestMethod.GET)
     public String searchGenre(ModelMap model, Integer id) {
 
-        List<Genre> genre = Arrays.asList(Genre.values());
-        List<Book> allBooks = bookService.findAllByGenre(Genre.values()[id - 1]);
+        List<Genre> genre = genreService.findAllGenre();
+        List<Book> allBooks = bookService.findAllBook();
 
         model.addAttribute("allBooks", allBooks);
         model.addAttribute("genres", genre);
@@ -228,11 +244,17 @@ public class BookController {
         return "allBooks";
     }
 
-    @RequestMapping(value = "/books/search/genre", method = RequestMethod.POST)
-    public String searchByAllGenre(ModelMap model, Integer id) {
+    //todo: Migrate enumeration Genre to Entity AND Fix this method
+    @RequestMapping(value = "/books/search/genre", method = RequestMethod.POST )
+    public String searchByAllGenre(ModelMap model, Integer[] genreList) {
+        System.out.println(Arrays.toString(genreList));
 
-        List<Genre> genre = Arrays.asList(Genre.values());
-        List<Book> allBooks = bookService.findAllByGenre(Genre.values()[id - 1]);
+        for (int i = 0; i <genreList.length ; i++) {
+            System.out.println(genreService.findAllGenre());
+        }
+
+        List<Genre> genre = genreService.findAllGenre();
+        List<Book> allBooks = bookService.findAllBook();
 
         model.addAttribute("allBooks", allBooks);
         model.addAttribute("genres", genre);
@@ -248,7 +270,7 @@ public class BookController {
      */
     @RequestMapping(value = "/books/search/author", method = RequestMethod.GET)
     public String searchAuthor(ModelMap model, String author) {
-        List<Genre> genre = Arrays.asList(Genre.values());
+        List<Genre> genre = genreService.findAllGenre();
         List<Book> allBooks = bookService.findAllByAuthor(author);
         model.addAttribute("allBooks", allBooks);
         model.addAttribute("genres", genre);
@@ -265,7 +287,7 @@ public class BookController {
     @RequestMapping(value = "/books", method = RequestMethod.GET)
     public String allBook(ModelMap model) {
         List<Book> allBooks = bookService.findAllOrderByRating();
-        List<Genre> genre = Arrays.asList(Genre.values());
+        List<Genre> genre = genreService.findAllGenre();
         model.addAttribute("genres", genre);
         model.addAttribute("allBooks", allBooks);
         return "allBooks";
